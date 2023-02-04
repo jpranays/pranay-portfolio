@@ -1,0 +1,12 @@
+import styled from "styled-components";
+
+export const ContactContainer = styled.div`
+	height: 100vh;
+	width: 100%;
+	background-color: ${({ theme }) => theme.body};
+	color: ${({ theme }) => theme.text};
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+`;
