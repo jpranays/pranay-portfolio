@@ -13,6 +13,7 @@ export const Nav = styled.nav`
 			right: 5rem;
 		}
 	}
+	z-index: 10;
 `;
 export const NavLinks = styled.ul`
 	display: flex;
@@ -26,8 +27,8 @@ export const NavLinks = styled.ul`
 		width: 100%;
 		flex-direction: column;
 		justify-content: center;
-		background-color: ${({ theme }) =>
-			theme === "light" ? "#fff" : "#2A303C"};
+		background-color: ${({ theme: { name } }) =>
+			name === "light" ? "#fff" : "#2A303C"};
 		clip-path: circle(0px at 90% -10%);
 		-webkit-clip-path: circle(0px at 90% -10%);
 		transition: all 0.7s ease-in-out;
@@ -47,7 +48,7 @@ export const NavLinkA = styled.a`
 	font-size: 1.5rem;
 	transition: all 0.3s ease;
 	position: relative;
-	text-shadow: 0 0 1px #000000;
+	font-weight: 500;
 	color: ${(props) => {
 		return props.activeLink == props["data-href"].substring(1)
 			? "#f26a2e"

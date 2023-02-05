@@ -14,10 +14,12 @@ function App() {
 	const [activeLink, setActiveLink] = useState("about");
 	const theme = {
 		lightTheme: {
+			name: "light",
 			body: "#f1f1f1",
 			text: "#121620",
 		},
 		darkTheme: {
+			name: "dark",
 			body: "#1F242D",
 			text: "#f1f1f1",
 		},
