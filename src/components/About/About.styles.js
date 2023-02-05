@@ -17,13 +17,13 @@ export const AboutWrapper = styled.div`
 	margin: 0 auto;
 	display: flex;
 	align-items: start;
-	span {
-		align-self: center;
-	}
 	@media screen and (max-width: 1024px) {
 		flex-direction: column;
 		align-items: center;
 	}
+`;
+export const Span = styled.span`
+	align-self: center;
 `;
 export const NameWrapper = styled.div`
 	display: grid;
@@ -68,6 +68,17 @@ to {
     opacity: 1;
 }
 `;
+
+export const HeroTextWrapper = styled.div`
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 80%;
+	width: 50%;
+	@media screen and (max-width: 768px) {
+		width: 100%;
+	}
+`;
 export const Name = styled.div`
 	font-size: 64px;
 	font-family: sans-serif;
@@ -88,16 +99,6 @@ export const HeroText = styled.h1`
 	color: ${({ theme }) => theme.text};
 	@media screen and (max-width: 768px) {
 		font-size: 2.5rem;
-	}
-`;
-export const HeroTextWrapper = styled.div`
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	height: 80%;
-	width: 50%;
-	@media screen and (max-width: 768px) {
-		width: 100%;
 	}
 `;
 export const TypingLine = styled.span`

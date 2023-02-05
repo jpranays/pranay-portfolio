@@ -6,6 +6,7 @@ import {
 	HeroTextWrapper,
 	Name,
 	NameWrapper,
+	Span,
 	TypingLine,
 } from "./About.styles";
 import { useTypingAnim } from "../../hooks/useTypingAnim";
@@ -32,17 +33,17 @@ function About() {
 	return (
 		<AboutContainer id="about">
 			<AboutWrapper>
-				<span>
+				<Span>
 					Hello World,
 					<br />
-				</span>
-				<span>Myself</span>
+				</Span>
+				<Span>Myself</Span>
 				<NameWrapper className="container">
 					{MYNAMETEXT.split("").map((name, index) => (
 						<Name key={index}>{name}</Name>
 					))}
 				</NameWrapper>
-				<span>& I'm a</span>
+				<Span>& I'm a</Span>
 				<HeroTextWrapper>
 					<HeroText className="hero-text"></HeroText>
 					<TypingLine />

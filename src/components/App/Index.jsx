@@ -11,7 +11,7 @@ import { useState } from "react";
 import useIntersectionObs from "../../hooks/useIntersectionObs";
 function App() {
 	const [currentTheme, setCurrentTheme] = useDarkMode();
-	const [activeLink, setActiveLink] = useState("about");
+	const [activeLink, setActiveLink] = useState("");
 	const theme = {
 		lightTheme: {
 			name: "light",
@@ -40,6 +40,7 @@ function App() {
 				currentTheme={currentTheme}
 				setCurrentTheme={setCurrentTheme}
 				activeLink={activeLink}
+				setActiveLink={setActiveLink}
 			/>
 			<About />
 			<Skills />

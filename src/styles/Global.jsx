@@ -13,10 +13,11 @@ font-family: 'Poppins', sans-serif;
 width: 0.5rem;
 }
 ::-webkit-scrollbar-track {
-background: #f1f1f1;
+background:${({ theme }) => theme.body};
 }
 ::-webkit-scrollbar-thumb {
 background: #888;
+border-radius: 1rem;
 }
 ::-webkit-scrollbar-thumb:hover {
 background: #555;
