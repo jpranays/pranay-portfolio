@@ -15,7 +15,7 @@ function App() {
 	const theme = {
 		lightTheme: {
 			name: "light",
-			body: "#f1f1f1",
+			body: "#FFFBF5",
 			text: "#121620",
 		},
 		darkTheme: {

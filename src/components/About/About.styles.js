@@ -11,42 +11,52 @@ export const AboutContainer = styled.div`
 	flex-direction: column;
 `;
 export const AboutWrapper = styled.div`
-	height: 100%;
 	width: 100%;
+	height: 80%;
 	max-width: 1200px;
 	margin: 0 auto;
-	border: 1px solid blue;
 	display: flex;
-	.container {
-		display: grid;
-		border: 1px solid red;
-		height: 80%;
-		width: 50%;
+	align-items: start;
+	span {
+		align-self: center;
+	}
+	@media screen and (max-width: 1024px) {
+		flex-direction: column;
 		align-items: center;
-		align-content: center;
-		grid-template-columns: repeat(6, max-content);
-		grid-gap: 1rem;
-		div:nth-child(11) {
-			grid-column: 5/-1;
-			justify-self: start;
+	}
+`;
+export const NameWrapper = styled.div`
+	display: grid;
+	justify-content: center;
+	height: 80%;
+	width: 40%;
+	align-items: center;
+	align-content: center;
+	grid-template-columns: repeat(6, max-content);
+	grid-gap: 1rem;
+	@media screen and (max-width: 1024px) {
+		width: 100%;
+		height: 100%;
+	}
+	@media screen and (max-width: 768px) {
+		overflow: hidden;
+	}
+	${({ theme }) => {
+		if (theme.name === "dark")
+			return `        
+        div:nth-child(-n + 6) {
+			-webkit-text-stroke: 0.2vw rgba(224, 48, 4, 0.979);
 		}
-		.line {
-			width: 5px;
-			height: 50px;
-			background: royalblue;
-			animation: blink 0.2s linear infinite;
+		div:nth-child(n + 7):nth-child(-n + 11) {
+			-webkit-text-stroke: 0.2vw #fff;
 		}
-		@keyframes blink {
-			0% {
-				opacity: 0;
-			}
-			50% {
-				opacity: 1;
-			}
-			100% {
-				opacity: 0;
-			}
-		}
+		div:nth-child(n + 12):nth-child(-n + 17) {
+			-webkit-text-stroke: 0.2vw green;
+		}`;
+	}}
+	div:nth-child(11) {
+		grid-column: 5/-1;
+		justify-self: start;
 	}
 `;
 const myAnim = keyframes`
@@ -66,7 +76,44 @@ export const Name = styled.div`
 	transition: transform 1s, opacity 1s;
 	transform: translateY(-20px) translateX(20px);
 	opacity: 1;
+	@media screen and (max-width: 768px) {
+		font-size: 2.5rem;
+	}
 	&.anim {
 		animation: ${myAnim} 1s forwards;
+	}
+`;
+export const HeroText = styled.h1`
+	font-size: 3.5rem;
+	color: ${({ theme }) => theme.text};
+	@media screen and (max-width: 768px) {
+		font-size: 2.5rem;
+	}
+`;
+export const HeroTextWrapper = styled.div`
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 80%;
+	width: 50%;
+	@media screen and (max-width: 768px) {
+		width: 100%;
+	}
+`;
+export const TypingLine = styled.span`
+	width: 5px;
+	height: 50px;
+	background: royalblue;
+	animation: blink 0.2s linear infinite;
+	@keyframes blink {
+		0% {
+			opacity: 0;
+		}
+		50% {
+			opacity: 1;
+		}
+		100% {
+			opacity: 0;
+		}
 	}
 `;

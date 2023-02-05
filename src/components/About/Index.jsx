@@ -1,8 +1,17 @@
 import React, { memo, useEffect, useRef } from "react";
-import { AboutContainer, AboutWrapper, Name } from "./About.styles";
+import {
+	AboutContainer,
+	AboutWrapper,
+	HeroText,
+	HeroTextWrapper,
+	Name,
+	NameWrapper,
+	TypingLine,
+} from "./About.styles";
 import { useTypingAnim } from "../../hooks/useTypingAnim";
 
 function About() {
+	const MYNAMETEXT = "PRANAYSUNILJADHAV";
 	let counter;
 	useEffect(() => {
 		counter = setInterval(anim, 250);
@@ -23,30 +32,21 @@ function About() {
 	return (
 		<AboutContainer id="about">
 			<AboutWrapper>
-				<span>Hello World,</span>
-				<div className="container">
-					<Name>P</Name>
-					<Name>R</Name>
-					<Name>A</Name>
-					<Name>N</Name>
-					<Name>A</Name>
-					<Name>Y</Name>
-					<Name>S</Name>
-					<Name>U</Name>
-					<Name>N</Name>
-					<Name>I</Name>
-					<Name>L</Name>
-					<Name>J</Name>
-					<Name>A</Name>
-					<Name>D</Name>
-					<Name>H</Name>
-					<Name>A</Name>
-					<Name>V</Name>
-				</div>
-				<div className="container">
-					<h1 className="hero-text"></h1>
-					<span className="line"></span>
-				</div>
+				<span>
+					Hello World,
+					<br />
+				</span>
+				<span>Myself</span>
+				<NameWrapper className="container">
+					{MYNAMETEXT.split("").map((name, index) => (
+						<Name key={index}>{name}</Name>
+					))}
+				</NameWrapper>
+				<span>& I'm a</span>
+				<HeroTextWrapper>
+					<HeroText className="hero-text"></HeroText>
+					<TypingLine />
+				</HeroTextWrapper>
 			</AboutWrapper>
 		</AboutContainer>
 	);
