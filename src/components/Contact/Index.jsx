@@ -246,7 +246,7 @@ function Contact() {
 					<IconButton
 						size="large"
 						onClick={() => {
-							handleIconClick("mailto:someone@example.com");
+							handleIconClick("mailto:pranay1315@gmail.com");
 						}}
 					>
 						<EmailIcon
