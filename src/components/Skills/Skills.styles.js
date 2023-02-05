@@ -35,6 +35,7 @@ export const SkillsWrapper = styled.div`
 	@media screen and (max-width: 480px) {
 		justify-content: center;
 		width: 100%;
+		gap: 50px;
 		grid-template-columns: repeat(2, max-content);
 	}
 	@media screen and (max-width: 1024px) {

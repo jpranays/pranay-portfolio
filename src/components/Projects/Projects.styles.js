@@ -86,7 +86,7 @@ export const CardFooter = styled.div`
 	width: max-content;
 `;
 export const CardFooterA = styled.a`
-	text-decoration: none;
+	text-decoration: underline;
 	color: ${({ theme }) => theme.text};
 	&:hover {
 		color: #ff7a18;
