@@ -46,6 +46,7 @@ export const ContactsWrapper = styled.div`
 	.profile-container {
 		display: flex;
 		align-items: center;
+		gap: 5px;
 		#github-icon,
 		#linkedin-icon,
 		#email-icon {

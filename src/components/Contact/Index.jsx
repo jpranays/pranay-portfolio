@@ -12,6 +12,8 @@ import {
 	FormHelperText,
 	TextField,
 	IconButton,
+	Snackbar,
+	Alert,
 } from "@mui/material";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
@@ -32,19 +34,56 @@ function Contact() {
 			)
 			.join("&");
 	};
-	function handleSubmit(formValues) {
+	const [snackBarState, setSnackBarState] = React.useState({
+		open: false,
+		message: "",
+		severity: "",
+	});
+	function handleSubmit(formValues, props) {
 		fetch("/", {
 			method: "POST",
 			headers: { "Content-Type": "application/x-www-form-urlencoded" },
 			body: encode({ "form-name": "contact", ...formValues }),
 		})
-			.then(() => alert("Success!"))
-			.catch((error) => alert(error));
-
-		e.preventDefault();
+			.then(() => {
+				setSnackBarState({
+					open: true,
+					message: "Message sent successfully!",
+					severity: "success",
+				});
+				props.resetForm();
+			})
+			.catch((rr) => {
+				setSnackBarState({
+					open: true,
+					message: "Message failed to send!",
+					severity: "error",
+				});
+			});
+	}
+	function handleClose() {
+		setSnackBarState({ ...snackBarState, open: false });
+	}
+	function SnackBarMsg() {
+		return (
+			<Snackbar
+				anchorOrigin={{ vertical: "top", horizontal: "center" }}
+				open={snackBarState.open}
+				onClose={handleClose}
+			>
+				<Alert
+					onClose={handleClose}
+					severity={snackBarState.severity}
+					sx={{ width: "100%" }}
+				>
+					{snackBarState.message}
+				</Alert>
+			</Snackbar>
+		);
 	}
 	return (
 		<ContactContainer id="contact">
+			<SnackBarMsg />
 			<ContactsHeaderTitle>Send me a message</ContactsHeaderTitle>
 			<ContactsWrapper>
 				<Formik
@@ -53,8 +92,8 @@ function Contact() {
 						email: "",
 						message: "",
 					}}
-					onSubmit={(formValues) => {
-						handleSubmit(formValues);
+					onSubmit={(formValues, props) => {
+						handleSubmit(formValues, props);
 					}}
 					validationSchema={validationSchema}
 				>
@@ -109,6 +148,10 @@ function Contact() {
 												},
 											}}
 											id="email"
+											autoComplete="false"
+											autoCorrect="off"
+											autoCapitalize="off"
+											spellCheck="false"
 										/>
 										<FormHelperText>
 											<ErrorMessage name="email" />
