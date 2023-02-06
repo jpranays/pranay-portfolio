@@ -37,7 +37,7 @@ function Contact() {
 	const [snackBarState, setSnackBarState] = React.useState({
 		open: false,
 		message: "",
-		severity: "",
+		severity: "success",
 	});
 	function handleSubmit(formValues, props) {
 		fetch("/", {
