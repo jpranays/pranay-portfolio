@@ -8,9 +8,9 @@ box-sizing: border-box;
 }
 body{
 font-family: 'Poppins', sans-serif;
-}
+}  
 ::-webkit-scrollbar {
-width: 0.5rem;
+    width: 0.5rem;
 }
 ::-webkit-scrollbar-track {
 background:${({ theme }) => theme.body};

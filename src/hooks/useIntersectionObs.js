@@ -6,7 +6,7 @@ function useIntersectionObs(setActiveLink, containerArray) {
 			(entries) => {
 				entries.forEach((entry) => {
 					if (entry.isIntersecting) {
-						// setActiveLink(entry.target.id);
+						setActiveLink(entry.target.id);
 					}
 				});
 			},

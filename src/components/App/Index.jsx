@@ -24,6 +24,7 @@ function App() {
 			text: "#f1f1f1",
 		},
 	};
+	/*
 	useIntersectionObs(setActiveLink, [
 		"about",
 		"skills",
@@ -31,6 +32,7 @@ function App() {
 		"contact",
 		"interests",
 	]);
+	*/
 	return (
 		<ThemeProvider
 			theme={currentTheme === "light" ? theme.lightTheme : theme.darkTheme}
@@ -52,12 +54,3 @@ function App() {
 }
 
 export default App;
-/*
-Container
-Navbar 
-main intro animation 1] Typing 2] Jen Simmons
-skills 
-projects
-contact
-footer
-*/
