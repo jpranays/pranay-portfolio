@@ -24,7 +24,6 @@ function App() {
 			text: "#f1f1f1",
 		},
 	};
-	/*
 	useIntersectionObs(setActiveLink, [
 		"about",
 		"skills",
@@ -32,7 +31,6 @@ function App() {
 		"contact",
 		"interests",
 	]);
-	*/
 	return (
 		<ThemeProvider
 			theme={currentTheme === "light" ? theme.lightTheme : theme.darkTheme}

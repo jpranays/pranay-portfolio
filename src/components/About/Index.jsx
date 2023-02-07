@@ -22,6 +22,7 @@ function About() {
 			i++;
 			if (i == 17) {
 				clearInterval(counter);
+				i = 0;
 			}
 			span.classList.add("anim");
 		}

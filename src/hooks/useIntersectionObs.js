@@ -13,7 +13,7 @@ function useIntersectionObs(setActiveLink, containerArray) {
 			{
 				root: null,
 				rootMargin: "0px",
-				threshold: 1,
+				threshold: 0.5,
 			}
 		);
 		containerArray.forEach((container) => {
