@@ -53,6 +53,7 @@ function Contact() {
 				"A React application which fetches recipes from an API and displays them.",
 			tags: ["REACT", "API", "HTML", "CSS", "JS"],
 			githubLink: "https://github.com/jpranays/React-Recipe-App",
+			demoLink: "https://jpranays-recipe-app.netlify.app/",
 		},
 		{
 			id: 5,
@@ -61,6 +62,7 @@ function Contact() {
 				"HTML and CSS UI challenges from various websites like Frontend Mentor, Youtube, etc.",
 			tags: ["HTML", "SASS", "JS"],
 			githubLink: "https://github.com/jpranays/HTML_CSS_JS_Projects",
+			demoLink: "https://github.com/jpranays/HTML_CSS_JS_Projects#readme",
 		},
 		{
 			id: 6,
@@ -69,6 +71,7 @@ function Contact() {
 				"A React application which fetches pokemon data from an API and displays them.",
 			tags: ["REACT", "API", "HTML", "CSS", "JS"],
 			githubLink: "https://github.com/jpranays/REACT_pokemon_app",
+			demoLink: "https://jpranays-react-pokemon-app.netlify.app/",
 		},
 		{
 			id: 7,
@@ -77,6 +80,7 @@ function Contact() {
 				"A React application which uses framer-motion library to animate the components.",
 			tags: ["REACT", "FRAMER-MOTION", "HTML", "CSS", "JS"],
 			githubLink: "https://github.com/jpranays/react-recipe-web-app",
+			demoLink: "https://jpranays-react-recipe-web-app.netlify.app/",
 		},
 	];
 	return (
@@ -84,26 +88,35 @@ function Contact() {
 			<ProjectsHeaderTitle>Projects & some work</ProjectsHeaderTitle>
 			<ProjectsWrapper>
 				<CardsContainer>
-					{PROJECTS.map(({ id, title, description, tags, githubLink }) => {
-						return (
-							<Card key={id}>
-								<p>{title}</p>
-								<CardBody>
-									<h2>{description}</h2>
-									<CardTags>
-										<CardTagsP>{tags.join(" ")}</CardTagsP>
-									</CardTags>
-								</CardBody>
-								<CardFooter>
-									<h4>
-										<CardFooterA href={githubLink} target="_blank">
-											Github Link
-										</CardFooterA>
-									</h4>
-								</CardFooter>
-							</Card>
-						);
-					})}
+					{PROJECTS.map(
+						({ id, title, description, tags, githubLink, demoLink }) => {
+							return (
+								<Card key={id}>
+									<p>{title}</p>
+									<CardBody>
+										<h2>{description}</h2>
+										<CardTags>
+											<CardTagsP>{tags.join(" ")}</CardTagsP>
+										</CardTags>
+									</CardBody>
+									<CardFooter>
+										<h4>
+											<CardFooterA href={githubLink} target="_blank">
+												Github Link
+											</CardFooterA>
+										</h4>
+										{demoLink && (
+											<h4>
+												<CardFooterA href={demoLink} target="_blank">
+													Live Demo
+												</CardFooterA>
+											</h4>
+										)}
+									</CardFooter>
+								</Card>
+							);
+						}
+					)}
 				</CardsContainer>
 				<CardFooterA href="https://github.com/jpranays" target="_blank">
 					And many more on my Github

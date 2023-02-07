@@ -66,6 +66,9 @@ export const CardBody = styled.div`
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
+	h2 {
+		font-weight: 510;
+	}
 `;
 export const CardTags = styled.div`
 	margin-top: 10px;
@@ -79,11 +82,11 @@ export const CardTagsP = styled.p`
 export const CardFooter = styled.div`
 	margin-top: auto;
 	display: flex;
-	justify-content: start;
+	justify-content: space-between;
 	align-items: center;
 	padding: 5px 10px;
 	cursor: pointer;
-	width: max-content;
+	width: 100%;
 `;
 export const CardFooterA = styled.a`
 	text-decoration: underline;

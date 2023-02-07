@@ -49,6 +49,7 @@ export const NavLinkA = styled.a`
 	transition: all 0.3s ease;
 	position: relative;
 	font-weight: 500;
+	user-select: none;
 	color: ${(props) => {
 		return props.activeLink == props["data-href"].substring(1)
 			? "#f26a2e"
