@@ -44,7 +44,7 @@ function About() {
 						<Name key={index}>{name}</Name>
 					))}
 				</NameWrapper>
-				<Span>& I'm a</Span>
+				<Span>& I'm</Span>
 				<HeroTextWrapper>
 					<HeroText className="hero-text"></HeroText>
 					<TypingLine />

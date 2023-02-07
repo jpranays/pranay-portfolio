@@ -13,6 +13,7 @@ import {
 } from "./Projects.styles";
 
 function Contact() {
+	const containerRef = useRef(null);
 	const PROJECTS = [
 		{
 			id: 1,
@@ -83,15 +84,20 @@ function Contact() {
 			demoLink: "https://jpranays-react-recipe-web-app.netlify.app/",
 		},
 	];
+	useEffect(() => {
+		containerRef.current.addEventListener("mouseover", (e) => {
+			document.querySelector(".preactive").classList.remove("preactive");
+		});
+	}, []);
 	return (
 		<ProjectsContainer id="projects">
 			<ProjectsHeaderTitle>Projects & some work</ProjectsHeaderTitle>
 			<ProjectsWrapper>
-				<CardsContainer>
+				<CardsContainer ref={containerRef}>
 					{PROJECTS.map(
 						({ id, title, description, tags, githubLink, demoLink }) => {
 							return (
-								<Card key={id}>
+								<Card key={id} className={id === 4 ? "preactive" : ""}>
 									<p>{title}</p>
 									<CardBody>
 										<h2>{description}</h2>

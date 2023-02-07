@@ -24,6 +24,7 @@ export const AboutWrapper = styled.div`
 `;
 export const Span = styled.span`
 	align-self: center;
+	font-size: 1.5rem;
 `;
 export const NameWrapper = styled.div`
 	display: grid;

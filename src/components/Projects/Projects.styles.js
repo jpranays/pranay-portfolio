@@ -58,6 +58,10 @@ export const Card = styled.div`
 	&:nth-child(1) {
 		margin-left: 0;
 	}
+	&.preactive {
+		margin-right: 130px;
+		transform: rotate(5deg);
+	}
 `;
 
 export const CardBody = styled.div`
