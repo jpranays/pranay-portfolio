@@ -10,6 +10,9 @@ export const SkillsContainer = styled.div`
 	align-items: center;
 	flex-direction: column;
 	gap: 10px;
+	@media screen and (max-width: 480px) {
+		height: 100%;
+	}
 `;
 export const SkillsWrapper = styled.div`
 	width: 100%;
