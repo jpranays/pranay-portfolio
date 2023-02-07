@@ -35,7 +35,7 @@ export const Card = styled.div`
 	display: flex;
 	flex-direction: column;
 	background: ${({ theme }) =>
-		theme.name === "light" ? "#f8ead8;" : "#2A303C"};
+		theme.name === "light" ? "#F9F5E7;" : "#2A303C"};
 	box-shadow: 0 0 10px 0
 		${({ theme }) =>
 			theme.name === "light" ? "rgba(0, 0, 0, 0.2)" : "rgba(0, 0, 0, 0.5)"};

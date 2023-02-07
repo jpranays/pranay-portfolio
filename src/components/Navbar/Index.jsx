@@ -33,11 +33,13 @@ function Navbar({ currentTheme, setCurrentTheme, activeLink, setActiveLink }) {
 	function handleNavLinkClick(e) {
 		const target = e.target.dataset.href;
 		if (target === "#about") {
-			return window.scrollTo({ top: 0, behavior: "smooth" });
+			window.scrollTo({ top: 0, behavior: "smooth" });
+			setOpen(false);
+		} else {
+			const element = document.querySelector(target);
+			element.scrollIntoView({ behavior: "smooth" });
+			setOpen(false);
 		}
-		const element = document.querySelector(target);
-		element.scrollIntoView({ behavior: "smooth" });
-		setOpen(false);
 	}
 
 	return (

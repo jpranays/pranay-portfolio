@@ -64,6 +64,9 @@ export const SkillsDiv = styled.div`
 	border-radius: 10px;
 	transition: all 0.3s ease-in-out;
 	user-select: none;
+	background-color: ${({ theme }) => {
+		return theme.name === "light" ? "#F9F5E7" : "#2A303C";
+	}};
 	&:hover {
 		transform: scale(1.1);
 		box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
