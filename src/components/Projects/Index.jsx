@@ -86,7 +86,10 @@ function Contact() {
 	];
 	useEffect(() => {
 		containerRef.current.addEventListener("mouseover", (e) => {
-			document.querySelector(".preactive").classList.remove("preactive");
+			let activeCard = document.querySelector(".preactive");
+			if (activeCard) {
+				document.querySelector(".preactive").classList.remove("preactive");
+			}
 		});
 	}, []);
 	return (
