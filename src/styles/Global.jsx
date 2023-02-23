@@ -32,14 +32,6 @@ background: #555;
     align-items: center;
     flex-direction: column;
 }
-.section-container{
-    max-height: 100vh;
-	overflow-y: scroll;
-	scroll-snap-type: y mandatory;
-    &::-webkit-scrollbar {
-        display: none;
-    }
-}
 
 
 `;
