@@ -9,6 +9,7 @@ export const AboutContainer = styled.div`
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
+	scroll-snap-align: start;
 `;
 export const AboutWrapper = styled.div`
 	width: 100%;

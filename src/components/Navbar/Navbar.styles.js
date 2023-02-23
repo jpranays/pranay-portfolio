@@ -5,8 +5,7 @@ export const Nav = styled.nav`
 	position: sticky;
 	top: 0;
 	transition: all 0.5s ease;
-	box-shadow: ${({ scrolled }) =>
-		scrolled ? "0px 2px 10px rgba(0,0,0,0.2)" : "none"};
+	box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
 	background-color: ${({ theme }) => theme.body};
 	@media screen and (max-width: 768px) {
 		.theme-toggle {

@@ -10,6 +10,7 @@ export const SkillsContainer = styled.div`
 	align-items: center;
 	flex-direction: column;
 	gap: 10px;
+	scroll-snap-align: start;
 	@media screen and (max-width: 480px) {
 		height: 100%;
 	}

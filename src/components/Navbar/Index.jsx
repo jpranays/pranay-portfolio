@@ -32,11 +32,12 @@ function Navbar({ currentTheme, setCurrentTheme, activeLink, setActiveLink }) {
 	}, []);
 	function handleNavLinkClick(e) {
 		const target = e.target.dataset.href;
+		const element = document.querySelector(target);
 		if (target === "#about") {
-			window.scrollTo({ top: 0, behavior: "smooth" });
+			// window.scrollTo({ top: 0, behavior: "smooth" });
+			element.scrollIntoView({ behavior: "smooth" });
 			setOpen(false);
 		} else {
-			const element = document.querySelector(target);
 			element.scrollIntoView({ behavior: "smooth" });
 			setOpen(false);
 		}
@@ -94,7 +95,7 @@ function Navbar({ currentTheme, setCurrentTheme, activeLink, setActiveLink }) {
 					<NavLinkA
 						data-href="#resume"
 						onClick={() => {
-							window.open("/resume.pdf", "_blank");
+							window.open("/Pranay_Sunil_Jadhav_Resume.pdf", "_blank");
 						}}
 					>
 						Resume <OpenInNewIcon />

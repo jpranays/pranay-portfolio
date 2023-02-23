@@ -9,6 +9,7 @@ export const ContactContainer = styled.div`
 	align-items: center;
 	flex-direction: column;
 	height: 100vh;
+	scroll-snap-align: start;
 `;
 export const ContactsWrapper = styled.div`
 	width: 100%;
