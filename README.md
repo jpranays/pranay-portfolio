@@ -2,8 +2,21 @@
 
 | Project | Pull Request | Description | NPM Downloads | Stars |
 |---------|--------------|-------------|---------------|-------|
-| [React](https://github.com/facebook/react) | [#20000](https://github.com/facebook/react/pull/20000) | Improved hooks documentation | ![npm](https://img.shields.io/npm/dm/react) | ![GitHub stars](https://img.shields.io/github/stars/facebook/react) |
-| [Next.js](https://github.com/vercel/next.js) | [#15000](https://github.com/vercel/next.js/pull/15000) | Added custom TypeScript support | ![npm](https://img.shields.io/npm/dm/next) | ![GitHub stars](https://img.shields.io/github/stars/vercel/next.js) |
-| [Express](https://github.com/expressjs/express) | [#10000](https://github.com/expressjs/express/pull/10000) | Fixed middleware chaining issue | ![npm](https://img.shields.io/npm/dm/express) | ![GitHub stars](https://img.shields.io/github/stars/expressjs/express) |
-| [Mongoose](https://github.com/Automattic/mongoose) | [#9000](https://github.com/Automattic/mongoose/pull/9000) | Improved query performance | ![npm](https://img.shields.io/npm/dm/mongoose) | ![GitHub stars](https://img.shields.io/github/stars/Automattic/mongoose) |
+| [Mantine](https://github.com/mantinedev/mantine) | [#6466](https://github.com/mantinedev/mantine/pull/6466) | Enhanced tooltip component for Mantine, a comprehensive React component library that provides hooks and UI components. | ![npm](https://img.shields.io/npm/dm/@mantine/hooks) | ![GitHub stars](https://img.shields.io/github/stars/mantinedev/mantine) |
+| [React-tooltip](https://github.com/ReactTooltip/react-tooltip) | [#1154](https://github.com/ReactTooltip/react-tooltip/pull/1154) | Improved accessibility and documentation of components in React-tooltip, a popular tooltip library used in many React projects. | ![npm](https://img.shields.io/npm/dm/react-tooltip) | ![GitHub stars](https://img.shields.io/github/stars/ReactTooltip/react-tooltip) |
+| [Grommet](https://github.com/grommet/grommet) | [#7255](https://github.com/grommet/grommet/pull/7255) | Boosted performance of the tip component and added tests in Grommet, a well-known UI framework for React apps. | ![npm](https://img.shields.io/npm/dm/grommet) | ![GitHub stars](https://img.shields.io/github/stars/grommet/grommet) |
+| [React-dropdown-select](https://github.com/sanusart/react-dropdown-select) | [#306](https://github.com/sanusart/react-dropdown-select/pull/306) | Enhanced user experience and accessibility of components in React-dropdown-select, a flexible and customizable dropdown library. | ![npm](https://img.shields.io/npm/dm/react-dropdown-select) | ![GitHub stars](https://img.shields.io/github/stars/sanusart/react-dropdown-select) |
+| [Hamburger-react](https://github.com/cyntler/hamburger-react) | [#68](https://github.com/cyntler/hamburger-react/pull/68) | Improved button properties in Hamburger-react, a lightweight and customizable hamburger menu library for React. | ![npm](https://img.shields.io/npm/dm/hamburger-react) | ![GitHub stars](https://img.shields.io/github/stars/cyntler/hamburger-react) |
+| [React-cron-generator](https://github.com/sojinantony01/react-cron-generator) | [#59](https://github.com/sojinantony01/react-cron-generator/pull/59) | Added functionality to disable cron maker in React-cron-generator, a simple and effective cron expression generator for React. | ![npm](https://img.shields.io/npm/dm/react-cron-generator) | ![GitHub stars](https://img.shields.io/github/stars/sojinantony01/react-cron-generator) |
+| [Crontab-react](https://github.com/dhavalwd/crontab-react) | [#2](https://github.com/dhavalwd/crontab-react/pull/2) | Improved accessibility in Crontab-react, a useful cron tab generator and editor for React applications. | ![npm](https://img.shields.io/npm/dm/crontab-react) | ![GitHub stars](https://img.shields.io/github/stars/dhavalwd/crontab-react) |
 
+
+
+
+
+
+
+
+
+
+✨ *And many more exciting contributions on the way...* ✨
