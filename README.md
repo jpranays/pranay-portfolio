@@ -1,4 +1,4 @@
-## 🛠️ Open Source Contributions
+##  Open Source Contributions
 
 | Project | Pull Request | Description | NPM Downloads | Stars |
 |---------|--------------|-------------|---------------|-------|
