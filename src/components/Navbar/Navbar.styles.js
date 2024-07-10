@@ -22,7 +22,7 @@ export const NavLinks = styled.ul`
 	margin-left: auto;
 	@media screen and (max-width: 768px) {
 		position: fixed;
-		height: 100vh;
+		height: 100%;
 		width: 100%;
 		flex-direction: column;
 		justify-content: center;
@@ -94,7 +94,7 @@ export const ToggleButtonLine = styled.div`
 	@media screen and (max-width: 768px) {
 		width: 2rem;
 		height: 0.3rem;
-		background: black;
+		background: ${({ theme }) => theme.text};
 		margin-bottom: 0.5rem;
 		border-radius: 10px;
 		transition: all 0.3s linear;
