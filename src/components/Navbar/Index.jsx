@@ -30,6 +30,14 @@ function Navbar({ currentTheme, setCurrentTheme, activeLink, setActiveLink }) {
 			window.removeEventListener("scroll", handleScroll);
 		};
 	}, []);
+
+	useEffect(() => {
+		if (open) {
+			document.body.style.overflow = "hidden";
+		} else {
+			document.body.style.overflow = "auto";
+		}
+	}, [open]);
 	function handleNavLinkClick(e) {
 		const target = e.target.dataset.href;
 		const element = document.querySelector(target);
