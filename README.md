@@ -1,8 +1,9 @@
 ##  Open Source Contributions
 
-| Project | Pull Request | Description | NPM Downloads | Stars |
+| Package | PR | Description | ⬇️ | ⭐ |
 |---------|--------------|-------------|---------------|-------|
 | [Mantine](https://github.com/mantinedev/mantine) | [#6466](https://github.com/mantinedev/mantine/pull/6466) | Enhanced tooltip component for Mantine, a comprehensive React component library that provides hooks and UI components. | ![npm](https://img.shields.io/npm/dm/@mantine/hooks) | ![GitHub stars](https://img.shields.io/github/stars/mantinedev/mantine) |
+| [Rsuite](https://github.com/rsuite/rsuite) | [#3875](https://github.com/rsuite/rsuite/pull/3875) | 	Introduced a "paused" option for the speed prop in the Loader component, allowing for finer control over the animation state.	 | ![npm](https://img.shields.io/npm/dm/rsuite) | ![GitHub stars](https://img.shields.io/github/stars/rsuite/rsuite) |
 | [React-tooltip](https://github.com/ReactTooltip/react-tooltip) | [#1154](https://github.com/ReactTooltip/react-tooltip/pull/1154) | Improved accessibility and documentation of components in React-tooltip, a popular tooltip library used in many React projects. | ![npm](https://img.shields.io/npm/dm/react-tooltip) | ![GitHub stars](https://img.shields.io/github/stars/ReactTooltip/react-tooltip) |
 | [Grommet](https://github.com/grommet/grommet) | [#7255](https://github.com/grommet/grommet/pull/7255) | Boosted performance of the tip component and added tests in Grommet, a well-known UI framework for React apps. | ![npm](https://img.shields.io/npm/dm/grommet) | ![GitHub stars](https://img.shields.io/github/stars/grommet/grommet) |
 | [React-dropdown-select](https://github.com/sanusart/react-dropdown-select) | [#306](https://github.com/sanusart/react-dropdown-select/pull/306) | Enhanced user experience and accessibility of components in React-dropdown-select, a flexible and customizable dropdown library. | ![npm](https://img.shields.io/npm/dm/react-dropdown-select) | ![GitHub stars](https://img.shields.io/github/stars/sanusart/react-dropdown-select) |
