@@ -22,8 +22,7 @@ export const NavLinks = styled.ul`
 	margin-left: auto;
 	@media screen and (max-width: 768px) {
 		position: fixed;
-		height: 100%;
-		width: 100%;
+		inset:0;
 		flex-direction: column;
 		justify-content: center;
 		background-color: ${({ theme: { name } }) =>
