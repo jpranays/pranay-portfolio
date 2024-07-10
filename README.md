@@ -1,5 +1,5 @@
-## --------------------------------------------------------------------------------------------------------
-##  Open Source Contributions
+# [Pranay Sunil Jadhav](https://jpranays.netlify.app/)
+###  Open Source Contributions
 
 | Package | PR | Description | ⬇️ | ⭐ |
 |---------|--------------|-------------|---------------|-------|
