@@ -1,7 +1,7 @@
 # [Pranay Sunil Jadhav](https://jpranays.netlify.app/)
 ###  Open Source Contributions
 
-| Package | PR | Description | ⬇️ | ⭐ |
+| Package | PR | Description |    NPM downloads ⬇️⬇️   |   Github stars ⭐⭐   |
 |---------|--------------|-------------|---------------|-------|
 | [Mantine](https://github.com/mantinedev/mantine) | [#6466](https://github.com/mantinedev/mantine/pull/6466) | Enhanced tooltip component for Mantine, a comprehensive React component library that provides hooks and UI components. | ![npm](https://img.shields.io/npm/dm/@mantine/hooks) | ![GitHub stars](https://img.shields.io/github/stars/mantinedev/mantine) |
 | [Rsuite](https://github.com/rsuite/rsuite) | [#3875](https://github.com/rsuite/rsuite/pull/3875) | 	Introduced a "paused" option for the speed prop in the Loader component, allowing for finer control over the animation state.	 | ![npm](https://img.shields.io/npm/dm/rsuite) | ![GitHub stars](https://img.shields.io/github/stars/rsuite/rsuite) |
