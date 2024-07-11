@@ -1,7 +1,6 @@
 import styled, { keyframes } from "styled-components";
 
 export const AboutContainer = styled.div`
-	height: 90vh;
 	width: 100%;
 	background-color: ${({ theme }) => theme.body};
 	color: ${({ theme }) => theme.text};
@@ -9,7 +8,6 @@ export const AboutContainer = styled.div`
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
-	scroll-snap-align: start;
 `;
 export const AboutWrapper = styled.div`
 	width: 100%;

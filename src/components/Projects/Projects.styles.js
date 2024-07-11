@@ -8,7 +8,7 @@ export const ProjectsContainer = styled.div`
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
-	scroll-snap-align: start;
+	
 `;
 export const ProjectsWrapper = styled.div`
 	width: 100%;

@@ -6,7 +6,11 @@ padding: 0;
 margin: 0;
 box-sizing: border-box;
 }
+html{
+height: 100%;
+}
 body{
+height: 100%;
 font-family: 'Poppins', sans-serif;
 }  
 ::-webkit-scrollbar {
@@ -22,7 +26,7 @@ border-radius: 1rem;
 ::-webkit-scrollbar-thumb:hover {
 background: #555;
 }
-#projects,#contact,#interests{
+#projects,#contact,#interests,#about,#skills{
     height : 100vh;
     width : 100%;
     background-color: ${({ theme }) => theme.body};

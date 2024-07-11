@@ -8,7 +8,7 @@ export const InterestsContainer = styled.div`
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
-	scroll-snap-align: start;
+	
 `;
 export const InterestsWrapper = styled.div`
 	width: 100%;
