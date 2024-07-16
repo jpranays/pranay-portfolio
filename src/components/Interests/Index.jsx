@@ -22,7 +22,7 @@ function Contact() {
 				<InterestDiv>
 					<InterestImg src="/bike-trips.webp" />
 					<InterestOverlay />
-					<InterestContent>Bike Trips</InterestContent>
+					<InterestContent>Road Trips</InterestContent>
 				</InterestDiv>
 				<InterestDiv>
 					<InterestImg src="/boxing.webp" />
@@ -32,12 +32,17 @@ function Contact() {
 				<InterestDiv>
 					<InterestImg src="/inspecting.webp" />
 					<InterestOverlay />
-					<InterestContent>Inspecting Web Pages</InterestContent>
+					<InterestContent>Inspecting Web</InterestContent>
 				</InterestDiv>
 				<InterestDiv>
 					<InterestImg src="/ufc.webp" />
 					<InterestOverlay />
 					<InterestContent>UFC</InterestContent>
+				</InterestDiv>
+				<InterestDiv>
+					<InterestImg src="/football.webp" />
+					<InterestOverlay />
+					<InterestContent>Football</InterestContent>
 				</InterestDiv>
 			</InterestsWrapper>
 		</InterestsContainer>

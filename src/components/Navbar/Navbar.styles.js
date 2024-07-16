@@ -1,7 +1,6 @@
 import styled from "styled-components";
 export const Nav = styled.nav`
-	height: 10vh;
-	min-height: 70px;
+	height: 70px;
 	position: sticky;
 	top: 0;
 	transition: all 0.5s ease;

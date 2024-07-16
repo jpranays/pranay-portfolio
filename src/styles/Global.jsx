@@ -27,7 +27,7 @@ border-radius: 1rem;
 background: #555;
 }
 #projects,#contact,#interests,#about,#skills{
-    height : 100vh;
+    min-height : 100vh;
     width : 100%;
     background-color: ${({ theme }) => theme.body};
     color: ${({ theme }) => theme.text};

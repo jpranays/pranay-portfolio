@@ -12,7 +12,7 @@ import {
 import { useTypingAnim } from "../../hooks/useTypingAnim";
 
 function About() {
-	const MYNAMETEXT = "PRANAYSUNILJADHAV";
+	const MYNAMETEXT = "PRANAY";
 	let counter;
 	useEffect(() => {
 		counter = setInterval(anim, 250);
@@ -20,7 +20,7 @@ function About() {
 		function anim() {
 			let span = document.querySelectorAll(".container div")[i];
 			i++;
-			if (i == 17) {
+			if (i == MYNAMETEXT.length) {
 				clearInterval(counter);
 				i = 0;
 			}

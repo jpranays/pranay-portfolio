@@ -1,6 +1,8 @@
 import styled, { keyframes } from "styled-components";
 
 export const AboutContainer = styled.div`
+	min-height: unset !important;
+    height: calc(100vh - 70px);
 	width: 100%;
 	background-color: ${({ theme }) => theme.body};
 	color: ${({ theme }) => theme.text};
@@ -8,14 +10,17 @@ export const AboutContainer = styled.div`
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
+	padding: 40px 10px 10px 10px;
 `;
 export const AboutWrapper = styled.div`
 	width: 100%;
-	height: 80%;
+	height: 100%;
 	max-width: 1200px;
 	margin: 0 auto;
 	display: flex;
 	align-items: start;
+	justify-content: center;
+	gap: 30px;
 	@media screen and (max-width: 1024px) {
 		flex-direction: column;
 		align-items: center;
@@ -28,12 +33,12 @@ export const Span = styled.span`
 export const NameWrapper = styled.div`
 	display: grid;
 	justify-content: center;
-	height: 80%;
-	width: 40%;
+	height: 100%;
 	align-items: center;
 	align-content: center;
 	grid-template-columns: repeat(6, max-content);
 	grid-gap: 1rem;
+	width: max-content;
 	@media screen and (max-width: 1024px) {
 		width: 100%;
 		height: 100%;
@@ -93,10 +98,10 @@ export const HeroTextWrapper = styled.div`
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	height: 80%;
-	width: 50%;
-	@media screen and (max-width: 768px) {
-		width: 100%;
+	height: 100%;
+	width: 27%;
+	@media screen and (max-width: 1024px) {
+		width: 100%
 	}
 `;
 export const Name = styled.div`
@@ -125,6 +130,8 @@ export const HeroText = styled.h1`
 	color: ${({ theme }) => theme.text};
 	@media screen and (max-width: 768px) {
 		font-size: 2.5rem;
+		font-weight: 300;
+		font-style: oblique;
 	}
 `;
 export const TypingLine = styled.span`

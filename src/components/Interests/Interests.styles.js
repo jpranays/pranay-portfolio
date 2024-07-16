@@ -8,17 +8,17 @@ export const InterestsContainer = styled.div`
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
-	
+	min-height: unset !important;
 `;
 export const InterestsWrapper = styled.div`
 	width: 100%;
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+	grid-template-columns: repeat(3, minmax(max-content, 1fr));
 	align-items: center;
 	margin-top: 150px;
 	overflow: hidden;
 	@media screen and (max-width: 480px) {
-		grid-template-columns: repeat(3, 1fr);
+		grid-template-columns: repeat(2, 1fr);
 	}
 `;
 export const InterestsHeaderTitle = styled.h1`
@@ -33,12 +33,14 @@ export const InterestDiv = styled.div`
 	width: 100%;
 	position: relative;
 	height: 250px;
-	border-radius: 10px;
 	box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
 	transition: all 0.5s ease;
+	overflow: hidden;
 	&:hover {
+		border-radius: 20px;
 		transform: scale(1.1);
 	}
+	cursor: default;
 `;
 export const InterestImg = styled.img`
 	width: 100%;
@@ -47,6 +49,7 @@ export const InterestImg = styled.img`
 	position: absolute;
 	top: 0;
 	left: 0;
+	overflow: hidden;
 	transition: all 0.5s ease;
 `;
 export const InterestOverlay = styled.div`
