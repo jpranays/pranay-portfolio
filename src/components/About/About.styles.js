@@ -49,43 +49,6 @@ export const NameWrapper = styled.div`
 	@media screen and (max-width: 768px) {
 		overflow: hidden;
 	}
-	div:nth-child(10) {
-		justify-self: center;
-	}
-	${({ theme }) => {
-		if (theme.name === "dark") {
-			return `        
-        div:nth-child(-n + 6) {
-			-webkit-text-stroke: 0.2vw rgba(224, 48, 4, 0.979);
-		}
-		div:nth-child(n + 7):nth-child(-n + 11) {
-			-webkit-text-stroke: 0.2vw #fff;
-		}
-		div:nth-child(n + 12):nth-child(-n + 17) {
-			-webkit-text-stroke: 0.2vw green;
-		}`;
-		} else {
-			return `
-		div:nth-child(-n + 6) {
-			-webkit-text-stroke: 0.2vw rgba(224, 48, 4, 0.979);
-			text-shadow: 0 0 0.2vw rgba(224, 48, 4, 0.979);
-		}
-		div:nth-child(n + 7):nth-child(-n + 11) {
-			-webkit-text-stroke: 0.2vw #fff;
-			text-shadow: 0 0 10px rgba(0,0,0,1);
-		}
-		div:nth-child(n + 12):nth-child(-n + 17) {
-			-webkit-text-stroke: 0.2vw green;
-			text-shadow: 0 0 0.2vw green;
-		}
-	
-		`;
-		}
-	}}
-	div:nth-child(11) {
-		grid-column: 5/-1;
-		justify-self: start;
-	}
 `;
 const myAnim = keyframes`
 from{
@@ -109,7 +72,6 @@ export const HeroTextWrapper = styled.div`
 `;
 export const Name = styled.div`
 	font-size: 64px;
-	font-family: sans-serif;
 	-webkit-text-fill-color: ${({ theme: { name } }) => {
 		if (name === "dark") {
 			return `transparent`;
@@ -117,9 +79,8 @@ export const Name = styled.div`
 			return `#fff`;
 		}
 	}};
-	-webkit-text-stroke: 0.2vw rgba(224, 48, 4, 0.979);
+	-webkit-text-stroke: 0.5vw rgba(224, 48, 4, 0.979);
 	transition: transform 1s, opacity 1s;
-	transform: translateY(-20px) translateX(20px);
 	opacity: 1;
 	@media screen and (max-width: 768px) {
 		font-size: 2.5rem;
