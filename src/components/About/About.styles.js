@@ -26,7 +26,7 @@ export const AboutWrapper = styled.div`
 		align-items: center;
 	}
 	@media screen and (max-width: 425px) {
-		gap: 15px;
+		gap: 0px;
 	}
 `;
 export const Span = styled.span`
