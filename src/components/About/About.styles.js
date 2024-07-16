@@ -10,7 +10,7 @@ export const AboutContainer = styled.div`
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
-	padding: 40px 10px 10px 10px;
+	padding: 40px 10px 20px 10px;
 `;
 export const AboutWrapper = styled.div`
 	width: 100%;
@@ -24,6 +24,9 @@ export const AboutWrapper = styled.div`
 	@media screen and (max-width: 1024px) {
 		flex-direction: column;
 		align-items: center;
+	}
+	@media screen and (max-width: 425px) {
+		gap: 15px;
 	}
 `;
 export const Span = styled.span`
