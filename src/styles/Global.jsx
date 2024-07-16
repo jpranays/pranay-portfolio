@@ -29,7 +29,7 @@ background: #555;
 #projects,#contact,#interests,#about,#skills{
     min-height : 100vh;
     width : 100%;
-    background-color: ${({ theme }) => theme.body};
+    background: ${({ theme }) => theme.body};
     color: ${({ theme }) => theme.text};
     display: flex;
     justify-content: center;

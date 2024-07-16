@@ -20,7 +20,7 @@ function App() {
 		},
 		darkTheme: {
 			name: "dark",
-			body: "#1F242D",
+			body: "rgb(15 23 42/1)",
 			text: "#f1f1f1",
 		},
 	};

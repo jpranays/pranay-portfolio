@@ -99,9 +99,9 @@ export const HeroText = styled.h1`
 	}
 `;
 export const TypingLine = styled.span`
-	width: 5px;
-	height: 50px;
-	background: royalblue;
+	width: 3px;
+	height: 55px;
+	background: ${({ theme }) => theme.text};
 	animation: blink 0.2s linear infinite;
 	@keyframes blink {
 		0% {

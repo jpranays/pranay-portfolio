@@ -42,8 +42,7 @@ function Navbar({ currentTheme, setCurrentTheme, activeLink, setActiveLink }) {
 		const target = e.target.dataset.href;
 		const element = document.querySelector(target);
 		if (target === "#about") {
-			// window.scrollTo({ top: 0, behavior: "smooth" });
-			element.scrollIntoView({ behavior: "smooth" });
+			window.scrollTo({ top: 0, behavior: "smooth" });
 			setOpen(false);
 		} else {
 			element.scrollIntoView({ behavior: "smooth" });
