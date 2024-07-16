@@ -1,7 +1,7 @@
 import styled, { keyframes } from "styled-components";
 
 export const AboutContainer = styled.div`
-	min-height: unset !important;
+	/* min-height: unset !important; */
     height: calc(100vh - 70px);
 	width: 100%;
 	background-color: ${({ theme }) => theme.body};
