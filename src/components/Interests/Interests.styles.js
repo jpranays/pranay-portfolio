@@ -15,7 +15,7 @@ export const InterestsWrapper = styled.div`
 	display: grid;
 	grid-template-columns: repeat(3, minmax(max-content, 1fr));
 	align-items: center;
-	margin-top: 150px;
+	margin-top: 50px;
 	overflow: hidden;
 	@media screen and (max-width: 480px) {
 		grid-template-columns: repeat(2, 1fr);
