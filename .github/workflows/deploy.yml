@@ -1,4 +1,4 @@
-name: Deploy Docusaurus site to GitHub Pages
+name: Deploy Vite site to GitHub Pages
 
 on:
   push:
@@ -20,16 +20,14 @@ jobs:
 
     - name: Install dependencies
       run: npm install
-      working-directory: ./
 
-    - name: Build site
+    - name: Build Vite site
       run: npm run build
-      working-directory: ./
 
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       with:
         personal_token: ${{ secrets.ACTIONS_DEPLOY_ACCESS_TOKEN }}
-        publish_dir: ./dist
+        publish_dir: ./dist  # Vite's default output directory
         external_repository: jpranays/portfolio  # Ensure this is your repo name
         force_orphan: true
