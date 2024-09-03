@@ -16,6 +16,14 @@ function Contact() {
 	const containerRef = useRef(null);
 	const PROJECTS = [
 		{
+			id: 0,
+			title: "React-fast-hooks",
+			description:
+				"A collection of custom React hooks",
+			tags: ["REACT", "TYPESCRIPT", "HOOKS"],
+			githubLink: "https://github.com/jpranays/react-fast-hooks",
+		},
+		{
 			id: 1,
 			title: "Snap-shots",
 			description:
