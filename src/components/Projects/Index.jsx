@@ -24,6 +24,14 @@ function Contact() {
 			githubLink: "https://github.com/jpranays/react-fast-hooks",
 		},
 		{
+			id: 8,
+			title: "Ui Challenges",
+			description:
+				"A collection of UI challenges from various websites like Frontend Mentor, Youtube, etc.",
+			tags: ["HTML", "SASS", "JS"],
+			githubLink: "https://github.com/jpranays/UI-challenges",
+		},
+		{
 			id: 1,
 			title: "Snap-shots",
 			description:
