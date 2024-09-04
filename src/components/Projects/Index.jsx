@@ -116,7 +116,7 @@ function Contact() {
 					{PROJECTS.map(
 						({ id, title, description, tags, githubLink, demoLink }) => {
 							return (
-								<Card key={id} className={id === 4 ? "preactive" : ""}>
+								<Card key={id} className={id === 8 ? "preactive" : ""}>
 									<p>{title}</p>
 									<CardBody>
 										<h2>{description}</h2>
