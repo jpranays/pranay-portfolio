@@ -24,7 +24,8 @@ export const InterestsWrapper = styled.div`
 		padding: 10px;
 	}
 `;
-export const InterestsHeaderTitle = styled.h1`
+export const InterestsHeaderTitle = styled.h1` 
+
 	font-size: 1.5rem;
 	color: ${({ theme }) => theme.text};
 	@media screen and (max-width: 480px) {
