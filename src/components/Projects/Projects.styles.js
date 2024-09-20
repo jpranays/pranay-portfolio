@@ -29,7 +29,7 @@ export const CardsContainer = styled.div`
 	width: 100%;
 	overflow-x: scroll;
 	&::-webkit-scrollbar {
-		height: 0.5rem;
+		height: 0.2rem;
 	}
 `;
 export const Card = styled.div`

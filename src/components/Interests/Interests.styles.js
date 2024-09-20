@@ -17,8 +17,11 @@ export const InterestsWrapper = styled.div`
 	align-items: center;
 	margin-top: 50px;
 	overflow: hidden;
+	padding: 50px;
+	border-radius: 20px;
 	@media screen and (max-width: 480px) {
 		grid-template-columns: repeat(2, 1fr);
+		padding: 10px;
 	}
 `;
 export const InterestsHeaderTitle = styled.h1`
@@ -51,6 +54,7 @@ export const InterestImg = styled.img`
 	left: 0;
 	overflow: hidden;
 	transition: all 0.5s ease;
+	filter: blur(1.5px);
 `;
 export const InterestOverlay = styled.div`
 	position: absolute;
@@ -70,4 +74,7 @@ export const InterestContent = styled.div`
 	transition: all 0.5s ease;
 	text-align: center;
 	color: #fff;
+	font-style: italic;
+	text-transform: uppercase;
+	text-shadow: 1px 2px #f26a2e;
 `;

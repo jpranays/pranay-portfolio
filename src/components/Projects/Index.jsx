@@ -16,6 +16,14 @@ function Contact() {
 	const containerRef = useRef(null);
 	const PROJECTS = [
 		{
+			id: 15,
+			title: "CLI-gh",
+			description:
+				"A CLI tool to interact with Github.",
+			tags: ["NODE", "REST-API", "GITHUB", "CLI"],
+			githubLink: "https://github.com/jpranays/cli-gh",
+		},
+		{
 			id: 0,
 			title: "React-fast-hooks",
 			description:
@@ -25,7 +33,7 @@ function Contact() {
 		},
 		{
 			id: 8,
-			title: "Ui Challenges",
+			title: "UI Challenges",
 			description:
 				"A collection of UI challenges from various websites like Frontend Mentor, Youtube, etc.",
 			tags: ["HTML", "SASS", "JS"],
