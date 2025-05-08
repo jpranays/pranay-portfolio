@@ -1,4 +1,4 @@
-# [Pranay Sunil Jadhav](https://jpranays.netlify.app/)    
+# [Pranay Sunil Jadhav](https://jpranays.netlify.app/)     
 ###  Open Source Contributions 
 
 | Package | PR | Description |    NPM downloads ⬇️⬇️   |   Github stars ⭐⭐   |
