@@ -102,7 +102,7 @@ function Navbar({ currentTheme, setCurrentTheme, activeLink, setActiveLink }) {
 					<NavLinkA
 						data-href="#resume"
 						onClick={() => {
-							window.open("/Pranay_Sunil_Jadhav_Resume.pdf", "_blank");
+							window.open("/Pranay_Jadhav_Resume.pdf", "_blank");
 						}}
 					>
 						Resume <OpenInNewIcon />
