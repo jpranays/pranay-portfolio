@@ -139,7 +139,7 @@ function Contact() {
       setStatus("error");
       setTimeout(() => setStatus("idle"), 5000);
     }
-  };
+  }; 
 
   return (
     <section id="contact" aria-labelledby="contact-heading">
