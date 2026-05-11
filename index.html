@@ -1,22 +1,68 @@
 <!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
-		<link rel="icon" type="image/svg+xml" href="/jpranays.svg" />
-		<link
-			rel="stylesheet"
-			href="https://fonts.googleapis.com/css?family=Poppins:400&display=swap"
-		/>
-		<title>Pranay's portfolio</title>
-	</head>
-	<body>
-		<div id="root"></div>
-		<form name="contact" netlify netlify-honeypot="bot-field" hidden>
-			<input type="text" name="name" />
-			<input type="email" name="email" />
-			<textarea name="message"></textarea>
-		</form>
-		<script type="module" src="/src/main.jsx"></script>
-	</body>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Primary Meta -->
+    <title>Pranay Jadhav — Full-Stack Developer</title>
+    <meta
+      name="description"
+      content="Pranay Jadhav is a Full-Stack Developer specializing in React, Next.js, TypeScript, and the MERN stack. Building fast, scalable, and beautifully crafted web applications."
+    />
+    <meta name="author" content="Pranay Jadhav" />
+    <meta
+      name="keywords"
+      content="Pranay Jadhav, Full Stack Developer, React Developer, Next.js, TypeScript, MERN Stack, Node.js, Portfolio"
+    />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://jpranays.netlify.app/" />
+    <meta property="og:title" content="Pranay Jadhav — Full-Stack Developer" />
+    <meta
+      property="og:description"
+      content="Full-Stack Developer specializing in React, Next.js, TypeScript, and MERN stack. Building fast, scalable web applications."
+    />
+    <meta property="og:image" content="https://jpranays.netlify.app/og-image.png" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://jpranays.netlify.app/" />
+    <meta name="twitter:title" content="Pranay Jadhav — Full-Stack Developer" />
+    <meta
+      name="twitter:description"
+      content="Full-Stack Developer specializing in React, Next.js, TypeScript, and MERN stack."
+    />
+    <meta name="twitter:image" content="https://jpranays.netlify.app/og-image.png" />
+
+    <!-- Canonical -->
+    <link rel="canonical" href="https://jpranays.netlify.app/" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/jpranays.svg" />
+
+    <!-- Fonts — preconnect then load -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Theme color for mobile browsers -->
+    <meta name="theme-color" content="#060610" />
+  </head>
+  <body class="bg-base text-slate-100 font-sans antialiased">
+    <div id="root"></div>
+
+    <!-- Netlify Forms hidden form for form detection -->
+    <form name="contact" netlify netlify-honeypot="bot-field" hidden>
+      <input type="text" name="name" />
+      <input type="email" name="email" />
+      <textarea name="message"></textarea>
+    </form>
+
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
 </html>
