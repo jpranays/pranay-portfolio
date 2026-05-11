@@ -12,12 +12,12 @@ export function CustomCursor() {
   const mouseY = useMotionValue(-200);
 
   // Dot snaps immediately
-  const dotX = useSpring(mouseX, { stiffness: 900, damping: 50 });
-  const dotY = useSpring(mouseY, { stiffness: 900, damping: 50 });
+  const dotX = mouseX;
+  const dotY = mouseY;
 
   // Glow blob lags for depth
-  const glowX = useSpring(mouseX, { stiffness: 160, damping: 26 });
-  const glowY = useSpring(mouseY, { stiffness: 160, damping: 26 });
+  const glowX = mouseX;
+  const glowY = mouseY;
 
   useEffect(() => {
     if (!isFine.current) return;
