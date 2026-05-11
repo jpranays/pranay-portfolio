@@ -11,7 +11,7 @@ function TimelineDot({ current = false }) {
         className={`w-3 h-3 rounded-full border-2 ${
           current
             ? "bg-orange-500 border-orange-400"
-            : "bg-surface border-white/20"
+            : "bg-surface border-slate-300 dark:border-white/20"
         }`}
       />
       {current && (
@@ -27,24 +27,24 @@ function ExperienceCard({ item }) {
       <div className="glass-card p-6 hover:translate-y-[-2px] transition-transform duration-300">
         <div className="flex items-start justify-between gap-4 mb-3">
           <div>
-            <h3 className="text-base font-semibold text-slate-100">{item.role}</h3>
+            <h3 className="text-base font-semibold text-slate-800 dark:text-slate-100">{item.role}</h3>
             <div className="flex items-center gap-2 mt-1">
               <span className="text-orange-400 font-medium text-sm">{item.company}</span>
-              <span className="text-slate-600 text-xs">·</span>
+              <span className="text-slate-400 text-xs">·</span>
               <span className="text-slate-500 text-xs font-mono">{item.type}</span>
             </div>
           </div>
-          <span className="flex-shrink-0 text-xs font-mono text-slate-500 bg-white/[0.04] px-2.5 py-1 rounded-md border border-white/[0.06]">
+          <span className="flex-shrink-0 text-xs font-mono text-slate-500 bg-slate-100 dark:bg-white/[0.04] px-2.5 py-1 rounded-md border border-slate-200 dark:border-white/[0.06]">
             {item.period}
           </span>
         </div>
 
-        <p className="text-slate-400 text-sm leading-relaxed mb-4">{item.description}</p>
+        <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed mb-4">{item.description}</p>
 
         {item.highlights && (
           <ul className="space-y-1.5 mb-4" aria-label="Highlights">
             {item.highlights.map((h) => (
-              <li key={h} className="flex items-start gap-2 text-sm text-slate-400">
+              <li key={h} className="flex items-start gap-2 text-sm text-slate-500 dark:text-slate-400">
                 <span className="mt-1.5 w-1 h-1 rounded-full bg-orange-500 flex-shrink-0" aria-hidden="true" />
                 {h}
               </li>
@@ -53,7 +53,7 @@ function ExperienceCard({ item }) {
         )}
 
         {item.tech && (
-          <div className="flex flex-wrap gap-1.5 mt-3 pt-3 border-t border-white/[0.06]">
+          <div className="flex flex-wrap gap-1.5 mt-3 pt-3 border-t border-slate-200 dark:border-white/[0.06]">
             {item.tech.map((t) => (
               <span key={t} className="tech-badge">{t}</span>
             ))}
@@ -70,15 +70,15 @@ function EducationCard({ item }) {
       <div className="glass-card p-6">
         <div className="flex items-start justify-between gap-4 mb-2">
           <div>
-            <h3 className="text-base font-semibold text-slate-100">{item.degree}</h3>
+            <h3 className="text-base font-semibold text-slate-800 dark:text-slate-100">{item.degree}</h3>
             <p className="text-orange-400 font-medium text-sm mt-0.5">{item.field}</p>
             <p className="text-slate-500 text-sm mt-0.5">{item.institution}</p>
           </div>
-          <span className="flex-shrink-0 text-xs font-mono text-slate-500 bg-white/[0.04] px-2.5 py-1 rounded-md border border-white/[0.06]">
+          <span className="flex-shrink-0 text-xs font-mono text-slate-500 bg-slate-100 dark:bg-white/[0.04] px-2.5 py-1 rounded-md border border-slate-200 dark:border-white/[0.06]">
             {item.period}
           </span>
         </div>
-        <p className="text-slate-400 text-sm leading-relaxed mt-3">{item.description}</p>
+        <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed mt-3">{item.description}</p>
       </div>
     </StaggerItem>
   );
@@ -108,7 +108,7 @@ function Experience() {
             <AnimatedSection delay={0.1}>
               <div className="flex items-center gap-2 mb-6">
                 <Briefcase className="w-4 h-4 text-orange-400" aria-hidden="true" />
-                <h3 className="text-sm font-semibold text-slate-300 uppercase tracking-wider font-mono">
+                <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 uppercase tracking-wider font-mono">
                   Work
                 </h3>
               </div>
@@ -125,7 +125,7 @@ function Experience() {
             <AnimatedSection delay={0.2}>
               <div className="flex items-center gap-2 mb-6">
                 <GraduationCap className="w-4 h-4 text-cyan-400" aria-hidden="true" />
-                <h3 className="text-sm font-semibold text-slate-300 uppercase tracking-wider font-mono">
+                <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 uppercase tracking-wider font-mono">
                   Education
                 </h3>
               </div>
@@ -146,7 +146,7 @@ function Experience() {
                 aria-label="View LeetCode profile"
               >
                 <div>
-                  <p className="text-sm font-semibold text-slate-300">LeetCode</p>
+                  <p className="text-sm font-semibold text-slate-700 dark:text-slate-300">LeetCode</p>
                   <p className="text-xs text-slate-500 mt-0.5">Problem solving &amp; DSA</p>
                 </div>
                 <div className="flex items-center gap-2 text-orange-400 group-hover:gap-3 transition-all duration-200">

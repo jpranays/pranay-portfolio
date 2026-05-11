@@ -17,7 +17,7 @@ function SkillGroup({ group, index }) {
           <div className="w-8 h-8 rounded-lg bg-orange-500/10 border border-orange-500/20 flex items-center justify-center flex-shrink-0">
             <Icon className="w-3.5 h-3.5 text-orange-400" aria-hidden="true" />
           </div>
-          <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-widest font-mono">
+          <h3 className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-widest font-mono">
             {group.label}
           </h3>
         </div>
@@ -51,7 +51,7 @@ function TechMarquee() {
   const items = [...MARQUEE_TECHS, ...MARQUEE_TECHS];
   return (
     <div
-      className="relative overflow-hidden py-4 border-y border-white/[0.04] mt-16"
+      className="relative overflow-hidden py-4 border-y border-slate-200 dark:border-white/[0.04] mt-16"
       aria-hidden="true"
     >
       <div className="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-base to-transparent z-10 pointer-events-none" />
@@ -64,7 +64,7 @@ function TechMarquee() {
         {items.map((tech, i) => (
           <span
             key={`${tech}-${i}`}
-            className="text-xs font-mono text-slate-700 hover:text-slate-500 transition-colors cursor-default"
+            className="text-xs font-mono text-slate-400 dark:text-slate-700 hover:text-slate-600 dark:hover:text-slate-500 transition-colors cursor-default"
           >
             {tech}
             <span className="ml-6 text-orange-500/20">·</span>
