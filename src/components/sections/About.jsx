@@ -4,10 +4,22 @@ import { Code2, Users, Package, Trophy, Terminal, Heart } from "lucide-react";
 import { AnimatedSection, StaggerContainer, StaggerItem } from "../ui/AnimatedSection";
 
 const STATS = [
-  { value: "3+", label: "Years professional experience", icon: Code2 },
-  { value: "25K+", label: "Weekly npm downloads", icon: Package },
-  { value: "3.4M+", label: "Developers impacted via OSS", icon: Users },
-  { value: "9+", label: "Open source contributions", icon: Trophy },
+  {
+    value: "3+", label: "Years professional experience", icon: Code2,
+    iconColor: "text-orange-400", iconBg: "bg-orange-500/10 border-orange-500/20",
+  },
+  {
+    value: "25K+", label: "Weekly npm downloads", icon: Package,
+    iconColor: "text-rose-400", iconBg: "bg-rose-500/10 border-rose-500/20",
+  },
+  {
+    value: "3.4M+", label: "Developers impacted via OSS", icon: Users,
+    iconColor: "text-violet-400", iconBg: "bg-violet-500/10 border-violet-500/20",
+  },
+  {
+    value: "9+", label: "Open source contributions", icon: Trophy,
+    iconColor: "text-green-400", iconBg: "bg-green-500/10 border-green-500/20",
+  },
 ];
 
 const INTERESTS = [
@@ -131,8 +143,8 @@ function About() {
           {STATS.map((stat, i) => (
             <AnimatedSection key={stat.label} delay={0.1 * (i + 3)}>
               <div className="glass-card p-5 flex items-center gap-4">
-                <div className="w-10 h-10 rounded-xl bg-orange-500/10 border border-orange-500/20 flex items-center justify-center flex-shrink-0">
-                  <stat.icon className="w-4 h-4 text-orange-400" aria-hidden="true" />
+                <div className={`w-10 h-10 rounded-xl border flex items-center justify-center flex-shrink-0 ${stat.iconBg}`}>
+                  <stat.icon className={`w-4 h-4 ${stat.iconColor}`} aria-hidden="true" />
                 </div>
                 <div>
                   <p className="text-2xl font-bold text-slate-800 dark:text-slate-100 leading-none tracking-tight">

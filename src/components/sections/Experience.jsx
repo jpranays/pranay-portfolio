@@ -24,7 +24,7 @@ function TimelineDot({ current = false }) {
 function ExperienceCard({ item }) {
   return (
     <StaggerItem>
-      <div className="glass-card p-6 hover:translate-y-[-2px] transition-transform duration-300">
+      <div className={`glass-card p-6 hover:translate-y-[-2px] transition-transform duration-300 border-l-2 ${item.current ? "border-l-orange-500" : "border-l-slate-300/40 dark:border-l-white/10"}`}>
         <div className="flex items-start justify-between gap-4 mb-3">
           <div>
             <h3 className="text-base font-semibold text-slate-800 dark:text-slate-100">{item.role}</h3>

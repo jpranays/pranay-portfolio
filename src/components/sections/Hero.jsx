@@ -49,12 +49,16 @@ function Hero() {
       {/* Layered background */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
         {/* Primary orange glow — top centre */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-gradient-radial from-orange-500/12 via-orange-500/0 to-transparent rounded-full blur-3xl" />
-        {/* Secondary cyan glow — bottom right */}
-        <div className="absolute bottom-1/3 right-1/4 w-[350px] h-[350px] bg-gradient-radial from-cyan-500/7 to-transparent rounded-full blur-3xl" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[550px] bg-gradient-radial from-orange-500/18 via-orange-500/0 to-transparent rounded-full blur-3xl" />
+        {/* Violet glow — top left */}
+        <div className="absolute top-1/4 left-1/4 w-[500px] h-[400px] bg-gradient-radial from-violet-500/12 to-transparent rounded-full blur-3xl" />
+        {/* Cyan glow — bottom right */}
+        <div className="absolute bottom-1/3 right-1/4 w-[450px] h-[450px] bg-gradient-radial from-cyan-500/10 to-transparent rounded-full blur-3xl" />
+        {/* Pink accent — far right */}
+        <div className="absolute top-1/2 right-0 w-[300px] h-[300px] bg-gradient-radial from-pink-500/8 to-transparent rounded-full blur-3xl" />
         {/* Subtle dot grid — color switches via CSS var */}
         <div
-          className="absolute inset-0 opacity-[0.018] dark:opacity-[0.018]"
+          className="absolute inset-0 opacity-[0.025]"
           style={{
             backgroundImage:
               "radial-gradient(circle, var(--dot-color) 1px, transparent 1px)",
