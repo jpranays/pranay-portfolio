@@ -4,10 +4,22 @@ import { Code2, Users, Package, Trophy, Terminal, Heart } from "lucide-react";
 import { AnimatedSection, StaggerContainer, StaggerItem } from "../ui/AnimatedSection";
 
 const STATS = [
-  { value: "3+", label: "Years professional experience", icon: Code2 },
-  { value: "25K+", label: "Weekly npm downloads", icon: Package },
-  { value: "3.4M+", label: "Developers impacted via OSS", icon: Users },
-  { value: "9+", label: "Open source contributions", icon: Trophy },
+  {
+    value: "3+", label: "Years professional experience", icon: Code2,
+    iconColor: "text-orange-400", iconBg: "bg-orange-500/10 border-orange-500/20",
+  },
+  {
+    value: "25K+", label: "Weekly npm downloads", icon: Package,
+    iconColor: "text-rose-400", iconBg: "bg-rose-500/10 border-rose-500/20",
+  },
+  {
+    value: "3.4M+", label: "Developers impacted via OSS", icon: Users,
+    iconColor: "text-violet-400", iconBg: "bg-violet-500/10 border-violet-500/20",
+  },
+  {
+    value: "9+", label: "Open source contributions", icon: Trophy,
+    iconColor: "text-green-400", iconBg: "bg-green-500/10 border-green-500/20",
+  },
 ];
 
 const INTERESTS = [
@@ -49,26 +61,26 @@ function About() {
                   <Code2 className="w-5 h-5 text-orange-400" aria-hidden="true" />
                 </div>
                 <div className="space-y-3">
-                  <h3 className="text-base font-semibold text-slate-100">Who I am</h3>
-                  <p className="text-sm text-slate-400 leading-relaxed">
+                  <h3 className="text-base font-semibold text-slate-800 dark:text-slate-100">Who I am</h3>
+                  <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
                     I&apos;m a{" "}
-                    <span className="text-slate-200 font-medium">
+                    <span className="text-slate-700 dark:text-slate-200 font-medium">
                       Senior Software Developer at Sears India
                     </span>{" "}
                     with 3+ years of professional experience, specializing in{" "}
-                    <span className="text-orange-400 font-mono text-xs">Security</span>,{" "}
-                    <span className="text-orange-400 font-mono text-xs">Accessibility</span>,{" "}
-                    <span className="text-orange-400 font-mono text-xs">Performance</span>, and{" "}
-                    <span className="text-orange-400 font-mono text-xs">Testing</span>.
+                    <span className="text-orange-500 dark:text-orange-400 font-mono text-xs">Security</span>,{" "}
+                    <span className="text-orange-500 dark:text-orange-400 font-mono text-xs">Accessibility</span>,{" "}
+                    <span className="text-orange-500 dark:text-orange-400 font-mono text-xs">Performance</span>, and{" "}
+                    <span className="text-orange-500 dark:text-orange-400 font-mono text-xs">Testing</span>.
                   </p>
-                  <p className="text-sm text-slate-400 leading-relaxed">
+                  <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
                     I&apos;ve created npm packages with{" "}
-                    <span className="text-slate-200 font-medium">25,000+ weekly users</span> and
+                    <span className="text-slate-700 dark:text-slate-200 font-medium">25,000+ weekly users</span> and
                     actively maintain contributions to libraries like Mantine, PrimeReact, and
                     RSuite — collectively impacting{" "}
-                    <span className="text-slate-200 font-medium">3.4M+ developers</span> monthly.
+                    <span className="text-slate-700 dark:text-slate-200 font-medium">3.4M+ developers</span> monthly.
                   </p>
-                  <p className="text-sm text-slate-400 leading-relaxed">
+                  <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
                     When I&apos;m not shipping production code, I&apos;m reviewing PRs, writing
                     accessible components, or planning the next road trip on the bike.
                   </p>
@@ -84,38 +96,38 @@ function About() {
                 <span className="w-2.5 h-2.5 rounded-full bg-red-500/70" />
                 <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/70" />
                 <span className="w-2.5 h-2.5 rounded-full bg-green-500/70" />
-                <span className="ml-2 text-xs text-slate-600">~/pranay</span>
+                <span className="ml-2 text-xs text-slate-400 dark:text-slate-600">~/pranay</span>
               </div>
-              <div className="space-y-1.5 text-xs text-slate-400">
+              <div className="space-y-1.5 text-xs text-slate-500 dark:text-slate-400">
                 <p>
                   <span className="text-orange-400">❯</span>{" "}
-                  <span className="text-slate-300">cat about.json</span>
+                  <span className="text-slate-600 dark:text-slate-300">cat about.json</span>
                 </p>
-                <p className="text-slate-500">{"{"}</p>
-                <p className="pl-4 text-cyan-400">
+                <p className="text-slate-400 dark:text-slate-500">{"{"}</p>
+                <p className="pl-4 text-cyan-500 dark:text-cyan-400">
                   &quot;role&quot;:{" "}
-                  <span className="text-amber-300">&quot;Senior SWE&quot;</span>
+                  <span className="text-amber-600 dark:text-amber-300">&quot;Senior SWE&quot;</span>
                 </p>
-                <p className="pl-4 text-cyan-400">
+                <p className="pl-4 text-cyan-500 dark:text-cyan-400">
                   &quot;company&quot;:{" "}
-                  <span className="text-amber-300">&quot;Sears India&quot;</span>
+                  <span className="text-amber-600 dark:text-amber-300">&quot;Sears India&quot;</span>
                 </p>
-                <p className="pl-4 text-cyan-400">
+                <p className="pl-4 text-cyan-500 dark:text-cyan-400">
                   &quot;npm_users&quot;:{" "}
-                  <span className="text-green-400">25000</span>
+                  <span className="text-green-500 dark:text-green-400">25000</span>
                 </p>
-                <p className="pl-4 text-cyan-400">
+                <p className="pl-4 text-cyan-500 dark:text-cyan-400">
                   &quot;oss_impact&quot;:{" "}
-                  <span className="text-green-400">&quot;3.4M+ devs&quot;</span>
+                  <span className="text-green-500 dark:text-green-400">&quot;3.4M+ devs&quot;</span>
                 </p>
-                <p className="pl-4 text-cyan-400">
+                <p className="pl-4 text-cyan-500 dark:text-cyan-400">
                   &quot;available&quot;:{" "}
-                  <span className="text-green-400">true</span>
+                  <span className="text-green-500 dark:text-green-400">true</span>
                 </p>
-                <p className="text-slate-500">{"}"}</p>
+                <p className="text-slate-400 dark:text-slate-500">{"}"}</p>
                 <p className="mt-2">
                   <span className="text-orange-400">❯</span>{" "}
-                  <span className="text-slate-300">
+                  <span className="text-slate-600 dark:text-slate-300">
                     _
                     <span
                       className="inline-block w-1.5 h-3 ml-0.5 bg-slate-400 animate-blink align-middle"
@@ -131,11 +143,11 @@ function About() {
           {STATS.map((stat, i) => (
             <AnimatedSection key={stat.label} delay={0.1 * (i + 3)}>
               <div className="glass-card p-5 flex items-center gap-4">
-                <div className="w-10 h-10 rounded-xl bg-orange-500/10 border border-orange-500/20 flex items-center justify-center flex-shrink-0">
-                  <stat.icon className="w-4 h-4 text-orange-400" aria-hidden="true" />
+                <div className={`w-10 h-10 rounded-xl border flex items-center justify-center flex-shrink-0 ${stat.iconBg}`}>
+                  <stat.icon className={`w-4 h-4 ${stat.iconColor}`} aria-hidden="true" />
                 </div>
                 <div>
-                  <p className="text-2xl font-bold text-slate-100 leading-none tracking-tight">
+                  <p className="text-2xl font-bold text-slate-800 dark:text-slate-100 leading-none tracking-tight">
                     {stat.value}
                   </p>
                   <p className="text-xs text-slate-500 mt-0.5 leading-snug">{stat.label}</p>
@@ -158,8 +170,10 @@ function About() {
                   <span
                     key={interest.label}
                     className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm
-                               bg-white/[0.03] text-slate-400 border border-white/[0.06]
-                               hover:bg-orange-500/6 hover:text-slate-300 hover:border-orange-500/15
+                               bg-slate-100 dark:bg-white/[0.03]
+                               text-slate-500 dark:text-slate-400
+                               border border-slate-200 dark:border-white/[0.06]
+                               hover:bg-orange-500/6 hover:text-slate-700 dark:hover:text-slate-300 hover:border-orange-500/15
                                transition-colors duration-200 cursor-default"
                   >
                     <span aria-hidden="true">{interest.icon}</span>

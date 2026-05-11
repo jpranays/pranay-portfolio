@@ -34,7 +34,7 @@ function ProjectCard({ project, featured = false }) {
                 className={`w-2 h-2 rounded-full flex-shrink-0 ${isOrange ? "bg-orange-400" : "bg-cyan-400"}`}
                 aria-hidden="true"
               />
-              <h3 className="text-sm font-semibold text-slate-100 group-hover:text-white transition-colors truncate">
+              <h3 className="text-sm font-semibold text-slate-800 dark:text-slate-100 group-hover:text-slate-900 dark:group-hover:text-white transition-colors truncate">
                 {project.title}
               </h3>
             </div>
@@ -54,13 +54,13 @@ function ProjectCard({ project, featured = false }) {
           </div>
 
           {/* Impact tagline */}
-          <p className="text-xs font-mono text-slate-600 mb-2.5 flex items-center gap-1">
+          <p className="text-xs font-mono text-slate-500 dark:text-slate-600 mb-2.5 flex items-center gap-1">
             <Zap className="w-3 h-3 text-orange-500/50 flex-shrink-0" aria-hidden="true" />
             {project.impact}
           </p>
 
           {/* Description */}
-          <p className="text-sm text-slate-400 leading-relaxed flex-1 mb-4">
+          <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed flex-1 mb-4">
             {project.description}
           </p>
 
@@ -72,14 +72,14 @@ function ProjectCard({ project, featured = false }) {
           </div>
 
           {/* Footer links */}
-          <div className="flex items-center gap-4 pt-3 border-t border-white/[0.05]">
+          <div className="flex items-center gap-4 pt-3 border-t border-slate-200 dark:border-white/[0.05]">
             {project.github && (
               <a
                 href={project.github}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={`${project.title} GitHub repository`}
-                className="flex items-center gap-1 text-xs font-medium text-slate-500 hover:text-slate-200 transition-colors"
+                className="flex items-center gap-1 text-xs font-medium text-slate-500 hover:text-slate-700 dark:hover:text-slate-200 transition-colors"
               >
                 <Github className="w-3.5 h-3.5" aria-hidden="true" />
                 Source
@@ -162,7 +162,7 @@ function Projects() {
                   "px-4 py-1.5 rounded-lg text-sm font-medium transition-all duration-200",
                   activeFilter === cat.id
                     ? "bg-orange-500/15 text-orange-400 border border-orange-500/30"
-                    : "bg-white/[0.03] text-slate-500 border border-white/[0.06] hover:text-slate-300 hover:bg-white/[0.06]"
+                    : "bg-slate-100 dark:bg-white/[0.03] text-slate-500 border border-slate-200 dark:border-white/[0.06] hover:text-slate-700 dark:hover:text-slate-300 hover:bg-slate-150 dark:hover:bg-white/[0.06]"
                 )}
               >
                 {cat.label}
@@ -181,7 +181,7 @@ function Projects() {
           >
             {featured.length > 0 && (
               <div className="mt-8">
-                <p className="text-xs font-mono text-slate-700 uppercase tracking-widest mb-4">
+                <p className="text-xs font-mono text-slate-400 dark:text-slate-700 uppercase tracking-widest mb-4">
                   ★ Featured
                 </p>
                 <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -195,7 +195,7 @@ function Projects() {
             {rest.length > 0 && (
               <div className="mt-8">
                 {featured.length > 0 && (
-                  <p className="text-xs font-mono text-slate-700 uppercase tracking-widest mb-4">
+                  <p className="text-xs font-mono text-slate-400 dark:text-slate-700 uppercase tracking-widest mb-4">
                     Other projects
                   </p>
                 )}
@@ -209,7 +209,7 @@ function Projects() {
 
             {filtered.length === 0 && (
               <div className="mt-16 text-center py-12">
-                <p className="text-slate-600 font-mono text-sm">
+                <p className="text-slate-500 dark:text-slate-600 font-mono text-sm">
                   No projects in this category yet.
                 </p>
               </div>
@@ -222,7 +222,7 @@ function Projects() {
             href="https://github.com/jpranays"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-slate-300 transition-colors group"
+            className="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 transition-colors group"
           >
             <Github
               className="w-4 h-4 group-hover:text-orange-400 transition-colors"

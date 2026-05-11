@@ -1,6 +1,6 @@
 import { useState, useEffect, memo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Download } from "lucide-react";
+import { Menu, X, Download, Sun, Moon } from "lucide-react";
 import { cn } from "../../utils/cn";
 
 const NAV_LINKS = [
@@ -12,7 +12,7 @@ const NAV_LINKS = [
   { href: "#contact", label: "Contact" },
 ];
 
-function Navbar({ activeSection }) {
+function Navbar({ activeSection, toggle, isDark }) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -45,7 +45,7 @@ function Navbar({ activeSection }) {
           className={cn(
             "w-full max-w-5xl flex items-center justify-between px-4 h-13 rounded-2xl border transition-all duration-300",
             scrolled
-              ? "bg-[#0d1117]/85 backdrop-blur-xl border-white/10 shadow-[0_4px_32px_rgba(0,0,0,0.5)]"
+              ? "bg-white/90 dark:bg-[#0d1117]/85 backdrop-blur-xl border-slate-200/80 dark:border-white/10 shadow-[0_4px_32px_rgba(0,0,0,0.12)] dark:shadow-[0_4px_32px_rgba(0,0,0,0.5)]"
               : "bg-transparent border-transparent"
           )}
           style={{ height: "52px" }}
@@ -70,7 +70,9 @@ function Navbar({ activeSection }) {
                     onClick={() => handleNavClick(link.href)}
                     className={cn(
                       "relative px-3 py-1.5 text-sm font-medium rounded-lg transition-colors duration-200",
-                      isActive ? "text-orange-400" : "text-slate-500 hover:text-slate-200"
+                      isActive
+                        ? "text-orange-400"
+                        : "text-slate-500 hover:text-slate-800 dark:hover:text-slate-200"
                     )}
                     aria-current={isActive ? "page" : undefined}
                   >
@@ -88,8 +90,18 @@ function Navbar({ activeSection }) {
             })}
           </ul>
 
-          {/* Resume button */}
-          <div className="hidden md:flex">
+          {/* Right controls */}
+          <div className="hidden md:flex items-center gap-2">
+            {/* Theme toggle */}
+            <button
+              onClick={toggle}
+              aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
+              className="p-2 rounded-lg text-slate-500 hover:text-slate-800 dark:hover:text-slate-200
+                         hover:bg-slate-100 dark:hover:bg-white/[0.06] transition-colors duration-200"
+            >
+              {isDark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+            </button>
+
             <a
               href="/Pranay_Sunil_Jadhav_Resume.pdf"
               target="_blank"
@@ -103,15 +115,27 @@ function Navbar({ activeSection }) {
             </a>
           </div>
 
-          {/* Hamburger */}
-          <button
-            className="md:hidden p-2 rounded-lg text-slate-500 hover:text-slate-200 hover:bg-white/[0.05] transition-colors"
-            onClick={() => setMobileOpen((v) => !v)}
-            aria-label={mobileOpen ? "Close menu" : "Open menu"}
-            aria-expanded={mobileOpen}
-          >
-            {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-          </button>
+          {/* Mobile controls */}
+          <div className="md:hidden flex items-center gap-1">
+            <button
+              onClick={toggle}
+              aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
+              className="p-2 rounded-lg text-slate-500 hover:text-slate-800 dark:hover:text-slate-200
+                         hover:bg-slate-100 dark:hover:bg-white/[0.06] transition-colors duration-200"
+            >
+              {isDark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+            </button>
+
+            <button
+              className="p-2 rounded-lg text-slate-500 hover:text-slate-800 dark:hover:text-slate-200
+                         hover:bg-slate-100 dark:hover:bg-white/[0.05] transition-colors"
+              onClick={() => setMobileOpen((v) => !v)}
+              aria-label={mobileOpen ? "Close menu" : "Open menu"}
+              aria-expanded={mobileOpen}
+            >
+              {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </button>
+          </div>
         </nav>
       </motion.header>
 
@@ -135,7 +159,7 @@ function Navbar({ activeSection }) {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", stiffness: 320, damping: 32 }}
-              className="absolute right-0 top-0 bottom-0 w-64 bg-surface border-l border-white/[0.06] flex flex-col pt-20 px-5 pb-8"
+              className="absolute right-0 top-0 bottom-0 w-64 bg-surface border-l border-slate-200 dark:border-white/[0.06] flex flex-col pt-20 px-5 pb-8"
             >
               <ul className="flex flex-col gap-1 flex-1" role="list">
                 {NAV_LINKS.map((link, i) => (
@@ -151,7 +175,7 @@ function Navbar({ activeSection }) {
                         "w-full text-left px-4 py-2.5 rounded-xl text-sm font-medium transition-colors duration-200",
                         activeSection === link.href.replace("#", "")
                           ? "bg-orange-500/10 text-orange-400"
-                          : "text-slate-500 hover:text-slate-200 hover:bg-white/[0.04]"
+                          : "text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/[0.04]"
                       )}
                     >
                       {link.label}

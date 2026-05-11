@@ -6,18 +6,28 @@ import { SKILL_GROUPS } from "../../data/skills";
 
 const ICON_MAP = { Layout, Server, Database, Wrench, ShieldCheck, Layers };
 
+const COLOR_MAP = {
+  blue:   { icon: "text-blue-400",   bg: "bg-blue-500/10",   border: "border-blue-500/20",   label: "text-blue-400" },
+  green:  { icon: "text-green-400",  bg: "bg-green-500/10",  border: "border-green-500/20",  label: "text-green-400" },
+  violet: { icon: "text-violet-400", bg: "bg-violet-500/10", border: "border-violet-500/20", label: "text-violet-400" },
+  teal:   { icon: "text-teal-400",   bg: "bg-teal-500/10",   border: "border-teal-500/20",   label: "text-teal-400" },
+  orange: { icon: "text-orange-400", bg: "bg-orange-500/10", border: "border-orange-500/20", label: "text-orange-400" },
+  pink:   { icon: "text-pink-400",   bg: "bg-pink-500/10",   border: "border-pink-500/20",   label: "text-pink-400" },
+};
+
 function SkillGroup({ group, index }) {
   const Icon = ICON_MAP[group.icon] ?? Layout;
+  const c = COLOR_MAP[group.color] ?? COLOR_MAP.orange;
 
   return (
     <AnimatedSection delay={index * 0.08}>
       <div className="glass-card p-5 h-full">
         {/* Group header */}
         <div className="flex items-center gap-2.5 mb-4">
-          <div className="w-8 h-8 rounded-lg bg-orange-500/10 border border-orange-500/20 flex items-center justify-center flex-shrink-0">
-            <Icon className="w-3.5 h-3.5 text-orange-400" aria-hidden="true" />
+          <div className={`w-8 h-8 rounded-lg border flex items-center justify-center flex-shrink-0 ${c.bg} ${c.border}`}>
+            <Icon className={`w-3.5 h-3.5 ${c.icon}`} aria-hidden="true" />
           </div>
-          <h3 className="text-xs font-semibold text-slate-400 uppercase tracking-widest font-mono">
+          <h3 className={`text-xs font-semibold uppercase tracking-widest font-mono ${c.label}`}>
             {group.label}
           </h3>
         </div>
@@ -51,7 +61,7 @@ function TechMarquee() {
   const items = [...MARQUEE_TECHS, ...MARQUEE_TECHS];
   return (
     <div
-      className="relative overflow-hidden py-4 border-y border-white/[0.04] mt-16"
+      className="relative overflow-hidden py-4 border-y border-slate-200 dark:border-white/[0.04] mt-16"
       aria-hidden="true"
     >
       <div className="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-base to-transparent z-10 pointer-events-none" />
@@ -64,7 +74,7 @@ function TechMarquee() {
         {items.map((tech, i) => (
           <span
             key={`${tech}-${i}`}
-            className="text-xs font-mono text-slate-700 hover:text-slate-500 transition-colors cursor-default"
+            className="text-xs font-mono text-slate-400 dark:text-slate-700 hover:text-slate-600 dark:hover:text-slate-500 transition-colors cursor-default"
           >
             {tech}
             <span className="ml-6 text-orange-500/20">·</span>

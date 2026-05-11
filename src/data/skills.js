@@ -2,6 +2,7 @@ export const SKILL_GROUPS = [
   {
     label: "Frontend",
     icon: "Layout",
+    color: "blue",
     skills: [
       { name: "React" },
       { name: "Next.js" },
@@ -20,6 +21,7 @@ export const SKILL_GROUPS = [
   {
     label: "Testing & Quality",
     icon: "ShieldCheck",
+    color: "green",
     skills: [
       { name: "Jest" },
       { name: "React Testing Library" },
@@ -32,6 +34,7 @@ export const SKILL_GROUPS = [
   {
     label: "Backend",
     icon: "Server",
+    color: "violet",
     skills: [
       { name: "Node.js" },
       { name: "Express.js" },
@@ -46,6 +49,7 @@ export const SKILL_GROUPS = [
   {
     label: "Database",
     icon: "Database",
+    color: "teal",
     skills: [
       { name: "MongoDB / Mongoose" },
       { name: "MySQL" },
@@ -55,6 +59,7 @@ export const SKILL_GROUPS = [
   {
     label: "Build & DevOps",
     icon: "Wrench",
+    color: "orange",
     skills: [
       { name: "Vite" },
       { name: "Rollup" },
@@ -67,6 +72,7 @@ export const SKILL_GROUPS = [
   {
     label: "Tools",
     icon: "Layers",
+    color: "pink",
     skills: [
       { name: "Git / GitHub" },
       { name: "Figma" },

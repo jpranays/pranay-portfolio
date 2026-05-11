@@ -1,5 +1,6 @@
 import { memo } from "react";
 import { useActiveSection } from "./hooks/useActiveSection";
+import { useTheme } from "./hooks/useTheme";
 import Navbar from "./components/layout/Navbar";
 import { Footer } from "./components/layout/Footer";
 import { ScrollProgress } from "./components/effects/ScrollProgress";
@@ -15,18 +16,19 @@ const SECTIONS = ["hero", "about", "experience", "skills", "projects", "opensour
 
 const Divider = () => (
   <div
-    className="h-px bg-gradient-to-r from-transparent via-white/[0.05] to-transparent"
+    className="h-px bg-gradient-to-r from-transparent via-slate-300/40 to-transparent dark:via-white/[0.05]"
     aria-hidden="true"
   />
 );
 
 function App() {
   const activeSection = useActiveSection(SECTIONS, { threshold: 0.3 });
+  const { toggle, isDark } = useTheme();
 
   return (
     <>
       <ScrollProgress />
-      <Navbar activeSection={activeSection} />
+      <Navbar activeSection={activeSection} toggle={toggle} isDark={isDark} />
 
       <main id="main-content">
         <Hero />

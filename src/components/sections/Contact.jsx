@@ -25,49 +25,49 @@ const SOCIAL_LINKS = [
     icon: Github,
     label: "GitHub",
     handle: "@jpranays",
-    hoverColor: "group-hover:text-slate-200",
+    hoverColor: "group-hover:text-slate-700 dark:group-hover:text-slate-200",
   },
   {
     href: "https://www.linkedin.com/in/jpranays",
     icon: Linkedin,
     label: "LinkedIn",
     handle: "linkedin.com/in/jpranays",
-    hoverColor: "group-hover:text-blue-400",
+    hoverColor: "group-hover:text-blue-500 dark:group-hover:text-blue-400",
   },
   {
     href: "https://x.com/jpranays",
     icon: Twitter,
     label: "Twitter / X",
     handle: "@jpranays",
-    hoverColor: "group-hover:text-sky-400",
+    hoverColor: "group-hover:text-sky-500 dark:group-hover:text-sky-400",
   },
   {
     href: "mailto:pranay1315@gmail.com",
     icon: Mail,
     label: "Email",
     handle: "pranay1315@gmail.com",
-    hoverColor: "group-hover:text-orange-400",
+    hoverColor: "group-hover:text-orange-500 dark:group-hover:text-orange-400",
   },
   {
     href: "https://www.npmjs.com/~jpranays",
     icon: Package,
     label: "npm",
     handle: "npmjs.com/~jpranays",
-    hoverColor: "group-hover:text-red-400",
+    hoverColor: "group-hover:text-red-500 dark:group-hover:text-red-400",
   },
   {
     href: "https://leetcode.com/u/jpranays",
     icon: Code2,
     label: "LeetCode",
     handle: "@jpranays",
-    hoverColor: "group-hover:text-yellow-400",
+    hoverColor: "group-hover:text-yellow-500 dark:group-hover:text-yellow-400",
   },
 ];
 
 function InputField({ id, label, error, children }) {
   return (
     <div className="space-y-1.5">
-      <label htmlFor={id} className="block text-sm font-medium text-slate-300">
+      <label htmlFor={id} className="block text-sm font-medium text-slate-600 dark:text-slate-300">
         {label}
       </label>
       {children}
@@ -77,7 +77,7 @@ function InputField({ id, label, error, children }) {
             initial={{ opacity: 0, y: -4 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -4 }}
-            className="flex items-center gap-1 text-xs text-red-400"
+            className="flex items-center gap-1 text-xs text-red-500 dark:text-red-400"
             role="alert"
           >
             <AlertCircle className="w-3 h-3 flex-shrink-0" aria-hidden="true" />
@@ -90,13 +90,16 @@ function InputField({ id, label, error, children }) {
 }
 
 const inputClass =
-  "w-full px-4 py-3 rounded-xl text-sm text-slate-200 placeholder-slate-600 " +
-  "bg-white/[0.04] border border-white/[0.08] " +
-  "focus:outline-none focus:border-orange-500/50 focus:bg-white/[0.06] focus:ring-1 focus:ring-orange-500/30 " +
+  "w-full px-4 py-3 rounded-xl text-sm " +
+  "text-slate-800 dark:text-slate-200 " +
+  "placeholder-slate-400 dark:placeholder-slate-600 " +
+  "bg-slate-50 dark:bg-white/[0.04] " +
+  "border border-slate-200 dark:border-white/[0.08] " +
+  "focus:outline-none focus:border-orange-500/50 focus:bg-white dark:focus:bg-white/[0.06] focus:ring-1 focus:ring-orange-500/30 " +
   "transition-all duration-200";
 
 const inputErrorClass =
-  "border-red-500/40 focus:border-red-400/50 focus:ring-red-500/20";
+  "border-red-400/60 dark:border-red-500/40 focus:border-red-400/50 focus:ring-red-500/20";
 
 function Contact() {
   const [status, setStatus] = useState("idle"); // idle | loading | success | error
@@ -111,11 +114,9 @@ function Contact() {
   const onSubmit = async (data) => {
     setStatus("loading");
     try {
-      // Netlify Forms requires application/x-www-form-urlencoded
-      // bot-field must be present but empty (honeypot — NOT registered with RHF)
       const params = new URLSearchParams({
         "form-name": "contact",
-        "bot-field": "",  // honeypot — always empty
+        "bot-field": "",
         name: data.name,
         email: data.email,
         message: data.message,
@@ -139,7 +140,7 @@ function Contact() {
       setStatus("error");
       setTimeout(() => setStatus("idle"), 5000);
     }
-  }; 
+  };
 
   return (
     <section id="contact" aria-labelledby="contact-heading">
@@ -258,14 +259,14 @@ function Contact() {
                         initial={{ opacity: 0, y: -4 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0 }}
-                        className="flex items-center justify-center gap-2 text-sm text-red-400"
+                        className="flex items-center justify-center gap-2 text-sm text-red-500 dark:text-red-400"
                         role="alert"
                       >
                         <AlertCircle className="w-4 h-4" aria-hidden="true" />
                         Something went wrong. Email me directly at{" "}
                         <a
                           href="mailto:pranay1315@gmail.com"
-                          className="underline hover:text-red-300"
+                          className="underline hover:text-red-400 dark:hover:text-red-300"
                         >
                           pranay1315@gmail.com
                         </a>
@@ -288,7 +289,7 @@ function Contact() {
                     aria-hidden="true"
                   />
                   <div>
-                    <p className="text-sm font-semibold text-slate-200">
+                    <p className="text-sm font-semibold text-slate-700 dark:text-slate-200">
                       Open to opportunities
                     </p>
                     <p className="text-xs text-slate-500 mt-1 leading-relaxed">
@@ -316,16 +317,16 @@ function Contact() {
                         aria-label={`${label}: ${handle}`}
                         className={cn(
                           "group flex items-center gap-3 px-3 py-2.5 rounded-xl",
-                          "text-slate-400 transition-all duration-200",
-                          "hover:bg-white/[0.04]",
+                          "text-slate-500 dark:text-slate-400 transition-all duration-200",
+                          "hover:bg-slate-100 dark:hover:bg-white/[0.04]",
                           hoverColor
                         )}
                       >
-                        <div className="w-8 h-8 rounded-lg bg-white/[0.04] border border-white/[0.07] flex items-center justify-center flex-shrink-0 group-hover:border-white/[0.12] transition-colors">
+                        <div className="w-8 h-8 rounded-lg bg-slate-100 dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.07] flex items-center justify-center flex-shrink-0 group-hover:border-slate-300 dark:group-hover:border-white/[0.12] transition-colors">
                           <Icon className="w-3.5 h-3.5" aria-hidden="true" />
                         </div>
                         <div className="min-w-0">
-                          <p className="text-xs text-slate-600 font-mono leading-none mb-0.5">
+                          <p className="text-xs text-slate-400 dark:text-slate-600 font-mono leading-none mb-0.5">
                             {label}
                           </p>
                           <p className="text-sm font-medium truncate leading-none">

@@ -10,11 +10,11 @@ export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-white/[0.05]" role="contentinfo">
+    <footer className="border-t border-slate-200 dark:border-white/[0.05]" role="contentinfo">
       <div className="max-w-6xl mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-        <p className="text-sm text-slate-600 font-mono">
+        <p className="text-sm text-slate-500 font-mono">
           <span className="text-orange-400/60">{"<"}</span>
-          <span className="text-slate-500">PJ</span>
+          <span className="text-slate-400">PJ</span>
           <span className="text-orange-400/60">{" />"}</span>
           <span className="ml-3">
             © {year} Pranay Jadhav. Built with{" "}
@@ -31,7 +31,7 @@ export function Footer() {
                   target={href.startsWith("mailto") ? undefined : "_blank"}
                   rel="noopener noreferrer"
                   aria-label={label}
-                  className="text-slate-600 hover:text-slate-300 transition-colors duration-200"
+                  className="text-slate-400 hover:text-slate-700 dark:hover:text-slate-300 transition-colors duration-200"
                 >
                   <Icon className="w-4 h-4" aria-hidden="true" />
                 </a>
