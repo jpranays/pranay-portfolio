@@ -28,14 +28,46 @@ const CREDIBILITY_PILLS = [
   { label: "3.4M+", note: "devs via OSS" },
 ];
 
-/* Ambient floating tech badges — only shown on wide screens */
+/**
+ * Ambient floating tech badges.
+ * show: "lg"  → hidden lg:block  (1024px+, outer margin)
+ * show: "xl"  → hidden xl:block  (1280px+, inner margin — more faint)
+ * show: "2xl" → hidden 2xl:block (1536px+, deepest layer — most ghostly)
+ */
 const FLOATING_BADGES = [
-  { name: "React",       cls: "left-[4%] top-[28%]",  delay: 0,   dur: 6.2, rot: -8  },
-  { name: "TypeScript",  cls: "right-[3%] top-[22%]", delay: 1.2, dur: 7.0, rot:  6  },
-  { name: "Node.js",    cls: "left-[3%] top-[62%]",  delay: 0.7, dur: 5.8, rot:  11 },
-  { name: "Next.js",    cls: "right-[4%] top-[65%]", delay: 1.8, dur: 6.6, rot: -5  },
-  { name: "MongoDB",    cls: "right-[5%] top-[42%]", delay: 0.4, dur: 7.3, rot:  7  },
-  { name: "Socket.IO",  cls: "left-[5%] top-[78%]",  delay: 2.1, dur: 6.0, rot: -12 },
+  // ── Left outer  (lg+) ──
+  { name: "Vue.js",     cls: "left-[4%]  top-[10%]", delay: 1.5, dur: 7.1, rot:  7,  show: "lg" },
+  { name: "React",      cls: "left-[5%]  top-[28%]", delay: 0.0, dur: 6.2, rot: -8,  show: "lg" },
+  { name: "Node.js",    cls: "left-[3%]  top-[50%]", delay: 0.7, dur: 5.8, rot:  11, show: "lg" },
+  { name: "Socket.IO",  cls: "left-[4%]  top-[70%]", delay: 2.1, dur: 6.0, rot: -12, show: "lg" },
+  { name: "Express",    cls: "left-[5%]  top-[85%]", delay: 0.3, dur: 6.8, rot:  5,  show: "lg" },
+
+  // ── Right outer (lg+) ──
+  { name: "TypeScript", cls: "right-[4%] top-[14%]", delay: 1.2, dur: 7.0, rot:  6,  show: "lg" },
+  { name: "MongoDB",    cls: "right-[5%] top-[35%]", delay: 0.4, dur: 7.3, rot:  7,  show: "lg" },
+  { name: "Next.js",    cls: "right-[3%] top-[55%]", delay: 1.8, dur: 6.6, rot: -5,  show: "lg" },
+  { name: "Docker",     cls: "right-[4%] top-[73%]", delay: 0.9, dur: 5.5, rot: -9,  show: "lg" },
+  { name: "Redis",      cls: "right-[5%] top-[87%]", delay: 2.4, dur: 6.9, rot:  8,  show: "lg" },
+
+  // ── Left inner  (xl+) ──
+  { name: "Tailwind",   cls: "left-[10%] top-[18%]", delay: 0.6, dur: 6.8, rot:  5,  show: "xl" },
+  { name: "Jest",       cls: "left-[9%]  top-[60%]", delay: 1.4, dur: 6.3, rot: -7,  show: "xl" },
+  { name: "Vite",       cls: "left-[11%] top-[80%]", delay: 2.6, dur: 5.9, rot:  14, show: "xl" },
+
+  // ── Right inner (xl+) ──
+  { name: "Framer",     cls: "right-[10%] top-[28%]", delay: 0.2, dur: 7.2, rot: -4,  show: "xl" },
+  { name: "Pinia",      cls: "right-[9%]  top-[64%]", delay: 1.6, dur: 6.4, rot:  9,  show: "xl" },
+  { name: "Rollup",     cls: "right-[11%] top-[82%]", delay: 2.8, dur: 5.7, rot: -6,  show: "xl" },
+
+  // ── Left deep   (2xl+) ──
+  { name: "Zustand",    cls: "left-[16%] top-[22%]", delay: 1.0, dur: 6.5, rot: -9,  show: "2xl" },
+  { name: "Webpack",    cls: "left-[15%] top-[55%]", delay: 2.2, dur: 7.4, rot:  6,  show: "2xl" },
+  { name: "SCSS",       cls: "left-[17%] top-[76%]", delay: 0.8, dur: 6.1, rot: -13, show: "2xl" },
+
+  // ── Right deep  (2xl+) ──
+  { name: "Mongoose",   cls: "right-[16%] top-[18%]", delay: 1.3, dur: 6.7, rot:  10, show: "2xl" },
+  { name: "Netlify",    cls: "right-[15%] top-[50%]", delay: 0.5, dur: 7.5, rot: -5,  show: "2xl" },
+  { name: "Postman",    cls: "right-[17%] top-[78%]", delay: 2.0, dur: 6.2, rot:  7,  show: "2xl" },
 ];
 
 const container = {
@@ -102,7 +134,7 @@ function Hero() {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: b.delay + 2, duration: 0.6 }}
-          className={`absolute hidden lg:block animate-float ${b.cls}`}
+          className={`absolute ${b.show === "2xl" ? "hidden 2xl:block" : b.show === "xl" ? "hidden xl:block" : "hidden lg:block"} animate-float ${b.cls}`}
           style={{ animationDelay: `${b.delay}s`, animationDuration: `${b.dur}s` }}
           aria-hidden="true"
         >
