@@ -1,5 +1,5 @@
-import { memo } from "react";
-import { motion } from "framer-motion";
+import { memo, useEffect } from "react";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import {
   Github, Linkedin, Mail, ArrowDown,
   Download, ExternalLink, Twitter, Package,
@@ -31,7 +31,6 @@ const container = {
   hidden: {},
   visible: { transition: { staggerChildren: 0.1, delayChildren: 0.15 } },
 };
-
 const item = {
   hidden: { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.21, 0.47, 0.32, 0.98] } },
@@ -40,28 +39,61 @@ const item = {
 function Hero() {
   const typed = useTyping(TYPING_WORDS);
 
+  /* ── Mouse parallax for background glows ── */
+  const rawX = useMotionValue(0);
+  const rawY = useMotionValue(0);
+  const springX = useSpring(rawX, { stiffness: 38, damping: 22 });
+  const springY = useSpring(rawY, { stiffness: 38, damping: 22 });
+
+  const orangeX = useTransform(springX, v => v * 0.045);
+  const orangeY = useTransform(springY, v => v * 0.035);
+  const violetX = useTransform(springX, v => -v * 0.028);
+  const violetY = useTransform(springY, v => -v * 0.028);
+  const cyanX   = useTransform(springX, v =>  v * 0.018);
+  const cyanY   = useTransform(springY, v => -v * 0.02);
+  const pinkX   = useTransform(springX, v => -v * 0.022);
+  const pinkY   = useTransform(springY, v =>  v * 0.022);
+
+  useEffect(() => {
+    if (!window.matchMedia("(pointer: fine)").matches) return;
+    const handler = (e) => {
+      rawX.set(e.clientX - window.innerWidth  / 2);
+      rawY.set(e.clientY - window.innerHeight / 2);
+    };
+    window.addEventListener("mousemove", handler, { passive: true });
+    return () => window.removeEventListener("mousemove", handler);
+  }, []);
+
   return (
     <section
       id="hero"
       className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden"
       aria-label="Introduction"
     >
-      {/* Layered background */}
+      {/* ── Layered background glows (parallax) ── */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-        {/* Primary orange glow — top centre */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[550px] bg-gradient-radial from-orange-500/18 via-orange-500/0 to-transparent rounded-full blur-3xl" />
-        {/* Violet glow — top left */}
-        <div className="absolute top-1/4 left-1/4 w-[500px] h-[400px] bg-gradient-radial from-violet-500/12 to-transparent rounded-full blur-3xl" />
-        {/* Cyan glow — bottom right */}
-        <div className="absolute bottom-1/3 right-1/4 w-[450px] h-[450px] bg-gradient-radial from-cyan-500/10 to-transparent rounded-full blur-3xl" />
-        {/* Pink accent — far right */}
-        <div className="absolute top-1/2 right-0 w-[300px] h-[300px] bg-gradient-radial from-pink-500/8 to-transparent rounded-full blur-3xl" />
-        {/* Subtle dot grid — color switches via CSS var */}
+        <motion.div
+          style={{ x: orangeX, y: orangeY }}
+          className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[550px] bg-gradient-radial from-orange-500/18 via-orange-500/0 to-transparent rounded-full blur-3xl"
+        />
+        <motion.div
+          style={{ x: violetX, y: violetY }}
+          className="absolute top-1/4 left-1/4 w-[550px] h-[450px] bg-gradient-radial from-violet-500/14 to-transparent rounded-full blur-3xl"
+        />
+        <motion.div
+          style={{ x: cyanX, y: cyanY }}
+          className="absolute bottom-1/3 right-1/4 w-[450px] h-[450px] bg-gradient-radial from-cyan-500/11 to-transparent rounded-full blur-3xl"
+        />
+        <motion.div
+          style={{ x: pinkX, y: pinkY }}
+          className="absolute top-1/2 right-0 w-[320px] h-[320px] bg-gradient-radial from-pink-500/9 to-transparent rounded-full blur-3xl"
+        />
+
+        {/* Dot grid */}
         <div
           className="absolute inset-0 opacity-[0.025]"
           style={{
-            backgroundImage:
-              "radial-gradient(circle, var(--dot-color) 1px, transparent 1px)",
+            backgroundImage: "radial-gradient(circle, var(--dot-color) 1px, transparent 1px)",
             backgroundSize: "48px 48px",
           }}
         />
@@ -69,7 +101,7 @@ function Hero() {
         <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-base to-transparent" />
       </div>
 
-      {/* Content */}
+      {/* ── Content ── */}
       <div className="relative z-10 max-w-3xl mx-auto px-6 text-center">
         <motion.div
           variants={container}
@@ -85,15 +117,45 @@ function Hero() {
             </span>
           </motion.div>
 
-          {/* Name */}
-          <motion.div variants={item} className="space-y-1">
-            <p className="text-slate-500 text-base font-mono tracking-wide">Hi, I&apos;m</p>
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight leading-none">
-              <span className="bg-gradient-to-br from-slate-800 via-slate-600 to-slate-400 dark:from-white dark:via-slate-200 dark:to-slate-400 bg-clip-text text-transparent">
-                Pranay{" "}
+          {/* Name — text-reveal (each word slides up from behind clip) */}
+          <motion.div
+            initial={{ opacity: 1 }}
+            animate={{ opacity: 1 }}
+            className="space-y-1"
+          >
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.4, delay: 0.2 }}
+              className="text-slate-500 text-base font-mono tracking-wide"
+            >
+              Hi, I&apos;m
+            </motion.p>
+
+            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.08]">
+              {/* "Pranay" slides up */}
+              <span className="overflow-hidden inline-block">
+                <motion.span
+                  initial={{ y: "110%" }}
+                  animate={{ y: 0 }}
+                  transition={{ duration: 0.85, delay: 0.28, ease: [0.22, 1, 0.36, 1] }}
+                  className="inline-block bg-gradient-to-br from-slate-800 via-slate-600 to-slate-400 dark:from-white dark:via-slate-200 dark:to-slate-400 bg-clip-text text-transparent"
+                >
+                  Pranay
+                </motion.span>
               </span>
-              <span className="bg-gradient-to-r from-orange-400 via-orange-500 to-amber-300 bg-clip-text text-transparent">
-                Jadhav
+              {" "}
+              {/* "Jadhav" slides up with shimmer */}
+              <span className="overflow-hidden inline-block">
+                <motion.span
+                  initial={{ y: "110%" }}
+                  animate={{ y: 0 }}
+                  transition={{ duration: 0.85, delay: 0.42, ease: [0.22, 1, 0.36, 1] }}
+                  className="inline-block animate-shimmer bg-gradient-to-r from-orange-400 via-amber-200 to-orange-400 bg-clip-text text-transparent"
+                  style={{ backgroundSize: "200% auto" }}
+                >
+                  Jadhav
+                </motion.span>
               </span>
             </h1>
           </motion.div>
@@ -190,7 +252,7 @@ function Hero() {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.6, duration: 0.6 }}
+        transition={{ delay: 1.8, duration: 0.6 }}
         className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
         aria-hidden="true"
       >

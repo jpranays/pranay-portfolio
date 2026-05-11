@@ -69,6 +69,11 @@
     text-rendering: optimizeLegibility;
   }
 
+  /* Hide default cursor on fine-pointer devices — replaced by CustomCursor */
+  @media (pointer: fine) {
+    html { cursor: none; }
+  }
+
   body {
     background-color: var(--color-base);
     color: var(--color-text-primary);

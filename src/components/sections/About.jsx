@@ -1,23 +1,53 @@
-import { memo } from "react";
-import { motion } from "framer-motion";
-import { Code2, Users, Package, Trophy, Terminal, Heart } from "lucide-react";
+import { memo, useRef, useEffect, useState } from "react";
+import { motion, useInView } from "framer-motion";
+import { Code2, Users, Package, Trophy, Heart } from "lucide-react";
 import { AnimatedSection, StaggerContainer, StaggerItem } from "../ui/AnimatedSection";
+
+function CountUp({ to, suffix, decimals = 0 }) {
+  const [count, setCount] = useState(0);
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, amount: 0.6 });
+
+  useEffect(() => {
+    if (!isInView) return;
+    const duration = 1400;
+    const steps = 55;
+    let step = 0;
+    const id = setInterval(() => {
+      step++;
+      const progress = 1 - Math.pow(1 - step / steps, 3);
+      setCount(parseFloat((to * progress).toFixed(decimals)));
+      if (step >= steps) { setCount(to); clearInterval(id); }
+    }, duration / steps);
+    return () => clearInterval(id);
+  }, [isInView, to, decimals]);
+
+  return (
+    <span ref={ref}>
+      {decimals > 0 ? count.toFixed(decimals) : Math.floor(count)}{suffix}
+    </span>
+  );
+}
 
 const STATS = [
   {
-    value: "3+", label: "Years professional experience", icon: Code2,
+    countTo: 3, suffix: "+", decimals: 0,
+    label: "Years professional experience", icon: Code2,
     iconColor: "text-orange-400", iconBg: "bg-orange-500/10 border-orange-500/20",
   },
   {
-    value: "25K+", label: "Weekly npm downloads", icon: Package,
+    countTo: 25, suffix: "K+", decimals: 0,
+    label: "Weekly npm downloads", icon: Package,
     iconColor: "text-rose-400", iconBg: "bg-rose-500/10 border-rose-500/20",
   },
   {
-    value: "3.4M+", label: "Developers impacted via OSS", icon: Users,
+    countTo: 3.4, suffix: "M+", decimals: 1,
+    label: "Developers impacted via OSS", icon: Users,
     iconColor: "text-violet-400", iconBg: "bg-violet-500/10 border-violet-500/20",
   },
   {
-    value: "9+", label: "Open source contributions", icon: Trophy,
+    countTo: 9, suffix: "+", decimals: 0,
+    label: "Open source contributions", icon: Trophy,
     iconColor: "text-green-400", iconBg: "bg-green-500/10 border-green-500/20",
   },
 ];
@@ -148,7 +178,7 @@ function About() {
                 </div>
                 <div>
                   <p className="text-2xl font-bold text-slate-800 dark:text-slate-100 leading-none tracking-tight">
-                    {stat.value}
+                    <CountUp to={stat.countTo} suffix={stat.suffix} decimals={stat.decimals} />
                   </p>
                   <p className="text-xs text-slate-500 mt-0.5 leading-snug">{stat.label}</p>
                 </div>
