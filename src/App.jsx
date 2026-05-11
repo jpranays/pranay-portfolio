@@ -6,6 +6,7 @@ import { Footer } from "./components/layout/Footer";
 import { ScrollProgress } from "./components/effects/ScrollProgress";
 import { CustomCursor } from "./components/effects/CustomCursor";
 import { IntroAnimation } from "./components/effects/IntroAnimation";
+import { BackToTop } from "./components/effects/BackToTop";
 import Hero from "./components/sections/Hero";
 import About from "./components/sections/About";
 import Experience from "./components/sections/Experience";
@@ -69,6 +70,7 @@ function App() {
       </main>
 
       <Footer />
+      <BackToTop />
     </>
   );
 }

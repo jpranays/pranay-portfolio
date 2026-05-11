@@ -5,6 +5,7 @@ import {
   Download, ExternalLink, Twitter, Package,
 } from "lucide-react";
 import { useTyping } from "../../hooks/useTyping";
+import { MagneticButton } from "../ui/MagneticButton";
 
 const TYPING_WORDS = [
   "Senior Software Developer",
@@ -27,6 +28,16 @@ const CREDIBILITY_PILLS = [
   { label: "3.4M+", note: "devs via OSS" },
 ];
 
+/* Ambient floating tech badges — only shown on wide screens */
+const FLOATING_BADGES = [
+  { name: "React",       cls: "left-[4%] top-[28%]",  delay: 0,   dur: 6.2, rot: -8  },
+  { name: "TypeScript",  cls: "right-[3%] top-[22%]", delay: 1.2, dur: 7.0, rot:  6  },
+  { name: "Node.js",    cls: "left-[3%] top-[62%]",  delay: 0.7, dur: 5.8, rot:  11 },
+  { name: "Next.js",    cls: "right-[4%] top-[65%]", delay: 1.8, dur: 6.6, rot: -5  },
+  { name: "MongoDB",    cls: "right-[5%] top-[42%]", delay: 0.4, dur: 7.3, rot:  7  },
+  { name: "Socket.IO",  cls: "left-[5%] top-[78%]",  delay: 2.1, dur: 6.0, rot: -12 },
+];
+
 const container = {
   hidden: {},
   visible: { transition: { staggerChildren: 0.1, delayChildren: 0.15 } },
@@ -39,18 +50,17 @@ const item = {
 function Hero() {
   const typed = useTyping(TYPING_WORDS);
 
-  /* ── Mouse parallax for background glows ── */
+  /* ── Mouse parallax ── */
   const rawX = useMotionValue(0);
   const rawY = useMotionValue(0);
   const springX = useSpring(rawX, { stiffness: 38, damping: 22 });
   const springY = useSpring(rawY, { stiffness: 38, damping: 22 });
-
-  const orangeX = useTransform(springX, v => v * 0.045);
-  const orangeY = useTransform(springY, v => v * 0.035);
+  const orangeX = useTransform(springX, v =>  v * 0.045);
+  const orangeY = useTransform(springY, v =>  v * 0.035);
   const violetX = useTransform(springX, v => -v * 0.028);
   const violetY = useTransform(springY, v => -v * 0.028);
   const cyanX   = useTransform(springX, v =>  v * 0.018);
-  const cyanY   = useTransform(springY, v => -v * 0.02);
+  const cyanY   = useTransform(springY, v => -v * 0.020);
   const pinkX   = useTransform(springX, v => -v * 0.022);
   const pinkY   = useTransform(springY, v =>  v * 0.022);
 
@@ -70,45 +80,48 @@ function Hero() {
       className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden"
       aria-label="Introduction"
     >
-      {/* ── Layered background glows (parallax) ── */}
+      {/* ── Background glows (parallax) ── */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-        <motion.div
-          style={{ x: orangeX, y: orangeY }}
-          className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[550px] bg-gradient-radial from-orange-500/18 via-orange-500/0 to-transparent rounded-full blur-3xl"
-        />
-        <motion.div
-          style={{ x: violetX, y: violetY }}
-          className="absolute top-1/4 left-1/4 w-[550px] h-[450px] bg-gradient-radial from-violet-500/14 to-transparent rounded-full blur-3xl"
-        />
-        <motion.div
-          style={{ x: cyanX, y: cyanY }}
-          className="absolute bottom-1/3 right-1/4 w-[450px] h-[450px] bg-gradient-radial from-cyan-500/11 to-transparent rounded-full blur-3xl"
-        />
-        <motion.div
-          style={{ x: pinkX, y: pinkY }}
-          className="absolute top-1/2 right-0 w-[320px] h-[320px] bg-gradient-radial from-pink-500/9 to-transparent rounded-full blur-3xl"
-        />
-
-        {/* Dot grid */}
-        <div
-          className="absolute inset-0 opacity-[0.025]"
-          style={{
-            backgroundImage: "radial-gradient(circle, var(--dot-color) 1px, transparent 1px)",
-            backgroundSize: "48px 48px",
-          }}
-        />
-        {/* Bottom fade */}
+        <motion.div style={{ x: orangeX, y: orangeY }}
+          className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[550px] bg-gradient-radial from-orange-500/18 via-orange-500/0 to-transparent rounded-full blur-3xl" />
+        <motion.div style={{ x: violetX, y: violetY }}
+          className="absolute top-1/4 left-1/4 w-[550px] h-[450px] bg-gradient-radial from-violet-500/14 to-transparent rounded-full blur-3xl" />
+        <motion.div style={{ x: cyanX, y: cyanY }}
+          className="absolute bottom-1/3 right-1/4 w-[450px] h-[450px] bg-gradient-radial from-cyan-500/11 to-transparent rounded-full blur-3xl" />
+        <motion.div style={{ x: pinkX, y: pinkY }}
+          className="absolute top-1/2 right-0 w-[320px] h-[320px] bg-gradient-radial from-pink-500/9 to-transparent rounded-full blur-3xl" />
+        <div className="absolute inset-0 opacity-[0.025]"
+          style={{ backgroundImage: "radial-gradient(circle, var(--dot-color) 1px, transparent 1px)", backgroundSize: "48px 48px" }} />
         <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-base to-transparent" />
       </div>
 
+      {/* ── Floating ambient tech badges ── */}
+      {FLOATING_BADGES.map((b) => (
+        <motion.div
+          key={b.name}
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: b.delay + 2, duration: 0.6 }}
+          className={`absolute hidden lg:block animate-float ${b.cls}`}
+          style={{ animationDelay: `${b.delay}s`, animationDuration: `${b.dur}s` }}
+          aria-hidden="true"
+        >
+          <span
+            className="inline-flex items-center px-2.5 py-1 rounded-md text-[10px] font-mono font-medium
+                       text-slate-400/40 dark:text-slate-500/30
+                       border border-slate-300/15 dark:border-white/[0.05]"
+            style={{ transform: `rotate(${b.rot}deg)` }}
+          >
+            {b.name}
+          </span>
+        </motion.div>
+      ))}
+
       {/* ── Content ── */}
       <div className="relative z-10 max-w-3xl mx-auto px-6 text-center">
-        <motion.div
-          variants={container}
-          initial="hidden"
-          animate="visible"
-          className="flex flex-col items-center gap-5"
-        >
+        <motion.div variants={container} initial="hidden" animate="visible"
+          className="flex flex-col items-center gap-5">
+
           {/* Availability badge */}
           <motion.div variants={item}>
             <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-mono font-medium bg-green-500/10 text-green-500 dark:text-green-400 border border-green-500/25">
@@ -117,12 +130,8 @@ function Hero() {
             </span>
           </motion.div>
 
-          {/* Name — text-reveal (each word slides up from behind clip) */}
-          <motion.div
-            initial={{ opacity: 1 }}
-            animate={{ opacity: 1 }}
-            className="space-y-1"
-          >
+          {/* Name — text reveal */}
+          <motion.div initial={{ opacity: 1 }} animate={{ opacity: 1 }} className="space-y-1">
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -131,9 +140,7 @@ function Hero() {
             >
               Hi, I&apos;m
             </motion.p>
-
             <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.08]">
-              {/* "Pranay" slides up */}
               <span className="overflow-hidden inline-block">
                 <motion.span
                   initial={{ y: "110%" }}
@@ -145,7 +152,6 @@ function Hero() {
                 </motion.span>
               </span>
               {" "}
-              {/* "Jadhav" slides up with shimmer */}
               <span className="overflow-hidden inline-block">
                 <motion.span
                   initial={{ y: "110%" }}
@@ -164,23 +170,15 @@ function Hero() {
           <motion.div variants={item} className="h-7 flex items-center justify-center">
             <span className="text-lg sm:text-xl font-mono text-slate-600 dark:text-slate-300" aria-live="polite">
               {typed}
-              <span
-                className="inline-block w-px h-5 ml-0.5 bg-orange-400 animate-blink align-middle"
-                aria-hidden="true"
-              />
+              <span className="inline-block w-px h-5 ml-0.5 bg-orange-400 animate-blink align-middle" aria-hidden="true" />
             </span>
           </motion.div>
 
           {/* Credibility pills */}
           <motion.div variants={item} className="flex flex-wrap items-center justify-center gap-2">
             {CREDIBILITY_PILLS.map((pill) => (
-              <span
-                key={pill.label}
-                className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs
-                           border border-slate-200 dark:border-white/[0.08]
-                           bg-slate-100 dark:bg-white/[0.04]
-                           text-slate-500 dark:text-slate-400"
-              >
+              <span key={pill.label}
+                className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs border border-slate-200 dark:border-white/[0.08] bg-slate-100 dark:bg-white/[0.04] text-slate-500 dark:text-slate-400">
                 <span className="font-semibold text-slate-700 dark:text-slate-200">{pill.label}</span>
                 <span>{pill.note}</span>
               </span>
@@ -188,10 +186,8 @@ function Hero() {
           </motion.div>
 
           {/* Bio */}
-          <motion.p
-            variants={item}
-            className="max-w-lg text-sm text-slate-500 dark:text-slate-400 leading-relaxed"
-          >
+          <motion.p variants={item}
+            className="max-w-lg text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
             Senior Software Developer at{" "}
             <span className="text-slate-700 dark:text-slate-200 font-medium">Sears India</span> with 3+ years
             building production-grade apps. Creator of npm packages with{" "}
@@ -201,21 +197,16 @@ function Hero() {
             through Mantine, PrimeReact, RSuite, and more.
           </motion.p>
 
-          {/* CTAs */}
-          <motion.div
-            variants={item}
-            className="flex flex-wrap items-center justify-center gap-3"
-          >
-            <button
-              onClick={() =>
-                document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })
-              }
+          {/* CTAs — magnetic */}
+          <motion.div variants={item} className="flex flex-wrap items-center justify-center gap-3">
+            <MagneticButton
+              onClick={() => document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })}
               className="btn-primary"
             >
               View My Work
               <ExternalLink className="w-4 h-4" aria-hidden="true" />
-            </button>
-            <a
+            </MagneticButton>
+            <MagneticButton
               href="/Pranay_Sunil_Jadhav_Resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
@@ -223,24 +214,17 @@ function Hero() {
             >
               <Download className="w-4 h-4" aria-hidden="true" />
               Download Resume
-            </a>
+            </MagneticButton>
           </motion.div>
 
           {/* Social row */}
           <motion.div variants={item} className="flex items-center gap-5">
             {SOCIAL_LINKS.map(({ href, icon: Icon, label, username }) => (
-              <a
-                key={label}
-                href={href}
+              <a key={label} href={href}
                 target={href.startsWith("mailto") ? undefined : "_blank"}
-                rel="noopener noreferrer"
-                aria-label={label}
-                className="group flex items-center gap-1.5 text-slate-500 hover:text-slate-800 dark:text-slate-600 dark:hover:text-slate-300 transition-colors duration-200"
-              >
-                <Icon
-                  className="w-4 h-4 group-hover:text-orange-400 transition-colors"
-                  aria-hidden="true"
-                />
+                rel="noopener noreferrer" aria-label={label}
+                className="group flex items-center gap-1.5 text-slate-500 hover:text-slate-800 dark:text-slate-600 dark:hover:text-slate-300 transition-colors duration-200">
+                <Icon className="w-4 h-4 group-hover:text-orange-400 transition-colors" aria-hidden="true" />
                 <span className="text-xs font-mono hidden sm:inline">{username}</span>
               </a>
             ))}
@@ -257,10 +241,7 @@ function Hero() {
         aria-hidden="true"
       >
         <span className="text-xs font-mono text-slate-400 dark:text-slate-700 tracking-widest uppercase">scroll</span>
-        <motion.div
-          animate={{ y: [0, 5, 0] }}
-          transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
-        >
+        <motion.div animate={{ y: [0, 5, 0] }} transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}>
           <ArrowDown className="w-4 h-4 text-slate-400 dark:text-slate-700" />
         </motion.div>
       </motion.div>

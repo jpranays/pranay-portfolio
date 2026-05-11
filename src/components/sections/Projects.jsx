@@ -4,14 +4,20 @@ import { Github, ExternalLink, Star, Zap, Package } from "lucide-react";
 import { AnimatedSection, StaggerContainer, StaggerItem } from "../ui/AnimatedSection";
 import { PROJECTS, CATEGORIES } from "../../data/projects";
 import { cn } from "../../utils/cn";
+import { useTilt } from "../../hooks/useTilt";
 
 function ProjectCard({ project, featured = false }) {
   const isOrange = project.color !== "cyan";
+  const tilt = useTilt(6);
 
   return (
     <StaggerItem>
+      <div style={{ perspective: "900px" }}>
       <motion.article
-        whileHover={{ y: -4 }}
+        ref={tilt.ref}
+        onMouseMove={tilt.onMove}
+        onMouseLeave={tilt.onLeave}
+        style={{ rotateX: tilt.rotateX, rotateY: tilt.rotateY, transformStyle: "preserve-3d" }}
         transition={{ duration: 0.2, ease: "easeOut" }}
         className="glass-card relative overflow-hidden flex flex-col h-full group"
         aria-label={`Project: ${project.title}`}
@@ -111,7 +117,12 @@ function ProjectCard({ project, featured = false }) {
             )}
           </div>
         </div>
+
+        {/* Specular glare */}
+        <motion.div aria-hidden="true" style={{ background: tilt.glare }}
+          className="absolute inset-0 pointer-events-none z-20 rounded-2xl" />
       </motion.article>
+      </div>
     </StaggerItem>
   );
 }

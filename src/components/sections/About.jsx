@@ -1,4 +1,4 @@
-import { memo, useRef, useEffect, useState } from "react";
+import { memo, useRef, useEffect, useState, Fragment } from "react";
 import { motion, useInView } from "framer-motion";
 import { Code2, Users, Package, Trophy, Heart } from "lucide-react";
 import { AnimatedSection, StaggerContainer, StaggerItem } from "../ui/AnimatedSection";
@@ -64,6 +64,45 @@ const INTERESTS = [
   { label: "Football", icon: "⚽" },
 ];
 
+const TERMINAL_LINES = [
+  { el: <><span className="text-orange-400">❯</span> <span className="text-slate-600 dark:text-slate-300">cat about.json</span></> },
+  { el: <span className="text-slate-400 dark:text-slate-500">{"{"}</span> },
+  { el: <span className="pl-4 text-cyan-500 dark:text-cyan-400">&quot;role&quot;: <span className="text-amber-600 dark:text-amber-300">&quot;Senior SWE&quot;</span></span> },
+  { el: <span className="pl-4 text-cyan-500 dark:text-cyan-400">&quot;company&quot;: <span className="text-amber-600 dark:text-amber-300">&quot;Sears India&quot;</span></span> },
+  { el: <span className="pl-4 text-cyan-500 dark:text-cyan-400">&quot;npm_users&quot;: <span className="text-green-500 dark:text-green-400">25000</span></span> },
+  { el: <span className="pl-4 text-cyan-500 dark:text-cyan-400">&quot;oss_impact&quot;: <span className="text-green-500 dark:text-green-400">&quot;3.4M+ devs&quot;</span></span> },
+  { el: <span className="pl-4 text-cyan-500 dark:text-cyan-400">&quot;available&quot;: <span className="text-green-500 dark:text-green-400">true</span></span> },
+  { el: <span className="text-slate-400 dark:text-slate-500">{"}"}</span> },
+  { el: <><span className="text-orange-400">❯</span> <span className="text-slate-600 dark:text-slate-300">_<span className="inline-block w-1.5 h-3 ml-0.5 bg-slate-400 animate-blink align-middle" aria-hidden="true" /></span></> },
+];
+
+function TerminalCard() {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, amount: 0.4 });
+  return (
+    <div ref={ref} className="glass-card p-5 h-full font-mono text-sm">
+      <div className="flex items-center gap-1.5 mb-4" aria-hidden="true">
+        <span className="w-2.5 h-2.5 rounded-full bg-red-500/70" />
+        <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/70" />
+        <span className="w-2.5 h-2.5 rounded-full bg-green-500/70" />
+        <span className="ml-2 text-xs text-slate-400 dark:text-slate-600">~/pranay</span>
+      </div>
+      <div className="space-y-1.5 text-xs text-slate-500 dark:text-slate-400">
+        {TERMINAL_LINES.map((line, i) => (
+          <motion.p
+            key={i}
+            initial={{ opacity: 0, x: -10 }}
+            animate={inView ? { opacity: 1, x: 0 } : {}}
+            transition={{ delay: i * 0.11 + 0.05, duration: 0.28, ease: "easeOut" }}
+          >
+            {line.el}
+          </motion.p>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function About() {
   return (
     <section id="about" aria-labelledby="about-heading">
@@ -119,54 +158,9 @@ function About() {
             </div>
           </AnimatedSection>
 
-          {/* Terminal card */}
+          {/* Terminal card — lines reveal sequentially on scroll */}
           <AnimatedSection delay={0.15}>
-            <div className="glass-card p-5 h-full font-mono text-sm">
-              <div className="flex items-center gap-1.5 mb-4" aria-hidden="true">
-                <span className="w-2.5 h-2.5 rounded-full bg-red-500/70" />
-                <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/70" />
-                <span className="w-2.5 h-2.5 rounded-full bg-green-500/70" />
-                <span className="ml-2 text-xs text-slate-400 dark:text-slate-600">~/pranay</span>
-              </div>
-              <div className="space-y-1.5 text-xs text-slate-500 dark:text-slate-400">
-                <p>
-                  <span className="text-orange-400">❯</span>{" "}
-                  <span className="text-slate-600 dark:text-slate-300">cat about.json</span>
-                </p>
-                <p className="text-slate-400 dark:text-slate-500">{"{"}</p>
-                <p className="pl-4 text-cyan-500 dark:text-cyan-400">
-                  &quot;role&quot;:{" "}
-                  <span className="text-amber-600 dark:text-amber-300">&quot;Senior SWE&quot;</span>
-                </p>
-                <p className="pl-4 text-cyan-500 dark:text-cyan-400">
-                  &quot;company&quot;:{" "}
-                  <span className="text-amber-600 dark:text-amber-300">&quot;Sears India&quot;</span>
-                </p>
-                <p className="pl-4 text-cyan-500 dark:text-cyan-400">
-                  &quot;npm_users&quot;:{" "}
-                  <span className="text-green-500 dark:text-green-400">25000</span>
-                </p>
-                <p className="pl-4 text-cyan-500 dark:text-cyan-400">
-                  &quot;oss_impact&quot;:{" "}
-                  <span className="text-green-500 dark:text-green-400">&quot;3.4M+ devs&quot;</span>
-                </p>
-                <p className="pl-4 text-cyan-500 dark:text-cyan-400">
-                  &quot;available&quot;:{" "}
-                  <span className="text-green-500 dark:text-green-400">true</span>
-                </p>
-                <p className="text-slate-400 dark:text-slate-500">{"}"}</p>
-                <p className="mt-2">
-                  <span className="text-orange-400">❯</span>{" "}
-                  <span className="text-slate-600 dark:text-slate-300">
-                    _
-                    <span
-                      className="inline-block w-1.5 h-3 ml-0.5 bg-slate-400 animate-blink align-middle"
-                      aria-hidden="true"
-                    />
-                  </span>
-                </p>
-              </div>
-            </div>
+            <TerminalCard />
           </AnimatedSection>
 
           {/* Stats — 4 cards */}

@@ -1,6 +1,25 @@
-import { memo } from "react";
-import { motion } from "framer-motion";
+import { memo, useRef, useEffect, useState } from "react";
+import { motion, useInView } from "framer-motion";
 import { ExternalLink, GitPullRequest, Package, Users } from "lucide-react";
+
+function CountUp({ to, suffix, decimals = 0 }) {
+  const [count, setCount] = useState(0);
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, amount: 0.6 });
+  useEffect(() => {
+    if (!inView) return;
+    const steps = 55, dur = 1400;
+    let s = 0;
+    const id = setInterval(() => {
+      s++;
+      const p = 1 - Math.pow(1 - s / steps, 3);
+      setCount(parseFloat((to * p).toFixed(decimals)));
+      if (s >= steps) { setCount(to); clearInterval(id); }
+    }, dur / steps);
+    return () => clearInterval(id);
+  }, [inView, to, decimals]);
+  return <span ref={ref}>{decimals > 0 ? count.toFixed(decimals) : Math.floor(count)}{suffix}</span>;
+}
 import { AnimatedSection, StaggerContainer, StaggerItem } from "../ui/AnimatedSection";
 import { OSS_CONTRIBUTIONS, OSS_STATS } from "../../data/opensource";
 
@@ -18,19 +37,16 @@ const COLOR_MAP = {
 
 const HEADER_STATS = [
   {
-    value: OSS_STATS.libraries + "+",
-    label: "Libraries contributed",
-    icon: GitPullRequest,
+    countTo: OSS_STATS.libraries, suffix: "+", decimals: 0,
+    label: "Libraries contributed", icon: GitPullRequest,
   },
   {
-    value: OSS_STATS.totalImpact,
-    label: "Developers impacted / month",
-    icon: Users,
+    countTo: 3.4, suffix: "M+", decimals: 1,
+    label: "Developers impacted / month", icon: Users,
   },
   {
-    value: "25K+",
-    label: "Weekly npm downloads (own packages)",
-    icon: Package,
+    countTo: 25, suffix: "K+", decimals: 0,
+    label: "Weekly npm downloads (own packages)", icon: Package,
   },
 ];
 
@@ -134,7 +150,9 @@ function OpenSource() {
             <AnimatedSection key={stat.label} delay={i * 0.1}>
               <div className="glass-card p-5 text-center gradient-border">
                 <stat.icon className="w-5 h-5 text-orange-400 mx-auto mb-2" aria-hidden="true" />
-                <p className="text-3xl font-bold text-slate-800 dark:text-slate-100">{stat.value}</p>
+                <p className="text-3xl font-bold text-slate-800 dark:text-slate-100">
+                  <CountUp to={stat.countTo} suffix={stat.suffix} decimals={stat.decimals} />
+                </p>
                 <p className="text-xs text-slate-500 mt-1">{stat.label}</p>
               </div>
             </AnimatedSection>
