@@ -116,7 +116,7 @@ function AppInner() {
       <ShortcutsModal open={shortcutsOpen} onClose={() => setShortcutsOpen(false)} />
       <ClickBurst />
       <ContextMenu />
-      <MouseTrail />
+      {/* <MouseTrail /> */}
 
       <motion.main id="main-content" style={{ rotateX: tilt }} className="transform-gpu">
         <Hero />
