@@ -104,7 +104,7 @@ function AppInner() {
       />
 
       <Navbar activeSection={activeSection} toggle={toggle} isDark={isDark} theme={theme} onOpenPalette={() => setPaletteOpen(true)} musicPlaying={musicPlaying} onToggleMusic={toggleMusic} />
-      <CommandPalette open={paletteOpen} onClose={() => setPaletteOpen(false)} theme={theme} toggleTheme={toggle} />
+      <CommandPalette open={paletteOpen} onClose={() => setPaletteOpen(false)} theme={theme} toggleTheme={toggle} musicPlaying={musicPlaying} toggleMusic={toggleMusic} onOpenShortcuts={() => setShortcutsOpen(true)} />
       <ShortcutsModal open={shortcutsOpen} onClose={() => setShortcutsOpen(false)} />
       <ClickBurst />
       <ContextMenu />

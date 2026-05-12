@@ -4,32 +4,35 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   User, Briefcase, Code2, FolderGit2, GitPullRequest, Mail,
   Github, Linkedin, Twitter, Package, Download, Sun, Moon, Monitor,
-  Copy, Search, ChevronRight,
+  Copy, Search, ChevronRight, Music, Keyboard, ArrowUp, Link,
+  Sparkles, Printer, Code2 as LeetCodeIcon,
 } from "lucide-react";
 import { useToast } from "./Toast";
 
 const NAV_COMMANDS = [
-  { id: "nav-hero",       label: "Home",        icon: User,         section: "hero"       },
-  { id: "nav-about",      label: "About",       icon: User,         section: "about"      },
-  { id: "nav-experience", label: "Experience",  icon: Briefcase,    section: "experience" },
-  { id: "nav-skills",     label: "Skills",      icon: Code2,        section: "skills"     },
-  { id: "nav-projects",   label: "Projects",    icon: FolderGit2,   section: "projects"   },
+  { id: "nav-hero",       label: "Home",        icon: User,           section: "hero"       },
+  { id: "nav-about",      label: "About",       icon: User,           section: "about"      },
+  { id: "nav-experience", label: "Experience",  icon: Briefcase,      section: "experience" },
+  { id: "nav-skills",     label: "Skills",      icon: Code2,          section: "skills"     },
+  { id: "nav-projects",   label: "Projects",    icon: FolderGit2,     section: "projects"   },
   { id: "nav-opensource", label: "Open Source", icon: GitPullRequest, section: "opensource" },
-  { id: "nav-contact",    label: "Contact",     icon: Mail,         section: "contact"    },
+  { id: "nav-contact",    label: "Contact",     icon: Mail,           section: "contact"    },
 ];
 
 const LINK_COMMANDS = [
-  { id: "link-github",   label: "GitHub — @jpranays",    icon: Github,   href: "https://github.com/jpranays"                      },
-  { id: "link-linkedin", label: "LinkedIn",              icon: Linkedin, href: "https://www.linkedin.com/in/jpranays"             },
-  { id: "link-twitter",  label: "Twitter / X — @jpranays", icon: Twitter, href: "https://x.com/jpranays"                         },
-  { id: "link-npm",      label: "npm profile",           icon: Package,  href: "https://www.npmjs.com/~jpranays"                  },
-  { id: "link-resume",   label: "Download Resume",       icon: Download, href: "/Pranay_Sunil_Jadhav_Resume.pdf", download: true  },
+  { id: "link-github",    label: "GitHub — @jpranays",       icon: Github,        href: "https://github.com/jpranays"                     },
+  { id: "link-linkedin",  label: "LinkedIn",                 icon: Linkedin,      href: "https://www.linkedin.com/in/jpranays"            },
+  { id: "link-twitter",   label: "Twitter / X — @jpranays",  icon: Twitter,       href: "https://x.com/jpranays"                         },
+  { id: "link-npm",       label: "npm profile",              icon: Package,       href: "https://www.npmjs.com/~jpranays"                 },
+  { id: "link-leetcode",  label: "LeetCode — @jpranays",     icon: LeetCodeIcon,  href: "https://leetcode.com/u/jpranays"                 },
+  { id: "link-source",    label: "Portfolio source code",    icon: Github,        href: "https://github.com/jpranays/pranay-portfolio"    },
+  { id: "link-resume",    label: "Download Resume",          icon: Download,      href: "/Pranay_Sunil_Jadhav_Resume.pdf", download: true },
 ];
 
 const THEME_ICONS = { light: Sun, dark: Moon, system: Monitor };
 const THEME_NEXT_LABEL = { light: "Switch to Dark Mode", dark: "Follow System Preference", system: "Switch to Light Mode" };
 
-function CommandPalette({ open, onClose, theme, toggleTheme }) {
+function CommandPalette({ open, onClose, theme, toggleTheme, musicPlaying, toggleMusic, onOpenShortcuts }) {
   const toast = useToast();
 
   // Handle Escape (close) and Cmd/Ctrl+K (toggle) while palette is open.
@@ -62,10 +65,41 @@ function CommandPalette({ open, onClose, theme, toggleTheme }) {
   }, [onClose]);
 
   const copyEmail = useCallback(async () => {
-    await navigator.clipboard.writeText("jpranays@gmail.com");
+    await navigator.clipboard.writeText("pranay1315@gmail.com");
     toast.success("Email copied to clipboard!");
     onClose();
   }, [onClose, toast]);
+
+  const copyURL = useCallback(async () => {
+    await navigator.clipboard.writeText(window.location.href);
+    toast.success("Page URL copied!");
+    onClose();
+  }, [onClose, toast]);
+
+  const scrollTop = useCallback(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    onClose();
+  }, [onClose]);
+
+  const triggerConfetti = useCallback(() => {
+    window.dispatchEvent(new CustomEvent("portfolio:confetti"));
+    onClose();
+  }, [onClose]);
+
+  const printPage = useCallback(() => {
+    onClose();
+    setTimeout(() => window.print(), 200);
+  }, [onClose]);
+
+  const handleToggleMusic = useCallback(() => {
+    toggleMusic();
+    onClose();
+  }, [toggleMusic, onClose]);
+
+  const handleOpenShortcuts = useCallback(() => {
+    onClose();
+    setTimeout(() => onOpenShortcuts(), 150);
+  }, [onClose, onOpenShortcuts]);
 
   const ThemeIcon = THEME_ICONS[theme] ?? Sun;
 
@@ -209,6 +243,84 @@ function CommandPalette({ open, onClose, theme, toggleTheme }) {
                   >
                     <Copy className="w-4 h-4 text-slate-400 dark:text-slate-600 group-aria-selected:text-orange-400 flex-shrink-0" aria-hidden="true" />
                     <span className="flex-1">Copy Email Address</span>
+                    <ChevronRight className="w-3 h-3 opacity-0 group-aria-selected:opacity-60 transition-opacity" aria-hidden="true" />
+                  </Command.Item>
+
+                  <Command.Item
+                    value="copy url link share page"
+                    onSelect={copyURL}
+                    className="flex items-center gap-3 px-3 py-2 rounded-xl text-sm
+                               text-slate-600 dark:text-slate-300 cursor-pointer
+                               aria-selected:bg-orange-500/10 aria-selected:text-orange-500 dark:aria-selected:text-orange-400
+                               transition-colors duration-100 group"
+                  >
+                    <Link className="w-4 h-4 text-slate-400 dark:text-slate-600 group-aria-selected:text-orange-400 flex-shrink-0" aria-hidden="true" />
+                    <span className="flex-1">Copy Page URL</span>
+                    <ChevronRight className="w-3 h-3 opacity-0 group-aria-selected:opacity-60 transition-opacity" aria-hidden="true" />
+                  </Command.Item>
+
+                  <Command.Item
+                    value="scroll top home back"
+                    onSelect={scrollTop}
+                    className="flex items-center gap-3 px-3 py-2 rounded-xl text-sm
+                               text-slate-600 dark:text-slate-300 cursor-pointer
+                               aria-selected:bg-orange-500/10 aria-selected:text-orange-500 dark:aria-selected:text-orange-400
+                               transition-colors duration-100 group"
+                  >
+                    <ArrowUp className="w-4 h-4 text-slate-400 dark:text-slate-600 group-aria-selected:text-orange-400 flex-shrink-0" aria-hidden="true" />
+                    <span className="flex-1">Scroll to Top</span>
+                    <ChevronRight className="w-3 h-3 opacity-0 group-aria-selected:opacity-60 transition-opacity" aria-hidden="true" />
+                  </Command.Item>
+
+                  <Command.Item
+                    value="music ambient play pause sound toggle"
+                    onSelect={handleToggleMusic}
+                    className="flex items-center gap-3 px-3 py-2 rounded-xl text-sm
+                               text-slate-600 dark:text-slate-300 cursor-pointer
+                               aria-selected:bg-orange-500/10 aria-selected:text-orange-500 dark:aria-selected:text-orange-400
+                               transition-colors duration-100 group"
+                  >
+                    <Music className="w-4 h-4 text-slate-400 dark:text-slate-600 group-aria-selected:text-orange-400 flex-shrink-0" aria-hidden="true" />
+                    <span className="flex-1">{musicPlaying ? "Pause Ambient Music" : "Play Ambient Music"}</span>
+                    <ChevronRight className="w-3 h-3 opacity-0 group-aria-selected:opacity-60 transition-opacity" aria-hidden="true" />
+                  </Command.Item>
+
+                  <Command.Item
+                    value="shortcuts keyboard hotkeys help"
+                    onSelect={handleOpenShortcuts}
+                    className="flex items-center gap-3 px-3 py-2 rounded-xl text-sm
+                               text-slate-600 dark:text-slate-300 cursor-pointer
+                               aria-selected:bg-orange-500/10 aria-selected:text-orange-500 dark:aria-selected:text-orange-400
+                               transition-colors duration-100 group"
+                  >
+                    <Keyboard className="w-4 h-4 text-slate-400 dark:text-slate-600 group-aria-selected:text-orange-400 flex-shrink-0" aria-hidden="true" />
+                    <span className="flex-1">View Keyboard Shortcuts</span>
+                    <ChevronRight className="w-3 h-3 opacity-0 group-aria-selected:opacity-60 transition-opacity" aria-hidden="true" />
+                  </Command.Item>
+
+                  <Command.Item
+                    value="print save pdf download page"
+                    onSelect={printPage}
+                    className="flex items-center gap-3 px-3 py-2 rounded-xl text-sm
+                               text-slate-600 dark:text-slate-300 cursor-pointer
+                               aria-selected:bg-orange-500/10 aria-selected:text-orange-500 dark:aria-selected:text-orange-400
+                               transition-colors duration-100 group"
+                  >
+                    <Printer className="w-4 h-4 text-slate-400 dark:text-slate-600 group-aria-selected:text-orange-400 flex-shrink-0" aria-hidden="true" />
+                    <span className="flex-1">Print / Save as PDF</span>
+                    <ChevronRight className="w-3 h-3 opacity-0 group-aria-selected:opacity-60 transition-opacity" aria-hidden="true" />
+                  </Command.Item>
+
+                  <Command.Item
+                    value="confetti celebrate easter egg fun surprise"
+                    onSelect={triggerConfetti}
+                    className="flex items-center gap-3 px-3 py-2 rounded-xl text-sm
+                               text-slate-600 dark:text-slate-300 cursor-pointer
+                               aria-selected:bg-orange-500/10 aria-selected:text-orange-500 dark:aria-selected:text-orange-400
+                               transition-colors duration-100 group"
+                  >
+                    <Sparkles className="w-4 h-4 text-slate-400 dark:text-slate-600 group-aria-selected:text-orange-400 flex-shrink-0" aria-hidden="true" />
+                    <span className="flex-1">Trigger Confetti</span>
                     <ChevronRight className="w-3 h-3 opacity-0 group-aria-selected:opacity-60 transition-opacity" aria-hidden="true" />
                   </Command.Item>
                 </Command.Group>
