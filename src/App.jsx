@@ -13,6 +13,7 @@ import { ToastProvider, useToast } from "./components/effects/Toast";
 import { EasterEgg } from "./components/effects/EasterEgg";
 import { CursorSpotlight } from "./components/effects/CursorSpotlight";
 import SectionDots from "./components/effects/SectionDots";
+import { MusicPlayer } from "./components/effects/MusicPlayer";
 import Hero from "./components/sections/Hero";
 import About from "./components/sections/About";
 import Experience from "./components/sections/Experience";
@@ -98,6 +99,7 @@ function AppInner() {
 
       <Footer />
       <BackToTop />
+      <MusicPlayer />
     </>
   );
 }
