@@ -1,68 +1,46 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 
-function buildAmbient(ctx) {
-  const master = ctx.createGain();
-  master.gain.setValueAtTime(0.001, ctx.currentTime);
-  master.connect(ctx.destination);
+const TRACK_SRC = "/music/background.mp3";
+const TARGET_VOL = 0.35;
 
-  [
-    { freq: 55,  gain: 0.50, type: "sine"     },
-    { freq: 110, gain: 0.25, type: "sine"     },
-    { freq: 165, gain: 0.09, type: "sine"     },
-    { freq: 220, gain: 0.05, type: "triangle" },
-    { freq: 330, gain: 0.02, type: "triangle" },
-  ].forEach(({ freq, gain, type }) => {
-    const osc = ctx.createOscillator();
-    const g   = ctx.createGain();
-    osc.type            = type;
-    osc.frequency.value = freq;
-    osc.detune.value    = (Math.random() - 0.5) * 12;
-    g.gain.value        = gain;
-    osc.connect(g);
-    g.connect(master);
-    osc.start();
-  });
-
-  const lfo  = ctx.createOscillator();
-  const lfoG = ctx.createGain();
-  lfo.frequency.value = 0.07;
-  lfoG.gain.value     = 0.07;
-  lfo.connect(lfoG);
-  lfoG.connect(master.gain);
-  lfo.start();
-
-  return master;
+function fadeTo(audio, target, ms, onDone) {
+  const start = audio.volume;
+  const diff  = target - start;
+  const steps = 40;
+  const tick  = ms / steps;
+  let step = 0;
+  const id = setInterval(() => {
+    step++;
+    audio.volume = Math.min(1, Math.max(0, start + diff * (step / steps)));
+    if (step >= steps) { clearInterval(id); onDone?.(); }
+  }, tick);
+  return id;
 }
 
 export function useMusicPlayer() {
   const [playing, setPlaying] = useState(false);
-  const ctxRef    = useRef(null);
-  const masterRef = useRef(null);
+  const audioRef  = useRef(null);
+  const fadeIdRef = useRef(null);
+
+  useEffect(() => {
+    const audio = new Audio(TRACK_SRC);
+    audio.loop   = true;
+    audio.volume = 0;
+    audioRef.current = audio;
+    return () => { audio.pause(); audio.src = ""; };
+  }, []);
 
   const toggle = () => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    if (fadeIdRef.current) clearInterval(fadeIdRef.current);
+
     if (!playing) {
-      if (!ctxRef.current) {
-        const Ctx = window.AudioContext || window.webkitAudioContext;
-        const ctx = new Ctx();
-        ctxRef.current    = ctx;
-        masterRef.current = buildAmbient(ctx);
-      } else if (ctxRef.current.state === "suspended") {
-        ctxRef.current.resume();
-      }
-      const now = ctxRef.current.currentTime;
-      const g   = masterRef.current.gain;
-      g.cancelScheduledValues(now);
-      g.setValueAtTime(g.value, now);
-      g.linearRampToValueAtTime(0.38, now + 1.8);
+      audio.play().catch(() => {});
+      fadeIdRef.current = fadeTo(audio, TARGET_VOL, 1800);
       setPlaying(true);
     } else {
-      const ctx = ctxRef.current;
-      const g   = masterRef.current.gain;
-      const now = ctx.currentTime;
-      g.cancelScheduledValues(now);
-      g.setValueAtTime(g.value, now);
-      g.linearRampToValueAtTime(0.001, now + 1.2);
-      setTimeout(() => ctx.suspend(), 1300);
+      fadeIdRef.current = fadeTo(audio, 0, 1200, () => audio.pause());
       setPlaying(false);
     }
   };
