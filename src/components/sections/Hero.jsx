@@ -1,12 +1,37 @@
-import { memo, useEffect } from "react";
+import { memo, useEffect, useState, useCallback } from "react";
 import { motion, useMotionValue, useSpring, useTransform, useReducedMotion } from "framer-motion";
 import {
   Github, Linkedin, Mail, ArrowDown,
-  Download, ExternalLink, Twitter, Package,
+  Download, ExternalLink, Twitter, Package, Volume2,
 } from "lucide-react";
 import { useTyping } from "../../hooks/useTyping";
 import { MagneticButton } from "../ui/MagneticButton";
 import { useNpmStats } from "../../hooks/useNpmStats";
+
+function getGreeting() {
+  const h = new Date().getHours();
+  if (h < 5)  return "Burning the midnight oil?";
+  if (h < 12) return "Good morning,";
+  if (h < 17) return "Good afternoon,";
+  if (h < 21) return "Good evening,";
+  return "Good night,";
+}
+
+function usePronounce() {
+  const [speaking, setSpeaking] = useState(false);
+  const speak = useCallback(() => {
+    if (!window.speechSynthesis) return;
+    window.speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance("Pranay Jadhav");
+    u.lang = "en-IN";
+    u.rate = 0.9;
+    u.onstart = () => setSpeaking(true);
+    u.onend   = () => setSpeaking(false);
+    u.onerror = () => setSpeaking(false);
+    window.speechSynthesis.speak(u);
+  }, []);
+  return { speak, speaking };
+}
 
 const TYPING_WORDS = [
   "Senior Software Developer",
@@ -84,6 +109,8 @@ function Hero() {
   const typed = useTyping(TYPING_WORDS);
   const { data: npmData } = useNpmStats();
   const reduced = useReducedMotion();
+  const greeting = getGreeting();
+  const { speak, speaking } = usePronounce();
   const credibilityPills = CREDIBILITY_PILLS_BASE.map((p) =>
     p.liveKey === "npm" && npmData
       ? { ...p, label: `${(npmData.total / 1000).toFixed(1)}K+` }
@@ -178,32 +205,50 @@ function Hero() {
               transition={{ duration: 0.4, delay: 0.2 }}
               className="text-slate-500 text-base font-mono tracking-wide"
             >
-              Hi, I&apos;m
+              {greeting} I&apos;m
             </motion.p>
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.08]">
-              <span className="overflow-hidden inline-block">
-                <motion.span
-                  initial={{ y: "110%" }}
-                  animate={{ y: 0 }}
-                  transition={{ duration: 0.85, delay: 0.28, ease: [0.22, 1, 0.36, 1] }}
-                  className="inline-block bg-gradient-to-br from-slate-800 via-slate-600 to-slate-400 dark:from-white dark:via-slate-200 dark:to-slate-400 bg-clip-text text-transparent"
-                >
-                  Pranay
-                </motion.span>
-              </span>
-              {" "}
-              <span className="overflow-hidden inline-block">
-                <motion.span
-                  initial={{ y: "110%" }}
-                  animate={{ y: 0 }}
-                  transition={{ duration: 0.85, delay: 0.42, ease: [0.22, 1, 0.36, 1] }}
-                  className="inline-block animate-shimmer bg-gradient-to-r from-orange-400 via-amber-200 to-orange-400 bg-clip-text text-transparent"
-                  style={{ backgroundSize: "200% auto" }}
-                >
-                  Jadhav
-                </motion.span>
-              </span>
-            </h1>
+            <div className="flex items-center justify-center gap-3">
+              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.08]">
+                <span className="overflow-hidden inline-block">
+                  <motion.span
+                    initial={{ y: "110%" }}
+                    animate={{ y: 0 }}
+                    transition={{ duration: 0.85, delay: 0.28, ease: [0.22, 1, 0.36, 1] }}
+                    className="inline-block bg-gradient-to-br from-slate-800 via-slate-600 to-slate-400 dark:from-white dark:via-slate-200 dark:to-slate-400 bg-clip-text text-transparent"
+                  >
+                    Pranay
+                  </motion.span>
+                </span>
+                {" "}
+                <span className="overflow-hidden inline-block">
+                  <motion.span
+                    initial={{ y: "110%" }}
+                    animate={{ y: 0 }}
+                    transition={{ duration: 0.85, delay: 0.42, ease: [0.22, 1, 0.36, 1] }}
+                    className="inline-block animate-shimmer bg-gradient-to-r from-orange-400 via-amber-200 to-orange-400 bg-clip-text text-transparent"
+                    style={{ backgroundSize: "200% auto" }}
+                  >
+                    Jadhav
+                  </motion.span>
+                </span>
+              </h1>
+              <motion.button
+                initial={{ opacity: 0, scale: 0.7 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 1.1, duration: 0.35 }}
+                onClick={speak}
+                disabled={speaking}
+                aria-label="Hear name pronunciation"
+                title="Hear how to pronounce my name"
+                className={`flex-shrink-0 p-2 rounded-full border transition-all duration-200 self-center
+                  ${speaking
+                    ? "bg-orange-500/15 border-orange-500/40 text-orange-400 animate-pulse"
+                    : "bg-slate-100 dark:bg-white/[0.05] border-slate-200 dark:border-white/[0.1] text-slate-400 hover:text-orange-400 hover:border-orange-500/30 hover:bg-orange-500/8"
+                  }`}
+              >
+                <Volume2 className="w-4 h-4 sm:w-5 sm:h-5" aria-hidden="true" />
+              </motion.button>
+            </div>
           </motion.div>
 
           {/* Typing subtitle */}

@@ -2,8 +2,6 @@ import { useEffect, useRef } from "react";
 
 const SEQUENCE = [
   "ArrowUp","ArrowUp","ArrowDown","ArrowDown",
-  "ArrowLeft","ArrowRight","ArrowLeft","ArrowRight",
-  "b","a",
 ];
 
 export function useKonamiCode(onActivate) {
@@ -15,7 +13,7 @@ export function useKonamiCode(onActivate) {
         progress.current += 1;
         if (progress.current === SEQUENCE.length) {
           progress.current = 0;
-          onActivate();
+          // onActivate();
         }
       } else {
         // If the failed key restarts the sequence, don't lose it

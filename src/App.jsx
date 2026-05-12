@@ -16,6 +16,10 @@ import { CursorSpotlight } from "./components/effects/CursorSpotlight";
 import SectionDots from "./components/effects/SectionDots";
 import { MusicPlayer } from "./components/effects/MusicPlayer";
 import { useMusicPlayer } from "./hooks/useMusicPlayer";
+import { ShortcutsModal } from "./components/effects/ShortcutsModal";
+import { ClickBurst } from "./components/effects/ClickBurst";
+import { ContextMenu } from "./components/effects/ContextMenu";
+import { motion, useScroll, useVelocity, useTransform, useSpring } from "framer-motion";
 import Hero from "./components/sections/Hero";
 import About from "./components/sections/About";
 import Experience from "./components/sections/Experience";
@@ -42,8 +46,15 @@ function AppInner() {
   const { theme, toggle, isDark } = useTheme();
   const [paletteOpen, setPaletteOpen] = useState(false);
   const [eggActive, setEggActive] = useState(false);
+  const [shortcutsOpen, setShortcutsOpen] = useState(false);
   const toast = useToast();
   const { playing: musicPlaying, toggle: toggleMusic } = useMusicPlayer();
+
+  /* Scroll-speed tilt */
+  const { scrollY } = useScroll();
+  const scrollVelocity = useVelocity(scrollY);
+  const rawTilt = useTransform(scrollVelocity, [-2500, 0, 2500], [1.8, 0, -1.8]);
+  const tilt = useSpring(rawTilt, { stiffness: 120, damping: 28 });
 
   useTabTitle();
 
@@ -57,6 +68,9 @@ function AppInner() {
       if ((e.metaKey || e.ctrlKey) && e.key === "k") {
         e.preventDefault();
         setPaletteOpen((v) => !v);
+      }
+      if (e.key === "?" && !e.metaKey && !e.ctrlKey && !["INPUT", "TEXTAREA"].includes(document.activeElement?.tagName)) {
+        setShortcutsOpen((v) => !v);
       }
     };
     window.addEventListener("keydown", handler);
@@ -91,8 +105,11 @@ function AppInner() {
 
       <Navbar activeSection={activeSection} toggle={toggle} isDark={isDark} theme={theme} onOpenPalette={() => setPaletteOpen(true)} musicPlaying={musicPlaying} onToggleMusic={toggleMusic} />
       <CommandPalette open={paletteOpen} onClose={() => setPaletteOpen(false)} theme={theme} toggleTheme={toggle} />
+      <ShortcutsModal open={shortcutsOpen} onClose={() => setShortcutsOpen(false)} />
+      <ClickBurst />
+      <ContextMenu />
 
-      <main id="main-content">
+      <motion.main id="main-content" style={{ rotateX: tilt }} className="transform-gpu">
         <Hero />
         <Divider />
         <About />
@@ -106,7 +123,7 @@ function AppInner() {
         <OpenSource />
         <Divider />
         <Contact />
-      </main>
+      </motion.main>
 
       <Footer />
       <BackToTop />
