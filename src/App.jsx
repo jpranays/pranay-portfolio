@@ -11,6 +11,8 @@ import { BackToTop } from "./components/effects/BackToTop";
 import CommandPalette from "./components/effects/CommandPalette";
 import { ToastProvider, useToast } from "./components/effects/Toast";
 import { EasterEgg } from "./components/effects/EasterEgg";
+import { CursorSpotlight } from "./components/effects/CursorSpotlight";
+import SectionDots from "./components/effects/SectionDots";
 import Hero from "./components/sections/Hero";
 import About from "./components/sections/About";
 import Experience from "./components/sections/Experience";
@@ -60,7 +62,9 @@ function AppInner() {
       <IntroAnimation />
       <CustomCursor />
       <ScrollProgress />
+      <CursorSpotlight />
       <EasterEgg active={eggActive} onDone={() => setEggActive(false)} />
+      <SectionDots activeSection={activeSection} />
 
       <div
         aria-hidden="true"
