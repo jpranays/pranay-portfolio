@@ -41,6 +41,7 @@ function App() {
         setPaletteOpen((v) => !v);
       }
     };
+    // Bubble phase — fires when palette is closed (capture phase owned by palette when open)
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
   }, []);

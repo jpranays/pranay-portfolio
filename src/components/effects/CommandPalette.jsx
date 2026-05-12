@@ -31,6 +31,24 @@ const THEME_NEXT_LABEL = { light: "Switch to Dark Mode", dark: "Follow System Pr
 function CommandPalette({ open, onClose, theme, toggleTheme }) {
   const [copied, setCopied] = useState(false);
 
+  // Handle Escape (close) and Cmd/Ctrl+K (toggle) while palette is open.
+  // Runs at capture phase so it fires before cmdk's own input handler.
+  useEffect(() => {
+    if (!open) return;
+    const handler = (e) => {
+      if (e.key === "Escape") {
+        e.preventDefault();
+        onClose();
+      }
+      if ((e.metaKey || e.ctrlKey) && e.key === "k") {
+        e.preventDefault();
+        onClose();
+      }
+    };
+    window.addEventListener("keydown", handler, { capture: true });
+    return () => window.removeEventListener("keydown", handler, { capture: true });
+  }, [open, onClose]);
+
   const scrollTo = useCallback((sectionId) => {
     document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth" });
     onClose();
