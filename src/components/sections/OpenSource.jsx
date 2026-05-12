@@ -8,6 +8,7 @@ import { AnimatedSection, StaggerContainer, StaggerItem } from "../ui/AnimatedSe
 import { OSS_CONTRIBUTIONS, OSS_STATS } from "../../data/opensource";
 import { useGitHubStats } from "../../hooks/useGitHubStats";
 import { useNpmStats } from "../../hooks/useNpmStats";
+import { useGitHubContributions } from "../../hooks/useGitHubContributions";
 
 function CountUp({ to, suffix, decimals = 0 }) {
   const [count, setCount] = useState(0);
@@ -274,6 +275,159 @@ function GitHubStatsPanel() {
   );
 }
 
+// ── Contribution heatmap ─────────────────────────────────────────────────────
+const LEVEL_CLASSES = [
+  "bg-slate-200 dark:bg-white/[0.05]",
+  "bg-green-200 dark:bg-green-900/70",
+  "bg-green-400 dark:bg-green-700",
+  "bg-green-500 dark:bg-green-500",
+  "bg-emerald-600 dark:bg-green-400",
+];
+
+const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+
+function buildWeekGrid(contributions) {
+  if (!contributions?.length) return [];
+  // Pad front so the first day lands on its correct weekday column (0=Sun)
+  const first = new Date(contributions[0].date + "T00:00:00");
+  const padDays = first.getDay(); // 0–6
+  const cells = [
+    ...Array(padDays).fill(null),
+    ...contributions,
+  ];
+  // Split into weeks of 7
+  const weeks = [];
+  for (let i = 0; i < cells.length; i += 7) {
+    weeks.push(cells.slice(i, i + 7));
+  }
+  return weeks;
+}
+
+function getMonthLabels(weeks) {
+  const labels = [];
+  let lastMonth = -1;
+  weeks.forEach((week, wi) => {
+    const firstReal = week.find(Boolean);
+    if (!firstReal) return;
+    const m = new Date(firstReal.date + "T00:00:00").getMonth();
+    if (m !== lastMonth) {
+      labels.push({ week: wi, label: MONTHS[m] });
+      lastMonth = m;
+    }
+  });
+  return labels;
+}
+
+function HeatmapSkeleton() {
+  return (
+    <div className="glass-card p-5 space-y-3">
+      <div className="flex items-center justify-between">
+        <Skeleton className="h-4 w-44" />
+        <Skeleton className="h-3 w-24" />
+      </div>
+      <Skeleton className="h-[112px] w-full rounded-lg" />
+    </div>
+  );
+}
+
+function ContributionHeatmap() {
+  const { loading, error, data } = useGitHubContributions();
+
+  if (loading) return <HeatmapSkeleton />;
+
+  if (error) {
+    return (
+      <div className="glass-card p-5 flex items-center gap-3 text-sm text-slate-500 dark:text-slate-400">
+        <AlertCircle className="w-4 h-4 flex-shrink-0 text-amber-400" />
+        <span>Couldn&apos;t load contribution graph right now.</span>
+      </div>
+    );
+  }
+
+  const { contributions, totalThisYear, fetchedAt } = data;
+  const weeks = buildWeekGrid(contributions);
+  const monthLabels = getMonthLabels(weeks);
+  const minutesAgo = Math.floor((Date.now() - fetchedAt) / 60_000);
+  const fetchLabel = minutesAgo < 1 ? "Just now" : `${minutesAgo}m ago`;
+
+  return (
+    <div className="glass-card p-5 space-y-4">
+      {/* Header */}
+      <div className="flex items-center justify-between flex-wrap gap-2">
+        <div className="flex items-center gap-2">
+          <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" aria-hidden="true" />
+          <span className="text-xs font-mono font-medium text-slate-500 dark:text-slate-400 uppercase tracking-widest">
+            Contribution Activity
+          </span>
+        </div>
+        <div className="flex items-center gap-3">
+          <span className="text-xs font-mono text-slate-700 dark:text-slate-200 font-semibold">
+            {totalThisYear.toLocaleString()} contributions this year
+          </span>
+          <span className="text-xs font-mono text-slate-400 dark:text-slate-600">
+            {fetchLabel}
+          </span>
+        </div>
+      </div>
+
+      {/* Grid */}
+      <div className="overflow-x-auto pb-1">
+        <div className="relative min-w-max">
+          {/* Month labels */}
+          <div className="flex mb-1 pl-7">
+            {monthLabels.map(({ week, label }) => (
+              <div
+                key={`${week}-${label}`}
+                className="absolute text-[9px] font-mono text-slate-400 dark:text-slate-600"
+                style={{ left: `${week * 12 + 28}px` }}
+              >
+                {label}
+              </div>
+            ))}
+            <div className="h-3" />
+          </div>
+
+          <div className="flex gap-0.5">
+            {/* Day labels */}
+            <div className="flex flex-col gap-0.5 mr-1 justify-around">
+              {["S","M","T","W","T","F","S"].map((d, i) => (
+                <span key={i} className="text-[9px] font-mono text-slate-400 dark:text-slate-600 w-3 text-center leading-[10px]">
+                  {i % 2 === 1 ? d : ""}
+                </span>
+              ))}
+            </div>
+
+            {/* Cells */}
+            {weeks.map((week, wi) => (
+              <div key={wi} className="flex flex-col gap-0.5">
+                {Array(7).fill(null).map((_, di) => {
+                  const cell = week[di];
+                  return (
+                    <div
+                      key={di}
+                      title={cell ? `${cell.date}: ${cell.count} contribution${cell.count !== 1 ? "s" : ""}` : undefined}
+                      className={`w-[10px] h-[10px] rounded-[2px] ${cell ? LEVEL_CLASSES[cell.level] : "bg-transparent"}`}
+                    />
+                  );
+                })}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Legend */}
+        <div className="flex items-center gap-1.5 mt-3 justify-end">
+          <span className="text-[9px] font-mono text-slate-400 dark:text-slate-600">Less</span>
+          {LEVEL_CLASSES.map((cls, i) => (
+            <div key={i} className={`w-[10px] h-[10px] rounded-[2px] ${cls}`} />
+          ))}
+          <span className="text-[9px] font-mono text-slate-400 dark:text-slate-600">More</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // ── OSS contribution card ──────────────────────────────────────────────────────
 function OSSCard({ item }) {
   const colorClass = COLOR_MAP[item.color] ?? COLOR_MAP.orange;
@@ -386,6 +540,11 @@ function OpenSource() {
         {/* Live GitHub stats */}
         <AnimatedSection delay={0.15} className="mt-6">
           <GitHubStatsPanel />
+        </AnimatedSection>
+
+        {/* Contribution heatmap */}
+        <AnimatedSection delay={0.2} className="mt-4">
+          <ContributionHeatmap />
         </AnimatedSection>
 
         {/* Contribution cards */}

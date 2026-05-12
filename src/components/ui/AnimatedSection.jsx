@@ -1,9 +1,4 @@
-import { motion } from "framer-motion";
-
-const variants = {
-  hidden: { opacity: 0, y: 32 },
-  visible: { opacity: 1, y: 0 },
-};
+import { motion, useReducedMotion } from "framer-motion";
 
 export function AnimatedSection({
   children,
@@ -12,13 +7,13 @@ export function AnimatedSection({
   duration = 0.6,
   once = true,
 }) {
+  const reduced = useReducedMotion();
   return (
     <motion.div
-      initial="hidden"
-      whileInView="visible"
+      initial={{ opacity: 0, y: reduced ? 0 : 32 }}
+      whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once, margin: "-80px" }}
-      variants={variants}
-      transition={{ duration, delay, ease: [0.21, 0.47, 0.32, 0.98] }}
+      transition={{ duration: reduced ? 0.15 : duration, delay: reduced ? 0 : delay, ease: [0.21, 0.47, 0.32, 0.98] }}
       className={className}
     >
       {children}
@@ -27,6 +22,7 @@ export function AnimatedSection({
 }
 
 export function StaggerContainer({ children, className = "", staggerDelay = 0.1 }) {
+  const reduced = useReducedMotion();
   return (
     <motion.div
       initial="hidden"
@@ -34,7 +30,7 @@ export function StaggerContainer({ children, className = "", staggerDelay = 0.1 
       viewport={{ once: true, margin: "-60px" }}
       variants={{
         hidden: {},
-        visible: { transition: { staggerChildren: staggerDelay } },
+        visible: { transition: { staggerChildren: reduced ? 0 : staggerDelay } },
       }}
       className={className}
     >
@@ -44,11 +40,12 @@ export function StaggerContainer({ children, className = "", staggerDelay = 0.1 
 }
 
 export function StaggerItem({ children, className = "" }) {
+  const reduced = useReducedMotion();
   return (
     <motion.div
       variants={{
-        hidden: { opacity: 0, y: 24 },
-        visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.21, 0.47, 0.32, 0.98] } },
+        hidden: { opacity: 0, y: reduced ? 0 : 24 },
+        visible: { opacity: 1, y: 0, transition: { duration: reduced ? 0.15 : 0.5, ease: [0.21, 0.47, 0.32, 0.98] } },
       }}
       className={className}
     >

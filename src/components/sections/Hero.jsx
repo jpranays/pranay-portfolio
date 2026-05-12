@@ -1,5 +1,5 @@
 import { memo, useEffect } from "react";
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { motion, useMotionValue, useSpring, useTransform, useReducedMotion } from "framer-motion";
 import {
   Github, Linkedin, Mail, ArrowDown,
   Download, ExternalLink, Twitter, Package,
@@ -83,35 +83,36 @@ const item = {
 function Hero() {
   const typed = useTyping(TYPING_WORDS);
   const { data: npmData } = useNpmStats();
+  const reduced = useReducedMotion();
   const credibilityPills = CREDIBILITY_PILLS_BASE.map((p) =>
     p.liveKey === "npm" && npmData
       ? { ...p, label: `${(npmData.total / 1000).toFixed(1)}K+` }
       : p
   );
 
-  /* ── Mouse parallax ── */
+  /* ── Mouse parallax (disabled when reduced motion) ── */
   const rawX = useMotionValue(0);
   const rawY = useMotionValue(0);
   const springX = useSpring(rawX, { stiffness: 38, damping: 22 });
   const springY = useSpring(rawY, { stiffness: 38, damping: 22 });
-  const orangeX = useTransform(springX, v =>  v * 0.045);
-  const orangeY = useTransform(springY, v =>  v * 0.035);
-  const violetX = useTransform(springX, v => -v * 0.028);
-  const violetY = useTransform(springY, v => -v * 0.028);
-  const cyanX   = useTransform(springX, v =>  v * 0.018);
-  const cyanY   = useTransform(springY, v => -v * 0.020);
-  const pinkX   = useTransform(springX, v => -v * 0.022);
-  const pinkY   = useTransform(springY, v =>  v * 0.022);
+  const orangeX = useTransform(springX, v => reduced ? 0 :  v * 0.045);
+  const orangeY = useTransform(springY, v => reduced ? 0 :  v * 0.035);
+  const violetX = useTransform(springX, v => reduced ? 0 : -v * 0.028);
+  const violetY = useTransform(springY, v => reduced ? 0 : -v * 0.028);
+  const cyanX   = useTransform(springX, v => reduced ? 0 :  v * 0.018);
+  const cyanY   = useTransform(springY, v => reduced ? 0 : -v * 0.020);
+  const pinkX   = useTransform(springX, v => reduced ? 0 : -v * 0.022);
+  const pinkY   = useTransform(springY, v => reduced ? 0 :  v * 0.022);
 
   useEffect(() => {
-    if (!window.matchMedia("(pointer: fine)").matches) return;
+    if (reduced || !window.matchMedia("(pointer: fine)").matches) return;
     const handler = (e) => {
       rawX.set(e.clientX - window.innerWidth  / 2);
       rawY.set(e.clientY - window.innerHeight / 2);
     };
     window.addEventListener("mousemove", handler, { passive: true });
     return () => window.removeEventListener("mousemove", handler);
-  }, []);
+  }, [reduced]);
 
   return (
     <section
@@ -141,7 +142,7 @@ function Hero() {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: b.delay + 2, duration: 0.6 }}
-          className={`absolute ${b.show === "2xl" ? "hidden 2xl:block" : b.show === "xl" ? "hidden xl:block" : "hidden lg:block"} animate-float ${b.cls}`}
+          className={`absolute ${b.show === "2xl" ? "hidden 2xl:block" : b.show === "xl" ? "hidden xl:block" : "hidden lg:block"} ${reduced ? "" : "animate-float"} ${b.cls}`}
           style={{ animationDelay: `${b.delay}s`, animationDuration: `${b.dur}s` }}
           aria-hidden="true"
         >

@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 
 export function IntroAnimation() {
+  const reduced = useReducedMotion();
   const [visible, setVisible] = useState(() => {
     if (typeof window === "undefined") return false;
     return !sessionStorage.getItem("pj-intro-done");
@@ -9,19 +10,21 @@ export function IntroAnimation() {
 
   useEffect(() => {
     if (!visible) return;
+    // Reduced motion: dismiss immediately with no animation
+    const delay = reduced ? 0 : 1900;
     const t = setTimeout(() => {
       setVisible(false);
       sessionStorage.setItem("pj-intro-done", "1");
-    }, 1900);
+    }, delay);
     return () => clearTimeout(t);
-  }, [visible]);
+  }, [visible, reduced]);
 
   return (
     <AnimatePresence>
       {visible && (
         <motion.div
           key="intro"
-          exit={{ y: "-100%", transition: { duration: 0.7, ease: [0.76, 0, 0.24, 1] } }}
+          exit={{ opacity: 0, ...(reduced ? {} : { y: "-100%" }), transition: { duration: reduced ? 0.15 : 0.7, ease: [0.76, 0, 0.24, 1] } }}
           className="fixed inset-0 z-[9999] flex items-center justify-center overflow-hidden"
           style={{ backgroundColor: "var(--color-base)" }}
           aria-hidden="true"
