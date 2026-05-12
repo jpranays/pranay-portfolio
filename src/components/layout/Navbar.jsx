@@ -18,7 +18,7 @@ const THEME_NEXT = {
   system: { icon: Sun,     label: "Switch to light mode" },
 };
 
-function Navbar({ activeSection, toggle, isDark, theme }) {
+function Navbar({ activeSection, toggle, isDark, theme, onOpenPalette }) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -98,6 +98,18 @@ function Navbar({ activeSection, toggle, isDark, theme }) {
 
           {/* Right controls */}
           <div className="hidden md:flex items-center gap-2">
+            {/* ⌘K hint */}
+            <button
+              onClick={onOpenPalette}
+              aria-label="Open command palette"
+              className="hidden lg:flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-mono
+                         text-slate-400 dark:text-slate-600 border border-slate-200 dark:border-white/[0.07]
+                         hover:text-slate-600 dark:hover:text-slate-400 hover:border-slate-300 dark:hover:border-white/[0.12]
+                         transition-colors duration-200"
+            >
+              <span>⌘K</span>
+            </button>
+
             {/* Theme toggle */}
             <button
               onClick={toggle}

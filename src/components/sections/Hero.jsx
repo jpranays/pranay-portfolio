@@ -6,6 +6,7 @@ import {
 } from "lucide-react";
 import { useTyping } from "../../hooks/useTyping";
 import { MagneticButton } from "../ui/MagneticButton";
+import { useNpmStats } from "../../hooks/useNpmStats";
 
 const TYPING_WORDS = [
   "Senior Software Developer",
@@ -22,9 +23,9 @@ const SOCIAL_LINKS = [
   { href: "https://www.npmjs.com/~jpranays", icon: Package, label: "npm", username: "npm" },
 ];
 
-const CREDIBILITY_PILLS = [
+const CREDIBILITY_PILLS_BASE = [
   { label: "Sears India", note: "Senior SWE" },
-  { label: "25K+", note: "weekly npm users" },
+  { label: "25K+", note: "weekly npm users", liveKey: "npm" },
   { label: "3.4M+", note: "devs via OSS" },
 ];
 
@@ -81,6 +82,12 @@ const item = {
 
 function Hero() {
   const typed = useTyping(TYPING_WORDS);
+  const { data: npmData } = useNpmStats();
+  const credibilityPills = CREDIBILITY_PILLS_BASE.map((p) =>
+    p.liveKey === "npm" && npmData
+      ? { ...p, label: `${(npmData.total / 1000).toFixed(1)}K+` }
+      : p
+  );
 
   /* ── Mouse parallax ── */
   const rawX = useMotionValue(0);
@@ -208,7 +215,7 @@ function Hero() {
 
           {/* Credibility pills */}
           <motion.div variants={item} className="flex flex-wrap items-center justify-center gap-2">
-            {CREDIBILITY_PILLS.map((pill) => (
+            {credibilityPills.map((pill) => (
               <span key={pill.label}
                 className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs border border-slate-200 dark:border-white/[0.08] bg-slate-100 dark:bg-white/[0.04] text-slate-500 dark:text-slate-400">
                 <span className="font-semibold text-slate-700 dark:text-slate-200">{pill.label}</span>

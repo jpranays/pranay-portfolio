@@ -7,6 +7,7 @@ import {
 import { AnimatedSection, StaggerContainer, StaggerItem } from "../ui/AnimatedSection";
 import { OSS_CONTRIBUTIONS, OSS_STATS } from "../../data/opensource";
 import { useGitHubStats } from "../../hooks/useGitHubStats";
+import { useNpmStats } from "../../hooks/useNpmStats";
 
 function CountUp({ to, suffix, decimals = 0 }) {
   const [count, setCount] = useState(0);
@@ -54,7 +55,7 @@ const LANG_COLORS = {
 const HEADER_STATS = [
   { countTo: OSS_STATS.libraries, suffix: "+",  decimals: 0, label: "Libraries contributed",             icon: GitPullRequest },
   { countTo: 3.4,                 suffix: "M+", decimals: 1, label: "Developers impacted / month",       icon: Users          },
-  { countTo: 25,                  suffix: "K+", decimals: 0, label: "Weekly npm downloads (own packages)", icon: Package       },
+  { countTo: 25,                  suffix: "K+", decimals: 0, label: "Weekly npm downloads (own packages)", icon: Package, liveKey: "npm" },
 ];
 
 // ── Skeleton helpers ──────────────────────────────────────────────────────────
@@ -342,6 +343,8 @@ function OSSCard({ item }) {
 
 // ── Section ───────────────────────────────────────────────────────────────────
 function OpenSource() {
+  const { data: npmData } = useNpmStats();
+
   return (
     <section id="opensource" aria-labelledby="opensource-heading">
       <div className="section-container">
@@ -362,17 +365,22 @@ function OpenSource() {
 
         {/* Impact stats */}
         <div className="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-4">
-          {HEADER_STATS.map((stat, i) => (
-            <AnimatedSection key={stat.label} delay={i * 0.1}>
-              <div className="glass-card p-5 text-center gradient-border">
-                <stat.icon className="w-5 h-5 text-orange-400 mx-auto mb-2" aria-hidden="true" />
-                <p className="text-3xl font-bold text-slate-800 dark:text-slate-100">
-                  <CountUp to={stat.countTo} suffix={stat.suffix} decimals={stat.decimals} />
-                </p>
-                <p className="text-xs text-slate-500 mt-1">{stat.label}</p>
-              </div>
-            </AnimatedSection>
-          ))}
+          {HEADER_STATS.map((stat, i) => {
+            const liveCountTo = stat.liveKey === "npm" && npmData
+              ? Math.round(npmData.total / 1000)
+              : stat.countTo;
+            return (
+              <AnimatedSection key={stat.label} delay={i * 0.1}>
+                <div className="glass-card p-5 text-center gradient-border">
+                  <stat.icon className="w-5 h-5 text-orange-400 mx-auto mb-2" aria-hidden="true" />
+                  <p className="text-3xl font-bold text-slate-800 dark:text-slate-100">
+                    <CountUp key={liveCountTo} to={liveCountTo} suffix={stat.suffix} decimals={stat.decimals} />
+                  </p>
+                  <p className="text-xs text-slate-500 mt-1">{stat.label}</p>
+                </div>
+              </AnimatedSection>
+            );
+          })}
         </div>
 
         {/* Live GitHub stats */}
