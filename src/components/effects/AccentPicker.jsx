@@ -10,6 +10,30 @@ const ACCENTS = [
   { name: "rose",   label: "Rose",   swatch: "#f43f5e", c400: "#fb7185", c500: "#f43f5e", c600: "#e11d48" },
 ];
 
+/* Heatmap colour ramp per accent — 5 levels: empty → light → mid → accent → deep */
+export const ACCENT_HEATMAP = {
+  orange: {
+    light: ["#f1f5f9", "#fed7aa", "#fb923c", "#f97316", "#ea580c"],
+    dark:  ["#1e293b", "#431407", "#9a3412", "#f97316", "#fb923c"],
+  },
+  blue: {
+    light: ["#f1f5f9", "#bfdbfe", "#93c5fd", "#3b82f6", "#1d4ed8"],
+    dark:  ["#1e293b", "#1e3a5f", "#1e40af", "#3b82f6", "#60a5fa"],
+  },
+  violet: {
+    light: ["#f1f5f9", "#ddd6fe", "#c4b5fd", "#8b5cf6", "#6d28d9"],
+    dark:  ["#1e293b", "#2e1065", "#4c1d95", "#8b5cf6", "#a78bfa"],
+  },
+  green: {
+    light: ["#f1f5f9", "#bbf7d0", "#86efac", "#22c55e", "#15803d"],
+    dark:  ["#1e293b", "#052e16", "#14532d", "#22c55e", "#4ade80"],
+  },
+  rose: {
+    light: ["#f1f5f9", "#fecdd3", "#fda4af", "#f43f5e", "#be123c"],
+    dark:  ["#1e293b", "#4c0519", "#881337", "#f43f5e", "#fb7185"],
+  },
+};
+
 const CYCLE_MS = 5000;
 const TRANSITION_MS = 900;
 const STORAGE_KEY = "portfolio-accent";
@@ -65,7 +89,8 @@ function injectBaseStyle() {
   document.head.appendChild(s);
 }
 
-function applyAccent({ c400, c500, c600 }) {
+function applyAccent(accent) {
+  const { name, c400, c500, c600 } = accent;
   const root = document.documentElement;
   root.style.setProperty("--ap-400", c400);
   root.style.setProperty("--ap-500", c500);
@@ -73,6 +98,9 @@ function applyAccent({ c400, c500, c600 }) {
   root.style.setProperty("--color-border-hover", `rgba(${hex2rgb(c500)}, 0.25)`);
   root.style.setProperty("--color-shadow-card-hover",
     `0 4px 24px rgba(0,0,0,0.1), 0 0 0 1px rgba(${hex2rgb(c500)}, 0.15)`);
+  window.dispatchEvent(new CustomEvent("portfolio:accent", {
+    detail: { name, heatmap: ACCENT_HEATMAP[name] },
+  }));
 }
 
 export function AccentPicker() {
@@ -129,67 +157,68 @@ export function AccentPicker() {
 
   const current = ACCENTS[accentIdx];
 
-  return (
-    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-2">
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.85, y: 8 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.85, y: 8 }}
-            transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
-            className="flex flex-col gap-1 p-2 rounded-2xl border border-slate-200 dark:border-white/[0.09]
-                       bg-white dark:bg-[#0d1117] shadow-xl"
-          >
-            <p className="text-[10px] font-mono text-slate-400 dark:text-slate-600 px-2 pt-1 pb-0.5 uppercase tracking-widest">
-              Accent colour
-            </p>
-            {ACCENTS.map((a, i) => (
-              <button
-                key={a.name}
-                onClick={() => pick(i)}
-                title={a.label}
-                aria-label={`Set accent to ${a.label}`}
-                className={`flex items-center gap-2.5 px-3 py-1.5 rounded-xl text-xs font-medium
-                            transition-all duration-150 text-left
-                            ${i === accentIdx
-                              ? "bg-slate-100 dark:bg-white/[0.07] text-slate-800 dark:text-slate-200"
-                              : "text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-white/[0.04]"
-                            }`}
-              >
-                <span
-                  className="w-3.5 h-3.5 rounded-full flex-shrink-0 ring-1 ring-black/10"
-                  style={{ backgroundColor: a.swatch }}
-                />
-                {a.label}
-                {i === accentIdx && (
-                  <span className="ml-auto text-[9px] font-mono opacity-50">auto</span>
-                )}
-              </button>
-            ))}
-          </motion.div>
-        )}
-      </AnimatePresence>
+  return null;
+  // return (
+  //   <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-2">
+  //     <AnimatePresence>
+  //       {open && (
+  //         <motion.div
+  //           initial={{ opacity: 0, scale: 0.85, y: 8 }}
+  //           animate={{ opacity: 1, scale: 1, y: 0 }}
+  //           exit={{ opacity: 0, scale: 0.85, y: 8 }}
+  //           transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
+  //           className="flex flex-col gap-1 p-2 rounded-2xl border border-slate-200 dark:border-white/[0.09]
+  //                      bg-white dark:bg-[#0d1117] shadow-xl"
+  //         >
+  //           <p className="text-[10px] font-mono text-slate-400 dark:text-slate-600 px-2 pt-1 pb-0.5 uppercase tracking-widest">
+  //             Accent colour
+  //           </p>
+  //           {ACCENTS.map((a, i) => (
+  //             <button
+  //               key={a.name}
+  //               onClick={() => pick(i)}
+  //               title={a.label}
+  //               aria-label={`Set accent to ${a.label}`}
+  //               className={`flex items-center gap-2.5 px-3 py-1.5 rounded-xl text-xs font-medium
+  //                           transition-all duration-150 text-left
+  //                           ${i === accentIdx
+  //                             ? "bg-slate-100 dark:bg-white/[0.07] text-slate-800 dark:text-slate-200"
+  //                             : "text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-white/[0.04]"
+  //                           }`}
+  //             >
+  //               <span
+  //                 className="w-3.5 h-3.5 rounded-full flex-shrink-0 ring-1 ring-black/10"
+  //                 style={{ backgroundColor: a.swatch }}
+  //               />
+  //               {a.label}
+  //               {i === accentIdx && (
+  //                 <span className="ml-auto text-[9px] font-mono opacity-50">auto</span>
+  //               )}
+  //             </button>
+  //           ))}
+  //         </motion.div>
+  //       )}
+  //     </AnimatePresence>
 
-      {/* Toggle button — swatch dot pulses to show current colour */}
-      <button
-        onClick={() => setOpen((v) => !v)}
-        aria-label="Choose accent colour"
-        title="Accent colour — auto-cycling"
-        className="relative w-10 h-10 rounded-full border shadow-sm backdrop-blur-sm flex items-center justify-center
-                   bg-white/80 dark:bg-white/[0.05] border-slate-200 dark:border-white/[0.1]
-                   text-slate-400 hover:border-slate-300 dark:hover:border-white/[0.2] transition-colors duration-200"
-      >
-        <Palette className="w-4 h-4" />
-        {/* Live swatch dot */}
-        <span
-          className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 rounded-full ring-2 ring-white dark:ring-[#060610]"
-          style={{
-            backgroundColor: current.swatch,
-            transition: `background-color ${TRANSITION_MS}ms ease`,
-          }}
-        />
-      </button>
-    </div>
-  );
+  //     {/* Toggle button — swatch dot pulses to show current colour */}
+  //     <button
+  //       onClick={() => setOpen((v) => !v)}
+  //       aria-label="Choose accent colour"
+  //       title="Accent colour — auto-cycling"
+  //       className="relative w-10 h-10 rounded-full border shadow-sm backdrop-blur-sm flex items-center justify-center
+  //                  bg-white/80 dark:bg-white/[0.05] border-slate-200 dark:border-white/[0.1]
+  //                  text-slate-400 hover:border-slate-300 dark:hover:border-white/[0.2] transition-colors duration-200"
+  //     >
+  //       <Palette className="w-4 h-4" />
+  //       {/* Live swatch dot */}
+  //       <span
+  //         className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 rounded-full ring-2 ring-white dark:ring-[#060610]"
+  //         style={{
+  //           backgroundColor: current.swatch,
+  //           transition: `background-color ${TRANSITION_MS}ms ease`,
+  //         }}
+  //       />
+  //     </button>
+  //   </div>
+  // );
 }

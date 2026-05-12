@@ -2,8 +2,35 @@ import { memo, useRef, useEffect, useState, Fragment } from "react";
 import { motion, useInView } from "framer-motion";
 import { Code2, Users, Package, Trophy, Heart, GitCommit } from "lucide-react";
 import { GitHubCalendar } from "react-github-calendar";
+import { ACCENT_HEATMAP } from "../effects/AccentPicker";
 import { AnimatedSection, StaggerContainer, StaggerItem } from "../ui/AnimatedSection";
 import { useNpmStats } from "../../hooks/useNpmStats";
+
+function useHeatmapTheme() {
+  const [theme, setTheme] = useState(
+    () => ACCENT_HEATMAP[localStorage.getItem("portfolio-accent") ?? "orange"] ?? ACCENT_HEATMAP.orange
+  );
+  const [isDark, setIsDark] = useState(
+    () => document.documentElement.classList.contains("dark")
+  );
+
+  useEffect(() => {
+    const onAccent = (e) => setTheme(e.detail.heatmap);
+    window.addEventListener("portfolio:accent", onAccent);
+
+    const observer = new MutationObserver(() =>
+      setIsDark(document.documentElement.classList.contains("dark"))
+    );
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
+
+    return () => {
+      window.removeEventListener("portfolio:accent", onAccent);
+      observer.disconnect();
+    };
+  }, []);
+
+  return { theme, colorScheme: isDark ? "dark" : "light" };
+}
 
 function CountUp({ to, suffix, decimals = 0 }) {
   const [count, setCount] = useState(0);
@@ -107,6 +134,7 @@ function TerminalCard() {
 
 function About() {
   const { data: npmData } = useNpmStats();
+  const { theme: heatmapTheme, colorScheme } = useHeatmapTheme();
 
   return (
     <section id="about" aria-labelledby="about-heading">
@@ -217,7 +245,7 @@ function About() {
             </div>
           </AnimatedSection>
 
-          {/* GitHub contribution heatmap — full width */}
+          {/* GitHub contribution heatmap — full width, theme-reactive */}
           <AnimatedSection delay={0.55} className="md:col-span-2 lg:col-span-3">
             <div className="glass-card p-6">
               <div className="flex items-center gap-2 mb-5">
@@ -237,11 +265,8 @@ function About() {
               <div className="overflow-x-auto [&_.react-activity-calendar]:!font-mono">
                 <GitHubCalendar
                   username="jpranays"
-                  colorScheme="light"
-                  theme={{
-                    light: ["#f1f5f9", "#fed7aa", "#fb923c", "#f97316", "#ea580c"],
-                    dark:  ["#1e293b", "#431407", "#9a3412", "#f97316", "#fb923c"],
-                  }}
+                  colorScheme={colorScheme}
+                  theme={heatmapTheme}
                   style={{ width: "100%" }}
                   fontSize={11}
                   blockSize={12}
