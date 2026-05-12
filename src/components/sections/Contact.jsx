@@ -297,7 +297,7 @@ function Contact() {
                       Available for full-time, freelance, or open-source collaboration.
                       Typical response: under 24 hours.
                     </p>
-                    <a
+                    {/* <a
                       href="https://cal.com/jpranays"
                       target="_blank"
                       rel="noopener noreferrer"
@@ -307,7 +307,7 @@ function Contact() {
                     >
                       <CalendarDays className="w-3.5 h-3.5" aria-hidden="true" />
                       Book a 30-min call
-                    </a>
+                    </a> */}
                   </div>
                 </div>
               </div>
