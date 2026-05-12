@@ -1,6 +1,7 @@
-import { memo, useState, useEffect } from "react";
+import { memo, useState, useEffect, useCallback } from "react";
 import { useActiveSection } from "./hooks/useActiveSection";
 import { useTheme } from "./hooks/useTheme";
+import { useKonamiCode } from "./hooks/useKonamiCode";
 import Navbar from "./components/layout/Navbar";
 import { Footer } from "./components/layout/Footer";
 import { ScrollProgress } from "./components/effects/ScrollProgress";
@@ -8,6 +9,8 @@ import { CustomCursor } from "./components/effects/CustomCursor";
 import { IntroAnimation } from "./components/effects/IntroAnimation";
 import { BackToTop } from "./components/effects/BackToTop";
 import CommandPalette from "./components/effects/CommandPalette";
+import { ToastProvider, useToast } from "./components/effects/Toast";
+import { EasterEgg } from "./components/effects/EasterEgg";
 import Hero from "./components/sections/Hero";
 import About from "./components/sections/About";
 import Experience from "./components/sections/Experience";
@@ -29,10 +32,17 @@ const Divider = () => (
   />
 );
 
-function App() {
+function AppInner() {
   const activeSection = useActiveSection(SECTIONS, { threshold: 0.3 });
   const { theme, toggle, isDark } = useTheme();
   const [paletteOpen, setPaletteOpen] = useState(false);
+  const [eggActive, setEggActive] = useState(false);
+  const toast = useToast();
+
+  useKonamiCode(useCallback(() => {
+    setEggActive(true);
+    toast.easter("🎮 Cheat code activated! You found the easter egg!", 4000);
+  }, [toast]));
 
   useEffect(() => {
     const handler = (e) => {
@@ -41,19 +51,17 @@ function App() {
         setPaletteOpen((v) => !v);
       }
     };
-    // Bubble phase — fires when palette is closed (capture phase owned by palette when open)
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
   }, []);
 
   return (
     <>
-      {/* Effects */}
       <IntroAnimation />
       <CustomCursor />
       <ScrollProgress />
+      <EasterEgg active={eggActive} onDone={() => setEggActive(false)} />
 
-      {/* Film grain overlay — very subtle premium texture */}
       <div
         aria-hidden="true"
         className="fixed inset-0 pointer-events-none z-[9985]"
@@ -87,6 +95,14 @@ function App() {
       <Footer />
       <BackToTop />
     </>
+  );
+}
+
+function App() {
+  return (
+    <ToastProvider>
+      <AppInner />
+    </ToastProvider>
   );
 }
 

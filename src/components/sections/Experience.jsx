@@ -1,51 +1,70 @@
-import { memo } from "react";
-import { motion } from "framer-motion";
-import { Briefcase, GraduationCap, ExternalLink, MapPin } from "lucide-react";
+import { memo, useRef } from "react";
+import { motion, useInView, useReducedMotion } from "framer-motion";
+import { Briefcase, GraduationCap, ExternalLink } from "lucide-react";
 import { AnimatedSection, StaggerContainer, StaggerItem } from "../ui/AnimatedSection";
 import { EXPERIENCE, EDUCATION } from "../../data/experience";
 
-function TimelineDot({ current = false }) {
+function Dot({ current }) {
   return (
-    <div className="relative flex-shrink-0 w-3 h-3 mt-1.5">
-      <div
-        className={`w-3 h-3 rounded-full border-2 ${
-          current
-            ? "bg-orange-500 border-orange-400"
-            : "bg-surface border-slate-300 dark:border-white/20"
-        }`}
-      />
+    <div className="relative flex-shrink-0 mt-[22px]">
+      <div className={`w-3 h-3 rounded-full border-2 ring-4 ring-offset-0 ${
+        current
+          ? "bg-orange-500 border-orange-300 ring-orange-500/20"
+          : "bg-slate-300 dark:bg-slate-600 border-slate-200 dark:border-white/20 ring-transparent"
+      }`} />
       {current && (
-        <div className="absolute inset-0 rounded-full bg-orange-400 animate-ping opacity-60" aria-hidden="true" />
+        <div className="absolute inset-0 rounded-full bg-orange-400 animate-ping opacity-50" aria-hidden="true" />
       )}
     </div>
   );
 }
 
-function ExperienceCard({ item }) {
+function TimelineEntry({ item, index, isLast }) {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, amount: 0.2 });
+  const reduced = useReducedMotion();
+
   return (
-    <StaggerItem>
-      <div className={`glass-card p-6 hover:translate-y-[-2px] transition-transform duration-300 border-l-2 ${item.current ? "border-l-orange-500" : "border-l-slate-300/40 dark:border-l-white/10"}`}>
-        <div className="flex items-start justify-between gap-4 mb-3">
+    <div ref={ref} className="flex gap-5">
+      <div className="flex flex-col items-center">
+        <Dot current={item.current} />
+        {!isLast && (
+          <motion.div
+            initial={{ scaleY: 0, originY: 0 }}
+            animate={inView ? { scaleY: 1 } : {}}
+            transition={{ duration: reduced ? 0 : 0.55, delay: reduced ? 0 : 0.3 }}
+            className="w-px flex-1 mt-2 bg-slate-200 dark:bg-white/[0.07]"
+          />
+        )}
+      </div>
+
+      <motion.div
+        initial={{ opacity: 0, x: reduced ? 0 : -20 }}
+        animate={inView ? { opacity: 1, x: 0 } : {}}
+        transition={{ duration: reduced ? 0.15 : 0.5, delay: reduced ? 0 : index * 0.08, ease: [0.22, 1, 0.36, 1] }}
+        className={`flex-1 ${isLast ? "pb-0" : "pb-10"}`}
+      >
+        <div className="flex flex-wrap items-start justify-between gap-2 mb-1">
           <div>
-            <h3 className="text-base font-semibold text-slate-800 dark:text-slate-100">{item.role}</h3>
-            <div className="flex items-center gap-2 mt-1">
+            <h3 className="text-base font-semibold text-slate-800 dark:text-slate-100 leading-snug">{item.role}</h3>
+            <div className="flex items-center gap-2 mt-0.5 flex-wrap">
               <span className="text-orange-400 font-medium text-sm">{item.company}</span>
-              <span className="text-slate-400 text-xs">·</span>
+              <span className="text-slate-300 dark:text-slate-600 text-xs">·</span>
               <span className="text-slate-500 text-xs font-mono">{item.type}</span>
             </div>
           </div>
-          <span className="flex-shrink-0 text-xs font-mono text-slate-500 bg-slate-100 dark:bg-white/[0.04] px-2.5 py-1 rounded-md border border-slate-200 dark:border-white/[0.06]">
+          <span className="text-xs font-mono text-slate-500 bg-slate-100 dark:bg-white/[0.04] px-2.5 py-1 rounded-md border border-slate-200 dark:border-white/[0.06] flex-shrink-0">
             {item.period}
           </span>
         </div>
 
-        <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed mb-4">{item.description}</p>
+        <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed mt-3 mb-3">{item.description}</p>
 
         {item.highlights && (
-          <ul className="space-y-1.5 mb-4" aria-label="Highlights">
+          <ul className="space-y-1.5 mb-4">
             {item.highlights.map((h) => (
               <li key={h} className="flex items-start gap-2 text-sm text-slate-500 dark:text-slate-400">
-                <span className="mt-1.5 w-1 h-1 rounded-full bg-orange-500 flex-shrink-0" aria-hidden="true" />
+                <span className="mt-[7px] w-1 h-1 rounded-full bg-orange-500 flex-shrink-0" aria-hidden="true" />
                 {h}
               </li>
             ))}
@@ -53,14 +72,12 @@ function ExperienceCard({ item }) {
         )}
 
         {item.tech && (
-          <div className="flex flex-wrap gap-1.5 mt-3 pt-3 border-t border-slate-200 dark:border-white/[0.06]">
-            {item.tech.map((t) => (
-              <span key={t} className="tech-badge">{t}</span>
-            ))}
+          <div className="flex flex-wrap gap-1.5 pt-3 border-t border-slate-200 dark:border-white/[0.06]">
+            {item.tech.map((t) => <span key={t} className="tech-badge">{t}</span>)}
           </div>
         )}
-      </div>
-    </StaggerItem>
+      </motion.div>
+    </div>
   );
 }
 
@@ -102,47 +119,37 @@ function Experience() {
           </p>
         </AnimatedSection>
 
-        <div className="mt-12 grid grid-cols-1 lg:grid-cols-5 gap-8">
-          {/* Work experience — left 3 cols */}
+        <div className="mt-12 grid grid-cols-1 lg:grid-cols-5 gap-10">
           <div className="lg:col-span-3">
             <AnimatedSection delay={0.1}>
-              <div className="flex items-center gap-2 mb-6">
+              <div className="flex items-center gap-2 mb-8">
                 <Briefcase className="w-4 h-4 text-orange-400" aria-hidden="true" />
-                <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 uppercase tracking-wider font-mono">
-                  Work
-                </h3>
+                <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 uppercase tracking-wider font-mono">Work</h3>
               </div>
             </AnimatedSection>
-            <StaggerContainer className="space-y-4">
-              {EXPERIENCE.map((exp) => (
-                <ExperienceCard key={exp.id} item={exp} />
+            <div>
+              {EXPERIENCE.map((exp, i) => (
+                <TimelineEntry key={exp.id} item={exp} index={i} isLast={i === EXPERIENCE.length - 1} />
               ))}
-            </StaggerContainer>
+            </div>
           </div>
 
-          {/* Education — right 2 cols */}
           <div className="lg:col-span-2">
             <AnimatedSection delay={0.2}>
-              <div className="flex items-center gap-2 mb-6">
+              <div className="flex items-center gap-2 mb-8">
                 <GraduationCap className="w-4 h-4 text-cyan-400" aria-hidden="true" />
-                <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 uppercase tracking-wider font-mono">
-                  Education
-                </h3>
+                <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 uppercase tracking-wider font-mono">Education</h3>
               </div>
             </AnimatedSection>
             <StaggerContainer className="space-y-4">
-              {EDUCATION.map((edu) => (
-                <EducationCard key={edu.id} item={edu} />
-              ))}
+              {EDUCATION.map((edu) => <EducationCard key={edu.id} item={edu} />)}
             </StaggerContainer>
-
-            {/* LeetCode/GitHub CTA */}
             <AnimatedSection delay={0.4} className="mt-4">
               <a
                 href="https://leetcode.com/jpranays"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="glass-card p-5 flex items-center justify-between group cursor-pointer block"
+                className="glass-card p-5 flex items-center justify-between group block"
                 aria-label="View LeetCode profile"
               >
                 <div>
