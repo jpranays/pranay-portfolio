@@ -2,6 +2,8 @@ import { memo, useRef, useEffect, useState, Fragment } from "react";
 import { motion, useInView } from "framer-motion";
 import { Code2, Users, Package, Trophy, Heart } from "lucide-react";
 import { AnimatedSection, StaggerContainer, StaggerItem } from "../ui/AnimatedSection";
+import { StatCardSkeleton } from "../ui/Skeleton";
+import { useNpmStats } from "../../hooks/useNpmStats";
 
 function CountUp({ to, suffix, decimals = 0 }) {
   const [count, setCount] = useState(0);
@@ -36,7 +38,7 @@ const STATS = [
     iconColor: "text-orange-400", iconBg: "bg-orange-500/10 border-orange-500/20",
   },
   {
-    countTo: 25, suffix: "K+", decimals: 0,
+    countTo: 25, suffix: "K+", decimals: 0, liveKey: "npm",
     label: "Weekly npm downloads", icon: Package,
     iconColor: "text-rose-400", iconBg: "bg-rose-500/10 border-rose-500/20",
   },
@@ -104,6 +106,8 @@ function TerminalCard() {
 }
 
 function About() {
+  const { loading: npmLoading, data: npmData } = useNpmStats();
+
   return (
     <section id="about" aria-labelledby="about-heading">
       <div className="section-container">
@@ -163,22 +167,34 @@ function About() {
             <TerminalCard />
           </AnimatedSection>
 
-          {/* Stats — 4 cards */}
-          {STATS.map((stat, i) => (
-            <AnimatedSection key={stat.label} delay={0.1 * (i + 3)}>
-              <div className="glass-card p-5 flex items-center gap-4">
-                <div className={`w-10 h-10 rounded-xl border flex items-center justify-center flex-shrink-0 ${stat.iconBg}`}>
-                  <stat.icon className={`w-4 h-4 ${stat.iconColor}`} aria-hidden="true" />
-                </div>
-                <div>
-                  <p className="text-2xl font-bold text-slate-800 dark:text-slate-100 leading-none tracking-tight">
-                    <CountUp to={stat.countTo} suffix={stat.suffix} decimals={stat.decimals} />
-                  </p>
-                  <p className="text-xs text-slate-500 mt-0.5 leading-snug">{stat.label}</p>
-                </div>
-              </div>
-            </AnimatedSection>
-          ))}
+          {/* Stats — 4 cards (skeleton while npm data loads) */}
+          {npmLoading
+            ? STATS.map((stat, i) => (
+                <AnimatedSection key={stat.label} delay={0.1 * (i + 3)}>
+                  <StatCardSkeleton />
+                </AnimatedSection>
+              ))
+            : STATS.map((stat, i) => {
+                const liveCountTo = stat.liveKey === "npm" && npmData
+                  ? Math.round(npmData.total / 1000)
+                  : stat.countTo;
+                return (
+                  <AnimatedSection key={stat.label} delay={0.1 * (i + 3)}>
+                    <div className="glass-card p-5 flex items-center gap-4">
+                      <div className={`w-10 h-10 rounded-xl border flex items-center justify-center flex-shrink-0 ${stat.iconBg}`}>
+                        <stat.icon className={`w-4 h-4 ${stat.iconColor}`} aria-hidden="true" />
+                      </div>
+                      <div>
+                        <p className="text-2xl font-bold text-slate-800 dark:text-slate-100 leading-none tracking-tight">
+                          <CountUp key={liveCountTo} to={liveCountTo} suffix={stat.suffix} decimals={stat.decimals} />
+                        </p>
+                        <p className="text-xs text-slate-500 mt-0.5 leading-snug">{stat.label}</p>
+                      </div>
+                    </div>
+                  </AnimatedSection>
+                );
+              })
+          }
 
           {/* Interests — spans full width */}
           <AnimatedSection delay={0.45} className="md:col-span-2 lg:col-span-3">
