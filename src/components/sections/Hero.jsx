@@ -232,7 +232,7 @@ function Hero() {
                   </motion.span>
                 </span>
               </h1>
-              <motion.button
+              {/* <motion.button
                 initial={{ opacity: 0, scale: 0.7 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 1.1, duration: 0.35 }}
@@ -247,7 +247,7 @@ function Hero() {
                   }`}
               >
                 <Volume2 className="w-4 h-4 sm:w-5 sm:h-5" aria-hidden="true" />
-              </motion.button>
+              </motion.button> */}
             </div>
           </motion.div>
 

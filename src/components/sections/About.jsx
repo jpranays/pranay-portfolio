@@ -246,7 +246,7 @@ function About() {
           </AnimatedSection>
 
           {/* GitHub contribution heatmap — full width, theme-reactive */}
-          <AnimatedSection delay={0.55} className="md:col-span-2 lg:col-span-3">
+          {/* <AnimatedSection delay={0.55} className="md:col-span-2 lg:col-span-3">
             <div className="glass-card p-6">
               <div className="flex items-center gap-2 mb-5">
                 <GitCommit className="w-4 h-4 text-orange-400" aria-hidden="true" />
@@ -276,7 +276,7 @@ function About() {
                 />
               </div>
             </div>
-          </AnimatedSection>
+          </AnimatedSection> */}
         </div>
       </div>
     </section>

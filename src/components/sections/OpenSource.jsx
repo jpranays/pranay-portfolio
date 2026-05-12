@@ -8,9 +8,10 @@ import { AnimatedSection, StaggerContainer, StaggerItem } from "../ui/AnimatedSe
 import { OSS_CONTRIBUTIONS, OSS_STATS } from "../../data/opensource";
 import { useGitHubStats } from "../../hooks/useGitHubStats";
 import { useNpmStats } from "../../hooks/useNpmStats";
-import { useGitHubContributions } from "../../hooks/useGitHubContributions";
+import { useGitHubContributions, useHeatmapTheme } from "../../hooks/useGitHubContributions";
 import { GitHubCalendar } from "react-github-calendar";
 import { GitCommit } from "lucide-react";
+import { ACCENT_HEATMAP } from "../effects/AccentPicker";
 
 
 
@@ -322,6 +323,7 @@ function getMonthLabels(weeks) {
   return labels;
 }
 
+
 function HeatmapSkeleton() {
   return (
     <div className="glass-card p-5 space-y-3">
@@ -334,8 +336,10 @@ function HeatmapSkeleton() {
   );
 }
 
-function ContributionHeatmap() {
+function ContributionHeatmap({}) {
   const { loading, error, data } = useGitHubContributions();
+  const { theme: heatmapTheme, colorScheme } = useHeatmapTheme();
+
 
   if (loading) return <HeatmapSkeleton />;
 
@@ -353,6 +357,8 @@ function ContributionHeatmap() {
   const monthLabels = getMonthLabels(weeks);
   const minutesAgo = Math.floor((Date.now() - fetchedAt) / 60_000);
   const fetchLabel = minutesAgo < 1 ? "Just now" : `${minutesAgo}m ago`;
+
+
 
   return (
     <div className="glass-card p-5 space-y-4">
@@ -377,11 +383,8 @@ function ContributionHeatmap() {
               <div className="overflow-x-auto [&_.react-activity-calendar]:!font-mono">
                 <GitHubCalendar
                   username="jpranays"
-                  colorScheme="light"
-                  theme={{
-                    light: ["#f1f5f9", "#fed7aa", "#fb923c", "#f97316", "#ea580c"],
-                    dark:  ["#1e293b", "#431407", "#9a3412", "#f97316", "#fb923c"],
-                  }}
+                  colorScheme={colorScheme}
+                  theme={heatmapTheme}
                   style={{ width: "100%" }}
                   fontSize={11}
                   blockSize={12}
@@ -467,6 +470,7 @@ function OSSCard({ item }) {
 // ── Section ───────────────────────────────────────────────────────────────────
 function OpenSource() {
   const { data: npmData } = useNpmStats();
+
 
   return (
     <section id="opensource" aria-labelledby="opensource-heading">
