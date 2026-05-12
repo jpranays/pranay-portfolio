@@ -9,6 +9,10 @@ import { OSS_CONTRIBUTIONS, OSS_STATS } from "../../data/opensource";
 import { useGitHubStats } from "../../hooks/useGitHubStats";
 import { useNpmStats } from "../../hooks/useNpmStats";
 import { useGitHubContributions } from "../../hooks/useGitHubContributions";
+import { GitHubCalendar } from "react-github-calendar";
+import { GitCommit } from "lucide-react";
+
+
 
 function CountUp({ to, suffix, decimals = 0 }) {
   const [count, setCount] = useState(0);
@@ -353,77 +357,42 @@ function ContributionHeatmap() {
   return (
     <div className="glass-card p-5 space-y-4">
       {/* Header */}
-      <div className="flex items-center justify-between flex-wrap gap-2">
-        <div className="flex items-center gap-2">
-          <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" aria-hidden="true" />
-          <span className="text-xs font-mono font-medium text-slate-500 dark:text-slate-400 uppercase tracking-widest">
-            Contribution Activity
-          </span>
-        </div>
-        <div className="flex items-center gap-3">
-          <span className="text-xs font-mono text-slate-700 dark:text-slate-200 font-semibold">
-            {totalThisYear.toLocaleString()} contributions this year
-          </span>
-          <span className="text-xs font-mono text-slate-400 dark:text-slate-600">
-            {fetchLabel}
-          </span>
-        </div>
-      </div>
-
-      {/* Grid */}
-      <div className="overflow-x-auto pb-1">
-        <div className="relative min-w-max">
-          {/* Month labels */}
-          <div className="flex mb-1 pl-7">
-            {monthLabels.map(({ week, label }) => (
-              <div
-                key={`${week}-${label}`}
-                className="absolute text-[9px] font-mono text-slate-400 dark:text-slate-600"
-                style={{ left: `${week * 12 + 28}px` }}
-              >
-                {label}
+                {/* GitHub contribution heatmap — full width */}
+          <AnimatedSection delay={0.55} className="md:col-span-2 lg:col-span-3">
+            <div className="glass-card p-6">
+              <div className="flex items-center gap-2 mb-5">
+                <GitCommit className="w-4 h-4 text-orange-400" aria-hidden="true" />
+                <h3 className="text-xs font-mono text-slate-500 uppercase tracking-widest">
+                  GitHub Contributions
+                </h3>
+                <a
+                  href="https://github.com/jpranays"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="ml-auto text-[11px] font-mono text-slate-400 hover:text-orange-400 transition-colors"
+                >
+                  @jpranays →
+                </a>
               </div>
-            ))}
-            <div className="h-3" />
-          </div>
-
-          <div className="flex gap-0.5">
-            {/* Day labels */}
-            <div className="flex flex-col gap-0.5 mr-1 justify-around">
-              {["S","M","T","W","T","F","S"].map((d, i) => (
-                <span key={i} className="text-[9px] font-mono text-slate-400 dark:text-slate-600 w-3 text-center leading-[10px]">
-                  {i % 2 === 1 ? d : ""}
-                </span>
-              ))}
+              <div className="overflow-x-auto [&_.react-activity-calendar]:!font-mono">
+                <GitHubCalendar
+                  username="jpranays"
+                  colorScheme="light"
+                  theme={{
+                    light: ["#f1f5f9", "#fed7aa", "#fb923c", "#f97316", "#ea580c"],
+                    dark:  ["#1e293b", "#431407", "#9a3412", "#f97316", "#fb923c"],
+                  }}
+                  style={{ width: "100%" }}
+                  fontSize={11}
+                  blockSize={12}
+                  blockMargin={4}
+                  blockRadius={3}
+                  labels={{ totalCount: "{{count}} contributions in the last year" }}
+                />
+              </div>
             </div>
-
-            {/* Cells */}
-            {weeks.map((week, wi) => (
-              <div key={wi} className="flex flex-col gap-0.5">
-                {Array(7).fill(null).map((_, di) => {
-                  const cell = week[di];
-                  return (
-                    <div
-                      key={di}
-                      title={cell ? `${cell.date}: ${cell.count} contribution${cell.count !== 1 ? "s" : ""}` : undefined}
-                      className={`w-[10px] h-[10px] rounded-[2px] ${cell ? LEVEL_CLASSES[cell.level] : "bg-transparent"}`}
-                    />
-                  );
-                })}
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Legend */}
-        <div className="flex items-center gap-1.5 mt-3 justify-end">
-          <span className="text-[9px] font-mono text-slate-400 dark:text-slate-600">Less</span>
-          {LEVEL_CLASSES.map((cls, i) => (
-            <div key={i} className={`w-[10px] h-[10px] rounded-[2px] ${cls}`} />
-          ))}
-          <span className="text-[9px] font-mono text-slate-400 dark:text-slate-600">More</span>
-        </div>
-      </div>
+          </AnimatedSection>
+     
     </div>
   );
 }
