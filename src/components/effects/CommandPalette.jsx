@@ -1,11 +1,12 @@
-import { memo, useEffect, useState, useCallback } from "react";
+import { memo, useEffect, useCallback } from "react";
 import { Command } from "cmdk";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   User, Briefcase, Code2, FolderGit2, GitPullRequest, Mail,
   Github, Linkedin, Twitter, Package, Download, Sun, Moon, Monitor,
-  Copy, Check, Search, ChevronRight,
+  Copy, Search, ChevronRight,
 } from "lucide-react";
+import { useToast } from "./Toast";
 
 const NAV_COMMANDS = [
   { id: "nav-hero",       label: "Home",        icon: User,         section: "hero"       },
@@ -29,7 +30,7 @@ const THEME_ICONS = { light: Sun, dark: Moon, system: Monitor };
 const THEME_NEXT_LABEL = { light: "Switch to Dark Mode", dark: "Follow System Preference", system: "Switch to Light Mode" };
 
 function CommandPalette({ open, onClose, theme, toggleTheme }) {
-  const [copied, setCopied] = useState(false);
+  const toast = useToast();
 
   // Handle Escape (close) and Cmd/Ctrl+K (toggle) while palette is open.
   // Runs at capture phase so it fires before cmdk's own input handler.
@@ -62,9 +63,9 @@ function CommandPalette({ open, onClose, theme, toggleTheme }) {
 
   const copyEmail = useCallback(async () => {
     await navigator.clipboard.writeText("jpranays@gmail.com");
-    setCopied(true);
-    setTimeout(() => { setCopied(false); onClose(); }, 1200);
-  }, [onClose]);
+    toast.success("Email copied to clipboard!");
+    onClose();
+  }, [onClose, toast]);
 
   const ThemeIcon = THEME_ICONS[theme] ?? Sun;
 
@@ -206,10 +207,8 @@ function CommandPalette({ open, onClose, theme, toggleTheme }) {
                                aria-selected:bg-orange-500/10 aria-selected:text-orange-500 dark:aria-selected:text-orange-400
                                transition-colors duration-100 group"
                   >
-                    {copied
-                      ? <Check className="w-4 h-4 text-green-400 flex-shrink-0" aria-hidden="true" />
-                      : <Copy className="w-4 h-4 text-slate-400 dark:text-slate-600 group-aria-selected:text-orange-400 flex-shrink-0" aria-hidden="true" />}
-                    <span className="flex-1">{copied ? "Email copied!" : "Copy Email Address"}</span>
+                    <Copy className="w-4 h-4 text-slate-400 dark:text-slate-600 group-aria-selected:text-orange-400 flex-shrink-0" aria-hidden="true" />
+                    <span className="flex-1">Copy Email Address</span>
                     <ChevronRight className="w-3 h-3 opacity-0 group-aria-selected:opacity-60 transition-opacity" aria-hidden="true" />
                   </Command.Item>
                 </Command.Group>
