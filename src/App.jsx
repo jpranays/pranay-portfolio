@@ -2,6 +2,7 @@ import { memo, useState, useEffect, useCallback } from "react";
 import { useActiveSection } from "./hooks/useActiveSection";
 import { useTheme } from "./hooks/useTheme";
 import { useKonamiCode } from "./hooks/useKonamiCode";
+import { useTabTitle } from "./hooks/useTabTitle";
 import Navbar from "./components/layout/Navbar";
 import { Footer } from "./components/layout/Footer";
 import { ScrollProgress } from "./components/effects/ScrollProgress";
@@ -44,6 +45,8 @@ function AppInner() {
   const toast = useToast();
   const { playing: musicPlaying, toggle: toggleMusic } = useMusicPlayer();
 
+  useTabTitle();
+
   useKonamiCode(useCallback(() => {
     setEggActive(true);
     toast.easter("🎮 Cheat code activated! You found the easter egg!", 4000);
@@ -58,6 +61,12 @@ function AppInner() {
     };
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
+  }, []);
+
+  useEffect(() => {
+    const handler = () => setEggActive(true);
+    window.addEventListener("portfolio:confetti", handler);
+    return () => window.removeEventListener("portfolio:confetti", handler);
   }, []);
 
   return (

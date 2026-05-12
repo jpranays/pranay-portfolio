@@ -131,6 +131,7 @@ function Contact() {
       if (res.ok) {
         setStatus("success");
         reset();
+        window.dispatchEvent(new CustomEvent("portfolio:confetti"));
         setTimeout(() => setStatus("idle"), 6000);
       } else {
         setStatus("error");
