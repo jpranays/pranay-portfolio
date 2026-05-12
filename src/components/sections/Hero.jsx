@@ -1,11 +1,12 @@
 import { memo, useEffect } from "react";
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { motion, useMotionValue, useSpring, useTransform, useReducedMotion } from "framer-motion";
 import {
   Github, Linkedin, Mail, ArrowDown,
   Download, ExternalLink, Twitter, Package,
 } from "lucide-react";
 import { useTyping } from "../../hooks/useTyping";
 import { MagneticButton } from "../ui/MagneticButton";
+import { useNpmStats } from "../../hooks/useNpmStats";
 
 const TYPING_WORDS = [
   "Senior Software Developer",
@@ -22,9 +23,9 @@ const SOCIAL_LINKS = [
   { href: "https://www.npmjs.com/~jpranays", icon: Package, label: "npm", username: "npm" },
 ];
 
-const CREDIBILITY_PILLS = [
+const CREDIBILITY_PILLS_BASE = [
   { label: "Sears India", note: "Senior SWE" },
-  { label: "25K+", note: "weekly npm users" },
+  { label: "25K+", note: "weekly npm users", liveKey: "npm" },
   { label: "3.4M+", note: "devs via OSS" },
 ];
 
@@ -81,30 +82,37 @@ const item = {
 
 function Hero() {
   const typed = useTyping(TYPING_WORDS);
+  const { data: npmData } = useNpmStats();
+  const reduced = useReducedMotion();
+  const credibilityPills = CREDIBILITY_PILLS_BASE.map((p) =>
+    p.liveKey === "npm" && npmData
+      ? { ...p, label: `${(npmData.total / 1000).toFixed(1)}K+` }
+      : p
+  );
 
-  /* ── Mouse parallax ── */
+  /* ── Mouse parallax (disabled when reduced motion) ── */
   const rawX = useMotionValue(0);
   const rawY = useMotionValue(0);
   const springX = useSpring(rawX, { stiffness: 38, damping: 22 });
   const springY = useSpring(rawY, { stiffness: 38, damping: 22 });
-  const orangeX = useTransform(springX, v =>  v * 0.045);
-  const orangeY = useTransform(springY, v =>  v * 0.035);
-  const violetX = useTransform(springX, v => -v * 0.028);
-  const violetY = useTransform(springY, v => -v * 0.028);
-  const cyanX   = useTransform(springX, v =>  v * 0.018);
-  const cyanY   = useTransform(springY, v => -v * 0.020);
-  const pinkX   = useTransform(springX, v => -v * 0.022);
-  const pinkY   = useTransform(springY, v =>  v * 0.022);
+  const orangeX = useTransform(springX, v => reduced ? 0 :  v * 0.045);
+  const orangeY = useTransform(springY, v => reduced ? 0 :  v * 0.035);
+  const violetX = useTransform(springX, v => reduced ? 0 : -v * 0.028);
+  const violetY = useTransform(springY, v => reduced ? 0 : -v * 0.028);
+  const cyanX   = useTransform(springX, v => reduced ? 0 :  v * 0.018);
+  const cyanY   = useTransform(springY, v => reduced ? 0 : -v * 0.020);
+  const pinkX   = useTransform(springX, v => reduced ? 0 : -v * 0.022);
+  const pinkY   = useTransform(springY, v => reduced ? 0 :  v * 0.022);
 
   useEffect(() => {
-    if (!window.matchMedia("(pointer: fine)").matches) return;
+    if (reduced || !window.matchMedia("(pointer: fine)").matches) return;
     const handler = (e) => {
       rawX.set(e.clientX - window.innerWidth  / 2);
       rawY.set(e.clientY - window.innerHeight / 2);
     };
     window.addEventListener("mousemove", handler, { passive: true });
     return () => window.removeEventListener("mousemove", handler);
-  }, []);
+  }, [reduced]);
 
   return (
     <section
@@ -134,7 +142,7 @@ function Hero() {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: b.delay + 2, duration: 0.6 }}
-          className={`absolute ${b.show === "2xl" ? "hidden 2xl:block" : b.show === "xl" ? "hidden xl:block" : "hidden lg:block"} animate-float ${b.cls}`}
+          className={`absolute ${b.show === "2xl" ? "hidden 2xl:block" : b.show === "xl" ? "hidden xl:block" : "hidden lg:block"} ${reduced ? "" : "animate-float"} ${b.cls}`}
           style={{ animationDelay: `${b.delay}s`, animationDuration: `${b.dur}s` }}
           aria-hidden="true"
         >
@@ -208,7 +216,7 @@ function Hero() {
 
           {/* Credibility pills */}
           <motion.div variants={item} className="flex flex-wrap items-center justify-center gap-2">
-            {CREDIBILITY_PILLS.map((pill) => (
+            {credibilityPills.map((pill) => (
               <span key={pill.label}
                 className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs border border-slate-200 dark:border-white/[0.08] bg-slate-100 dark:bg-white/[0.04] text-slate-500 dark:text-slate-400">
                 <span className="font-semibold text-slate-700 dark:text-slate-200">{pill.label}</span>

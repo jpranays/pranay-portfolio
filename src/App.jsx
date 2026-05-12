@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo, useState, useEffect } from "react";
 import { useActiveSection } from "./hooks/useActiveSection";
 import { useTheme } from "./hooks/useTheme";
 import Navbar from "./components/layout/Navbar";
@@ -7,6 +7,7 @@ import { ScrollProgress } from "./components/effects/ScrollProgress";
 import { CustomCursor } from "./components/effects/CustomCursor";
 import { IntroAnimation } from "./components/effects/IntroAnimation";
 import { BackToTop } from "./components/effects/BackToTop";
+import CommandPalette from "./components/effects/CommandPalette";
 import Hero from "./components/sections/Hero";
 import About from "./components/sections/About";
 import Experience from "./components/sections/Experience";
@@ -31,6 +32,19 @@ const Divider = () => (
 function App() {
   const activeSection = useActiveSection(SECTIONS, { threshold: 0.3 });
   const { theme, toggle, isDark } = useTheme();
+  const [paletteOpen, setPaletteOpen] = useState(false);
+
+  useEffect(() => {
+    const handler = (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === "k") {
+        e.preventDefault();
+        setPaletteOpen((v) => !v);
+      }
+    };
+    // Bubble phase — fires when palette is closed (capture phase owned by palette when open)
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, []);
 
   return (
     <>
@@ -51,7 +65,8 @@ function App() {
         }}
       />
 
-      <Navbar activeSection={activeSection} toggle={toggle} isDark={isDark} theme={theme} />
+      <Navbar activeSection={activeSection} toggle={toggle} isDark={isDark} theme={theme} onOpenPalette={() => setPaletteOpen(true)} />
+      <CommandPalette open={paletteOpen} onClose={() => setPaletteOpen(false)} theme={theme} toggleTheme={toggle} />
 
       <main id="main-content">
         <Hero />

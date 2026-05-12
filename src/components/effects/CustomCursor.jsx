@@ -1,7 +1,8 @@
 import { useEffect, useState, useRef } from "react";
-import { motion, useMotionValue, useSpring } from "framer-motion";
+import { motion, useMotionValue, useReducedMotion } from "framer-motion";
 
 export function CustomCursor() {
+  const reduced = useReducedMotion();
   const isFine = useRef(
     typeof window !== "undefined" && window.matchMedia("(pointer: fine)").matches
   );
@@ -11,11 +12,9 @@ export function CustomCursor() {
   const mouseX = useMotionValue(-200);
   const mouseY = useMotionValue(-200);
 
-  // Dot snaps immediately
   const dotX = mouseX;
   const dotY = mouseY;
-
-  // Glow blob lags for depth
+  // Glow tracks instantly when reduced motion is on
   const glowX = mouseX;
   const glowY = mouseY;
 
@@ -43,7 +42,8 @@ export function CustomCursor() {
     };
   }, [hasMoved]);
 
-  if (!isFine.current) return null;
+  // Hide entirely when reduced motion: custom cursor spring animations are the main offender
+  if (!isFine.current || reduced) return null;
 
   return (
     <>
