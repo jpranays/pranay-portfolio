@@ -1,6 +1,6 @@
 import { useState, useEffect, memo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Download, Sun, Moon } from "lucide-react";
+import { Menu, X, Download, Sun, Moon, Monitor } from "lucide-react";
 import { cn } from "../../utils/cn";
 
 const NAV_LINKS = [
@@ -12,7 +12,13 @@ const NAV_LINKS = [
   { href: "#contact", label: "Contact" },
 ];
 
-function Navbar({ activeSection, toggle, isDark }) {
+const THEME_NEXT = {
+  light:  { icon: Moon,    label: "Switch to dark mode" },
+  dark:   { icon: Monitor, label: "Follow system preference" },
+  system: { icon: Sun,     label: "Switch to light mode" },
+};
+
+function Navbar({ activeSection, toggle, isDark, theme }) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -95,11 +101,11 @@ function Navbar({ activeSection, toggle, isDark }) {
             {/* Theme toggle */}
             <button
               onClick={toggle}
-              aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
+              aria-label={THEME_NEXT[theme]?.label}
               className="p-2 rounded-lg text-slate-500 hover:text-slate-800 dark:hover:text-slate-200
                          hover:bg-slate-100 dark:hover:bg-white/[0.06] transition-colors duration-200"
             >
-              {isDark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+              {(() => { const I = THEME_NEXT[theme]?.icon ?? Sun; return <I className="w-4 h-4" />; })()}
             </button>
 
             <a
@@ -119,11 +125,11 @@ function Navbar({ activeSection, toggle, isDark }) {
           <div className="md:hidden flex items-center gap-1">
             <button
               onClick={toggle}
-              aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
+              aria-label={THEME_NEXT[theme]?.label}
               className="p-2 rounded-lg text-slate-500 hover:text-slate-800 dark:hover:text-slate-200
                          hover:bg-slate-100 dark:hover:bg-white/[0.06] transition-colors duration-200"
             >
-              {isDark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+              {(() => { const I = THEME_NEXT[theme]?.icon ?? Sun; return <I className="w-4 h-4" />; })()}
             </button>
 
             <button

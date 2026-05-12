@@ -30,7 +30,7 @@ const Divider = () => (
 
 function App() {
   const activeSection = useActiveSection(SECTIONS, { threshold: 0.3 });
-  const { toggle, isDark } = useTheme();
+  const { theme, toggle, isDark } = useTheme();
 
   return (
     <>
@@ -51,7 +51,7 @@ function App() {
         }}
       />
 
-      <Navbar activeSection={activeSection} toggle={toggle} isDark={isDark} />
+      <Navbar activeSection={activeSection} toggle={toggle} isDark={isDark} theme={theme} />
 
       <main id="main-content">
         <Hero />

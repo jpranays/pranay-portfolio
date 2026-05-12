@@ -2,25 +2,39 @@ import { useState, useEffect } from "react";
 
 export function useTheme() {
   const [theme, setTheme] = useState(() => {
-    if (typeof window === "undefined") return "dark";
-    const stored = localStorage.getItem("pj-theme");
-    if (stored) return stored;
-    // Respect system preference on first visit
-    return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    if (typeof window === "undefined") return "system";
+    return localStorage.getItem("pj-theme") ?? "system";
   });
 
+  const [systemDark, setSystemDark] = useState(() => {
+    if (typeof window === "undefined") return false;
+    return window.matchMedia("(prefers-color-scheme: dark)").matches;
+  });
+
+  // Always track OS preference changes
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-color-scheme: dark)");
+    const handler = (e) => setSystemDark(e.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
+
+  const isDark = theme === "system" ? systemDark : theme === "dark";
+
+  // Apply class + persist
   useEffect(() => {
     const root = document.documentElement;
-    if (theme === "dark") {
-      root.classList.add("dark");
+    isDark ? root.classList.add("dark") : root.classList.remove("dark");
+    if (theme === "system") {
+      localStorage.removeItem("pj-theme");
     } else {
-      root.classList.remove("dark");
+      localStorage.setItem("pj-theme", theme);
     }
-    localStorage.setItem("pj-theme", theme);
-  }, [theme]);
+  }, [theme, isDark]);
 
-  const toggle = () => setTheme((t) => (t === "dark" ? "light" : "dark"));
-  const isDark = theme === "dark";
+  // cycle: light → dark → system → light
+  const toggle = () =>
+    setTheme((t) => (t === "light" ? "dark" : t === "dark" ? "system" : "light"));
 
   return { theme, toggle, isDark };
 }
