@@ -47,6 +47,7 @@ export function MusicPlayer({ playing, onToggle }) {
                          text-slate-600 dark:text-slate-300
                          bg-white dark:bg-[#0d1117]
                          border border-slate-200 dark:border-white/[0.08] shadow-sm
+                         hidden sm:block
                          opacity-0 group-hover:opacity-100 pointer-events-none
                          transition-opacity duration-150"
             >
