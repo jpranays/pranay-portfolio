@@ -1,6 +1,7 @@
 import { memo, useRef, useEffect, useState, Fragment } from "react";
 import { motion, useInView } from "framer-motion";
-import { Code2, Users, Package, Trophy, Heart } from "lucide-react";
+import { Code2, Users, Package, Trophy, Heart, GitCommit } from "lucide-react";
+import { GitHubCalendar } from "react-github-calendar";
 import { AnimatedSection, StaggerContainer, StaggerItem } from "../ui/AnimatedSection";
 import { useNpmStats } from "../../hooks/useNpmStats";
 
@@ -212,6 +213,42 @@ function About() {
                     {interest.label}
                   </span>
                 ))}
+              </div>
+            </div>
+          </AnimatedSection>
+
+          {/* GitHub contribution heatmap — full width */}
+          <AnimatedSection delay={0.55} className="md:col-span-2 lg:col-span-3">
+            <div className="glass-card p-6">
+              <div className="flex items-center gap-2 mb-5">
+                <GitCommit className="w-4 h-4 text-orange-400" aria-hidden="true" />
+                <h3 className="text-xs font-mono text-slate-500 uppercase tracking-widest">
+                  GitHub Contributions
+                </h3>
+                <a
+                  href="https://github.com/jpranays"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="ml-auto text-[11px] font-mono text-slate-400 hover:text-orange-400 transition-colors"
+                >
+                  @jpranays →
+                </a>
+              </div>
+              <div className="overflow-x-auto [&_.react-activity-calendar]:!font-mono">
+                <GitHubCalendar
+                  username="jpranays"
+                  colorScheme="light"
+                  theme={{
+                    light: ["#f1f5f9", "#fed7aa", "#fb923c", "#f97316", "#ea580c"],
+                    dark:  ["#1e293b", "#431407", "#9a3412", "#f97316", "#fb923c"],
+                  }}
+                  style={{ width: "100%" }}
+                  fontSize={11}
+                  blockSize={12}
+                  blockMargin={4}
+                  blockRadius={3}
+                  labels={{ totalCount: "{{count}} contributions in the last year" }}
+                />
               </div>
             </div>
           </AnimatedSection>

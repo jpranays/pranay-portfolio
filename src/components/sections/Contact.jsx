@@ -5,7 +5,7 @@ import { z } from "zod";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Github, Linkedin, Mail, Send, CheckCircle,
-  AlertCircle, Code2, Twitter, Package,
+  AlertCircle, Code2, Twitter, Package, CalendarDays,
 } from "lucide-react";
 import { AnimatedSection } from "../ui/AnimatedSection";
 import { cn } from "../../utils/cn";
@@ -289,7 +289,7 @@ function Contact() {
                     className="w-2 h-2 rounded-full bg-green-400 mt-1.5 flex-shrink-0 animate-pulse"
                     aria-hidden="true"
                   />
-                  <div>
+                  <div className="flex-1">
                     <p className="text-sm font-semibold text-slate-700 dark:text-slate-200">
                       Open to opportunities
                     </p>
@@ -297,6 +297,17 @@ function Contact() {
                       Available for full-time, freelance, or open-source collaboration.
                       Typical response: under 24 hours.
                     </p>
+                    <a
+                      href="https://cal.com/jpranays"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-3 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium
+                                 text-orange-500 border border-orange-500/25 hover:bg-orange-500/8
+                                 hover:border-orange-400/40 transition-all duration-200"
+                    >
+                      <CalendarDays className="w-3.5 h-3.5" aria-hidden="true" />
+                      Book a 30-min call
+                    </a>
                   </div>
                 </div>
               </div>

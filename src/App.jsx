@@ -19,6 +19,9 @@ import { useMusicPlayer } from "./hooks/useMusicPlayer";
 import { ShortcutsModal } from "./components/effects/ShortcutsModal";
 import { ClickBurst } from "./components/effects/ClickBurst";
 import { ContextMenu } from "./components/effects/ContextMenu";
+import { MouseTrail } from "./components/effects/MouseTrail";
+import { AccentPicker } from "./components/effects/AccentPicker";
+import { useIdle } from "./hooks/useIdle";
 import { motion, useScroll, useVelocity, useTransform, useSpring } from "framer-motion";
 import Hero from "./components/sections/Hero";
 import About from "./components/sections/About";
@@ -57,6 +60,11 @@ function AppInner() {
   const tilt = useSpring(rawTilt, { stiffness: 120, damping: 28 });
 
   useTabTitle();
+
+  /* Idle nudge — after 35s of no interaction */
+  useIdle(useCallback(() => {
+    toast.info("Still exploring? Try pressing ? for keyboard shortcuts or ⌘K to jump anywhere.");
+  }, [toast]), 35000);
 
   useKonamiCode(useCallback(() => {
     setEggActive(true);
@@ -108,6 +116,7 @@ function AppInner() {
       <ShortcutsModal open={shortcutsOpen} onClose={() => setShortcutsOpen(false)} />
       <ClickBurst />
       <ContextMenu />
+      <MouseTrail />
 
       <motion.main id="main-content" style={{ rotateX: tilt }} className="transform-gpu">
         <Hero />
@@ -128,6 +137,7 @@ function AppInner() {
       <Footer />
       <BackToTop />
       <MusicPlayer playing={musicPlaying} onToggle={toggleMusic} />
+      <AccentPicker />
     </>
   );
 }

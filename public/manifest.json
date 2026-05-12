@@ -1,0 +1,32 @@
+{
+  "name": "Pranay Jadhav — Senior Software Developer",
+  "short_name": "Pranay Jadhav",
+  "description": "Portfolio of Pranay Jadhav — Senior Software Developer, React & Next.js engineer, npm package author.",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "theme_color": "#f97316",
+  "background_color": "#060610",
+  "lang": "en",
+  "icons": [
+    {
+      "src": "/jpranays.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["portfolio", "technology"],
+  "shortcuts": [
+    {
+      "name": "Contact",
+      "url": "/#contact",
+      "description": "Jump to the contact section"
+    },
+    {
+      "name": "Projects",
+      "url": "/#projects",
+      "description": "Jump to the projects section"
+    }
+  ]
+}
