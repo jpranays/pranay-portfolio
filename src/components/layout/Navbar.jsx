@@ -1,6 +1,7 @@
 import { useState, useEffect, memo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Download, Sun, Moon, Monitor } from "lucide-react";
+import { Menu, X, Download, Sun, Moon, Monitor, Music } from "lucide-react";
+import { EqualizerBars } from "../effects/MusicPlayer";
 import { cn } from "../../utils/cn";
 
 const NAV_LINKS = [
@@ -18,7 +19,7 @@ const THEME_NEXT = {
   system: { icon: Sun,     label: "Switch to light mode" },
 };
 
-function Navbar({ activeSection, toggle, isDark, theme, onOpenPalette }) {
+function Navbar({ activeSection, toggle, isDark, theme, onOpenPalette, musicPlaying, onToggleMusic }) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -120,6 +121,21 @@ function Navbar({ activeSection, toggle, isDark, theme, onOpenPalette }) {
               {(() => { const I = THEME_NEXT[theme]?.icon ?? Sun; return <I className="w-4 h-4" />; })()}
             </button>
 
+            {/* Ambient music toggle */}
+            <button
+              onClick={onToggleMusic}
+              aria-label={musicPlaying ? "Pause ambient music" : "Play ambient music"}
+              className={`p-2 rounded-lg transition-colors duration-200 ${
+                musicPlaying
+                  ? "text-orange-400 bg-orange-500/10 hover:bg-orange-500/15"
+                  : "text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/[0.06]"
+              }`}
+            >
+              {musicPlaying
+                ? <EqualizerBars count={3} />
+                : <Music className="w-4 h-4" />}
+            </button>
+
             <a
               href="/Pranay_Sunil_Jadhav_Resume.pdf"
               target="_blank"
@@ -142,6 +158,18 @@ function Navbar({ activeSection, toggle, isDark, theme, onOpenPalette }) {
                          hover:bg-slate-100 dark:hover:bg-white/[0.06] transition-colors duration-200"
             >
               {(() => { const I = THEME_NEXT[theme]?.icon ?? Sun; return <I className="w-4 h-4" />; })()}
+            </button>
+
+            <button
+              onClick={onToggleMusic}
+              aria-label={musicPlaying ? "Pause ambient music" : "Play ambient music"}
+              className={`p-2 rounded-lg transition-colors duration-200 ${
+                musicPlaying
+                  ? "text-orange-400 bg-orange-500/10"
+                  : "text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/[0.06]"
+              }`}
+            >
+              {musicPlaying ? <EqualizerBars count={3} /> : <Music className="w-4 h-4" />}
             </button>
 
             <button

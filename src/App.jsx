@@ -14,6 +14,7 @@ import { EasterEgg } from "./components/effects/EasterEgg";
 import { CursorSpotlight } from "./components/effects/CursorSpotlight";
 import SectionDots from "./components/effects/SectionDots";
 import { MusicPlayer } from "./components/effects/MusicPlayer";
+import { useMusicPlayer } from "./hooks/useMusicPlayer";
 import Hero from "./components/sections/Hero";
 import About from "./components/sections/About";
 import Experience from "./components/sections/Experience";
@@ -41,6 +42,7 @@ function AppInner() {
   const [paletteOpen, setPaletteOpen] = useState(false);
   const [eggActive, setEggActive] = useState(false);
   const toast = useToast();
+  const { playing: musicPlaying, toggle: toggleMusic } = useMusicPlayer();
 
   useKonamiCode(useCallback(() => {
     setEggActive(true);
@@ -78,7 +80,7 @@ function AppInner() {
         }}
       />
 
-      <Navbar activeSection={activeSection} toggle={toggle} isDark={isDark} theme={theme} onOpenPalette={() => setPaletteOpen(true)} />
+      <Navbar activeSection={activeSection} toggle={toggle} isDark={isDark} theme={theme} onOpenPalette={() => setPaletteOpen(true)} musicPlaying={musicPlaying} onToggleMusic={toggleMusic} />
       <CommandPalette open={paletteOpen} onClose={() => setPaletteOpen(false)} theme={theme} toggleTheme={toggle} />
 
       <main id="main-content">
@@ -99,7 +101,7 @@ function AppInner() {
 
       <Footer />
       <BackToTop />
-      <MusicPlayer />
+      <MusicPlayer playing={musicPlaying} onToggle={toggleMusic} />
     </>
   );
 }
