@@ -66,7 +66,7 @@ export function IntroAnimation() {
               className="mt-3 text-[10px] font-mono tracking-[0.25em] uppercase"
               style={{ color: "var(--color-text-muted)" }}
             >
-              Loading Portfolio
+              Loading...
             </motion.p>
           </div>
         </motion.div>

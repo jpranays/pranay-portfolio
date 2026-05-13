@@ -61,7 +61,7 @@ const INTERESTS = [
   { label: "Open Source", icon: "🌍" },
   { label: "DX / Tooling", icon: "🛠️" },
   { label: "Boxing & UFC", icon: "🥊" },
-  { label: "Road Trips", icon: "🏍️" },
+  { label: "Road Trips", icon: "🛣️" },
   { label: "Football", icon: "⚽" },
 ];
 
