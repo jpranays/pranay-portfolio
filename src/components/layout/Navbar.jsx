@@ -64,7 +64,7 @@ function Navbar({ activeSection, toggle, isDark, theme, onOpenPalette, musicPlay
             className="font-mono text-sm font-semibold text-orange-400 hover:text-orange-300 transition-colors"
             aria-label="Back to top"
           >
-            {"<jpranays />"}
+            {"jpranays"}
           </button>
 
           {/* Desktop links */}

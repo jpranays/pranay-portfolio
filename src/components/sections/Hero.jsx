@@ -3,10 +3,15 @@ import { motion, useMotionValue, useSpring, useTransform, useReducedMotion } fro
 import {
   Github, Linkedin, Mail, ArrowDown,
   Download, ExternalLink, Twitter, Package, Volume2,
+  X,
 } from "lucide-react";
+import { FaNpm } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
 import { useTyping } from "../../hooks/useTyping";
 import { MagneticButton } from "../ui/MagneticButton";
 import { useNpmStats } from "../../hooks/useNpmStats";
+import { ImNpm } from "react-icons/im";
+
 
 function getGreeting() {
   const h = new Date().getHours();
@@ -36,16 +41,16 @@ function usePronounce() {
 const TYPING_WORDS = [
   "Senior Software Developer",
   "React & Next.js Engineer",
-  "npm Package Author",
+  "NPM Package Author",
   "Open Source Contributor",
   "MERN Stack Developer",
 ];
 
 const SOCIAL_LINKS = [
-  { href: "https://github.com/jpranays", icon: Github, label: "GitHub", username: "@jpranays" },
+  { href: "https://github.com/jpranays", icon: Github, label: "GitHub", username: "Github" },
   { href: "https://www.linkedin.com/in/jpranays", icon: Linkedin, label: "LinkedIn", username: "LinkedIn" },
-  { href: "https://x.com/jpranays", icon: Twitter, label: "Twitter/X", username: "@jpranays" },
-  { href: "https://www.npmjs.com/~jpranays", icon: Package, label: "npm", username: "npm" },
+  { href: "https://x.com/jpranays", icon: FaXTwitter, label: "Twitter/X", username: "X" },
+  { href: "https://www.npmjs.com/~jpranays", icon: ImNpm, label: "NPM", username: "NPM" },
 ];
 
 const CREDIBILITY_PILLS_BASE = [
@@ -214,7 +219,9 @@ function Hero() {
                     initial={{ y: "110%" }}
                     animate={{ y: 0 }}
                     transition={{ duration: 0.85, delay: 0.28, ease: [0.22, 1, 0.36, 1] }}
-                    className="inline-block bg-gradient-to-br from-slate-800 via-slate-600 to-slate-400 dark:from-white dark:via-slate-200 dark:to-slate-400 bg-clip-text text-transparent"
+                    className="inline-block animate-shimmer bg-gradient-to-r to-orange-400 via-amber-200 from-orange-400 bg-clip-text text-transparent"
+                    style={{ backgroundSize: "200% auto" }}
+
                   >
                     Pranay
                   </motion.span>
@@ -225,8 +232,9 @@ function Hero() {
                     initial={{ y: "110%" }}
                     animate={{ y: 0 }}
                     transition={{ duration: 0.85, delay: 0.42, ease: [0.22, 1, 0.36, 1] }}
-                    className="inline-block animate-shimmer bg-gradient-to-r from-orange-400 via-amber-200 to-orange-400 bg-clip-text text-transparent"
                     style={{ backgroundSize: "200% auto" }}
+                    className="inline-block bg-gradient-to-br from-slate-800 via-slate-600 to-slate-400 dark:from-white dark:via-slate-200 dark:to-slate-400 bg-clip-text text-transparent"
+
                   >
                     Jadhav
                   </motion.span>
@@ -289,7 +297,6 @@ function Hero() {
               className="btn-primary"
             >
               View My Work
-              <ExternalLink className="w-4 h-4" aria-hidden="true" />
             </MagneticButton>
             <MagneticButton
               href="/Pranay_Sunil_Jadhav_Resume.pdf"

@@ -188,7 +188,7 @@ function Contact() {
                     <input
                       id="name"
                       type="text"
-                      placeholder="John Doe"
+                      placeholder="Enter your name"
                       autoComplete="name"
                       className={cn(inputClass, errors.name && inputErrorClass)}
                       {...register("name")}
@@ -199,7 +199,7 @@ function Contact() {
                     <input
                       id="email"
                       type="email"
-                      placeholder="john@example.com"
+                      placeholder="Enter your email"
                       autoComplete="email"
                       className={cn(inputClass, errors.email && inputErrorClass)}
                       {...register("email")}
@@ -341,7 +341,7 @@ function Contact() {
                           <p className="text-xs text-slate-400 dark:text-slate-600 font-mono leading-none mb-0.5">
                             {label}
                           </p>
-                          <p className="text-sm font-medium truncate leading-none">
+                          <p className="text-sm font-medium truncate">
                             {handle}
                           </p>
                         </div>

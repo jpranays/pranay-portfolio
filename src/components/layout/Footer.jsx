@@ -34,9 +34,6 @@ export function Footer() {
 
         <div className="w-full flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-sm text-slate-500 font-mono">
-            <span className="text-orange-400/60">{"<"}</span>
-            <span className="text-slate-400">PJ</span>
-            <span className="text-orange-400/60">{" />"}</span>
             <span className="ml-3">
               © {year} Pranay Jadhav. Built with{" "}
               <Heart className="w-3 h-3 inline text-orange-500" aria-label="love" />
