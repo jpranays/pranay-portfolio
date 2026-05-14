@@ -1,4 +1,4 @@
-import { memo, useRef, useEffect, useState, Fragment } from "react";
+import { memo, useRef, useEffect, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import { Code2, Users, Package, Trophy, Heart } from "lucide-react";
 import { AnimatedSection, StaggerContainer, StaggerItem } from "../ui/AnimatedSection";
@@ -66,21 +66,26 @@ const INTERESTS = [
   { label: "Football", icon: "⚽" },
 ];
 
-const TERMINAL_LINES = [
-  { el: <><span className="text-orange-400">❯</span> <span className="text-slate-600 dark:text-slate-300">cat about.json</span></> },
-  { el: <span className="text-slate-400 dark:text-slate-500">{"{"}</span> },
-  { el: <span className="pl-4 text-cyan-500 dark:text-cyan-400">&quot;role&quot;: <span className="text-amber-600 dark:text-amber-300">&quot;Senior SWE&quot;</span></span> },
-  { el: <span className="pl-4 text-cyan-500 dark:text-cyan-400">&quot;company&quot;: <span className="text-amber-600 dark:text-amber-300">&quot;Sears India&quot;</span></span> },
-  { el: <span className="pl-4 text-cyan-500 dark:text-cyan-400">&quot;npm_users&quot;: <span className="text-green-500 dark:text-green-400">25000</span></span> },
-  { el: <span className="pl-4 text-cyan-500 dark:text-cyan-400">&quot;oss_impact&quot;: <span className="text-green-500 dark:text-green-400">&quot;3.4M+ devs&quot;</span></span> },
-  { el: <span className="pl-4 text-cyan-500 dark:text-cyan-400">&quot;available&quot;: <span className="text-green-500 dark:text-green-400">true</span></span> },
-  { el: <span className="text-slate-400 dark:text-slate-500">{"}"}</span> },
-  { el: <><span className="text-orange-400">❯</span> <span className="text-slate-600 dark:text-slate-300">_<span className="inline-block w-1.5 h-3 ml-0.5 bg-slate-400 animate-blink align-middle" aria-hidden="true" /></span></> },
-];
+function buildTerminalLines(npmData, ossData) {
+  const npmVal = npmData ? `${Math.round(npmData.total / 1000).toLocaleString()}K+` : "25K+";
+  const ossVal = ossData ? `${(ossData.total / 1_000_000).toFixed(1)}M+ devs` : "3.4M+ devs";
+  return [
+    { el: <><span className="text-orange-400">❯</span> <span className="text-slate-600 dark:text-slate-300">cat about.json</span></> },
+    { el: <span className="text-slate-400 dark:text-slate-500">{"{"}</span> },
+    { el: <span className="pl-4 text-cyan-500 dark:text-cyan-400">&quot;role&quot;: <span className="text-amber-600 dark:text-amber-300">&quot;Senior SWE&quot;</span></span> },
+    { el: <span className="pl-4 text-cyan-500 dark:text-cyan-400">&quot;company&quot;: <span className="text-amber-600 dark:text-amber-300">&quot;Sears India&quot;</span></span> },
+    { el: <span className="pl-4 text-cyan-500 dark:text-cyan-400">&quot;npm_users&quot;: <span className="text-green-500 dark:text-green-400">&quot;{npmVal}&quot;</span></span> },
+    { el: <span className="pl-4 text-cyan-500 dark:text-cyan-400">&quot;oss_impact&quot;: <span className="text-green-500 dark:text-green-400">&quot;{ossVal}&quot;</span></span> },
+    { el: <span className="pl-4 text-cyan-500 dark:text-cyan-400">&quot;available&quot;: <span className="text-green-500 dark:text-green-400">true</span></span> },
+    { el: <span className="text-slate-400 dark:text-slate-500">{"}"}</span> },
+    { el: <><span className="text-orange-400">❯</span> <span className="text-slate-600 dark:text-slate-300">_<span className="inline-block w-1.5 h-3 ml-0.5 bg-slate-400 animate-blink align-middle" aria-hidden="true" /></span></> },
+  ];
+}
 
-function TerminalCard() {
+function TerminalCard({ npmData, ossData }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, amount: 0.4 });
+  const lines = buildTerminalLines(npmData, ossData);
   return (
     <div ref={ref} className="glass-card p-5 h-full font-mono text-sm">
       <div className="flex items-center gap-1.5 mb-4" aria-hidden="true">
@@ -90,7 +95,7 @@ function TerminalCard() {
         <span className="ml-2 text-xs text-slate-400 dark:text-slate-600">~/pranay</span>
       </div>
       <div className="space-y-1.5 text-xs text-slate-500 dark:text-slate-400">
-        {TERMINAL_LINES.map((line, i) => (
+        {lines.map((line, i) => (
           <motion.p
             key={i}
             initial={{ opacity: 0, x: -10 }}
@@ -169,7 +174,7 @@ function About() {
 
           {/* Terminal card — lines reveal sequentially on scroll */}
           <AnimatedSection delay={0.15}>
-            <TerminalCard />
+            <TerminalCard npmData={npmData} ossData={ossData} />
           </AnimatedSection>
 
           {/* Stats — 4 cards */}
