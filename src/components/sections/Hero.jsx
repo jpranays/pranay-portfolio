@@ -1,4 +1,4 @@
-import { memo, useEffect, useState, useCallback } from "react";
+import { memo, useRef, useEffect, useState, useCallback } from "react";
 import { motion, useMotionValue, useSpring, useTransform, useReducedMotion } from "framer-motion";
 import {
   Github, Linkedin, Mail, ArrowDown,
@@ -101,6 +101,45 @@ const FLOATING_BADGES = [
   { name: "Netlify",    cls: "right-[15%] top-[50%]", delay: 0.5, dur: 7.5, rot: -5,  show: "2xl" },
   { name: "Postman",    cls: "right-[17%] top-[78%]", delay: 2.0, dur: 6.2, rot:  7,  show: "2xl" },
 ];
+
+function SocialLink({ href, icon: Icon, label, username, reduced }) {
+  const ref = useRef(null);
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const sx = useSpring(x, { stiffness: 340, damping: 22 });
+  const sy = useSpring(y, { stiffness: 340, damping: 22 });
+
+  const onMove = (e) => {
+    if (!ref.current || reduced) return;
+    const r = ref.current.getBoundingClientRect();
+    x.set((e.clientX - (r.left + r.width  / 2)) * 0.4);
+    y.set((e.clientY - (r.top  + r.height / 2)) * 0.4);
+  };
+  const onLeave = () => { x.set(0); y.set(0); };
+
+  return (
+    <motion.a
+      ref={ref}
+      href={href}
+      target={href.startsWith("mailto") ? undefined : "_blank"}
+      rel="noopener noreferrer"
+      aria-label={`${label}: ${username}`}
+      style={{ x: sx, y: sy }}
+      onMouseMove={onMove}
+      onMouseLeave={onLeave}
+      className="group flex items-center gap-1.5 text-slate-500 hover:text-slate-800 dark:text-slate-600 dark:hover:text-slate-300 transition-colors duration-200"
+    >
+      <motion.span
+        whileHover={reduced ? undefined : { rotate: 360 }}
+        transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
+        className="flex-shrink-0"
+      >
+        <Icon className="w-4 h-4 group-hover:text-orange-400 transition-colors" aria-hidden="true" />
+      </motion.span>
+      <span className="text-xs font-mono hidden sm:inline">{username}</span>
+    </motion.a>
+  );
+}
 
 const container = {
   hidden: {},
@@ -317,14 +356,8 @@ function Hero() {
 
           {/* Social row */}
           <motion.div variants={item} className="flex items-center gap-5">
-            {SOCIAL_LINKS.map(({ href, icon: Icon, label, username }) => (
-              <a key={label} href={href}
-                target={href.startsWith("mailto") ? undefined : "_blank"}
-                rel="noopener noreferrer" aria-label={label}
-                className="group flex items-center gap-1.5 text-slate-500 hover:text-slate-800 dark:text-slate-600 dark:hover:text-slate-300 transition-colors duration-200">
-                <Icon className="w-4 h-4 group-hover:text-orange-400 transition-colors" aria-hidden="true" />
-                <span className="text-xs font-mono hidden sm:inline">{username}</span>
-              </a>
+            {SOCIAL_LINKS.map((link) => (
+              <SocialLink key={link.label} {...link} reduced={reduced} />
             ))}
           </motion.div>
         </motion.div>

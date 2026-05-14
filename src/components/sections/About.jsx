@@ -1,35 +1,10 @@
-import { memo, useRef, useEffect, useState } from "react";
+import { memo, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { Code2, Users, Package, Trophy, Heart } from "lucide-react";
 import { AnimatedSection, StaggerContainer, StaggerItem } from "../ui/AnimatedSection";
+import { OdometerCount } from "../ui/OdometerCount";
 import { useNpmStats } from "../../hooks/useNpmStats";
 import { useOssImpact } from "../../hooks/useOssImpact";
-
-function CountUp({ to, suffix, decimals = 0 }) {
-  const [count, setCount] = useState(0);
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, amount: 0.6 });
-
-  useEffect(() => {
-    if (!isInView) return;
-    const duration = 1400;
-    const steps = 55;
-    let step = 0;
-    const id = setInterval(() => {
-      step++;
-      const progress = 1 - Math.pow(1 - step / steps, 3);
-      setCount(parseFloat((to * progress).toFixed(decimals)));
-      if (step >= steps) { setCount(to); clearInterval(id); }
-    }, duration / steps);
-    return () => clearInterval(id);
-  }, [isInView, to, decimals]);
-
-  return (
-    <span ref={ref}>
-      {decimals > 0 ? count.toFixed(decimals) : Math.floor(count)}{suffix}
-    </span>
-  );
-}
 
 const STATS = [
   {
@@ -191,7 +166,7 @@ function About() {
                   </div>
                   <div>
                     <p className="text-2xl font-bold text-slate-800 dark:text-slate-100 leading-none tracking-tight">
-                      <CountUp key={liveCountTo} to={liveCountTo} suffix={stat.suffix} decimals={stat.decimals} />
+                      <OdometerCount key={liveCountTo} to={liveCountTo} suffix={stat.suffix} decimals={stat.decimals} />
                     </p>
                     <p className="text-xs text-slate-500 mt-0.5 leading-snug">{stat.label}</p>
                   </div>
