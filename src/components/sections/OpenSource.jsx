@@ -8,6 +8,7 @@ import { AnimatedSection, StaggerContainer, StaggerItem } from "../ui/AnimatedSe
 import { OSS_CONTRIBUTIONS, OSS_STATS } from "../../data/opensource";
 import { useGitHubStats } from "../../hooks/useGitHubStats";
 import { useNpmStats } from "../../hooks/useNpmStats";
+import { useOssImpact } from "../../hooks/useOssImpact";
 import { useGitHubContributions, useHeatmapTheme } from "../../hooks/useGitHubContributions";
 import { GitHubCalendar } from "react-github-calendar";
 import { GitCommit } from "lucide-react";
@@ -60,7 +61,7 @@ const LANG_COLORS = {
 
 const HEADER_STATS = [
   { countTo: OSS_STATS.libraries, suffix: "+",  decimals: 0, label: "Libraries contributed",             icon: GitPullRequest },
-  { countTo: 3.4,                 suffix: "M+", decimals: 1, label: "Developers impacted / month",       icon: Users          },
+  { countTo: 3.4,                 suffix: "M+", decimals: 1, label: "Developers impacted / month",       icon: Users, liveKey: "oss" },
   { countTo: 25,                  suffix: "K+", decimals: 0, label: "Weekly npm downloads (own packages)", icon: Package, liveKey: "npm" },
 ];
 
@@ -470,6 +471,7 @@ function OSSCard({ item }) {
 // ── Section ───────────────────────────────────────────────────────────────────
 function OpenSource() {
   const { data: npmData } = useNpmStats();
+  const { data: ossData } = useOssImpact();
 
 
   return (
@@ -493,9 +495,10 @@ function OpenSource() {
         {/* Impact stats */}
         <div className="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-4">
           {HEADER_STATS.map((stat, i) => {
-            const liveCountTo = stat.liveKey === "npm" && npmData
-              ? Math.round(npmData.total / 1000)
-              : stat.countTo;
+            const liveCountTo =
+              stat.liveKey === "npm" && npmData ? Math.round(npmData.total / 1000) :
+              stat.liveKey === "oss" && ossData  ? parseFloat((ossData.total / 1_000_000).toFixed(1)) :
+              stat.countTo;
             return (
               <AnimatedSection key={stat.label} delay={i * 0.1}>
                 <div className="glass-card p-5 text-center gradient-border">

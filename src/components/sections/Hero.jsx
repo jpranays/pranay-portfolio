@@ -10,6 +10,7 @@ import { FaXTwitter } from "react-icons/fa6";
 import { useTyping } from "../../hooks/useTyping";
 import { MagneticButton } from "../ui/MagneticButton";
 import { useNpmStats } from "../../hooks/useNpmStats";
+import { useOssImpact } from "../../hooks/useOssImpact";
 import { ImNpm } from "react-icons/im";
 
 
@@ -56,7 +57,7 @@ const SOCIAL_LINKS = [
 const CREDIBILITY_PILLS_BASE = [
   { label: "Sears India", note: "Senior SWE" },
   { label: "25K+", note: "weekly npm users", liveKey: "npm" },
-  { label: "3.4M+", note: "devs via OSS" },
+  { label: "3.4M+", note: "devs via OSS", liveKey: "oss" },
 ];
 
 /**
@@ -113,14 +114,17 @@ const item = {
 function Hero() {
   const typed = useTyping(TYPING_WORDS);
   const { data: npmData } = useNpmStats();
+  const { data: ossData } = useOssImpact();
   const reduced = useReducedMotion();
   const greeting = getGreeting();
   const { speak, speaking } = usePronounce();
-  const credibilityPills = CREDIBILITY_PILLS_BASE.map((p) =>
-    p.liveKey === "npm" && npmData
-      ? { ...p, label: `${(npmData.total / 1000).toFixed(1)}K+` }
-      : p
-  );
+  const credibilityPills = CREDIBILITY_PILLS_BASE.map((p) => {
+    if (p.liveKey === "npm" && npmData)
+      return { ...p, label: `${(npmData.total / 1000).toFixed(1)}K+` };
+    if (p.liveKey === "oss" && ossData)
+      return { ...p, label: `${(ossData.total / 1_000_000).toFixed(1)}M+` };
+    return p;
+  });
 
   /* ── Mouse parallax (disabled when reduced motion) ── */
   const rawX = useMotionValue(0);
@@ -284,10 +288,12 @@ function Hero() {
             Senior Software Developer at{" "}
             <span className="text-slate-700 dark:text-slate-200 font-medium">Sears India</span> with 3+ years
             building production-grade apps. Creator of npm packages with{" "}
-            <span className="text-orange-500 dark:text-orange-400 font-medium">25K+ weekly users</span>, and
-            open source contributor touching{" "}
-            <span className="text-orange-500 dark:text-orange-400 font-medium">3.4M+ developers</span> monthly
-            through Mantine, PrimeReact, RSuite, and more.
+            <span className="text-orange-500 dark:text-orange-400 font-medium">
+              {npmData ? `${(npmData.total / 1000).toFixed(1)}K+` : "25K+"} weekly users
+            </span>, and open source contributor touching{" "}
+            <span className="text-orange-500 dark:text-orange-400 font-medium">
+              {ossData ? `${(ossData.total / 1_000_000).toFixed(1)}M+` : "3.4M+"} developers
+            </span> monthly through Mantine, PrimeReact, RSuite, and more.
           </motion.p>
 
           {/* CTAs — magnetic */}

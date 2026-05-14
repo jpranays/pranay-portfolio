@@ -3,6 +3,7 @@ import { motion, useInView } from "framer-motion";
 import { Code2, Users, Package, Trophy, Heart } from "lucide-react";
 import { AnimatedSection, StaggerContainer, StaggerItem } from "../ui/AnimatedSection";
 import { useNpmStats } from "../../hooks/useNpmStats";
+import { useOssImpact } from "../../hooks/useOssImpact";
 
 function CountUp({ to, suffix, decimals = 0 }) {
   const [count, setCount] = useState(0);
@@ -42,7 +43,7 @@ const STATS = [
     iconColor: "text-rose-400", iconBg: "bg-rose-500/10 border-rose-500/20",
   },
   {
-    countTo: 3.4, suffix: "M+", decimals: 1,
+    countTo: 3.4, suffix: "M+", decimals: 1, liveKey: "oss",
     label: "Developers impacted via OSS", icon: Users,
     iconColor: "text-violet-400", iconBg: "bg-violet-500/10 border-violet-500/20",
   },
@@ -106,6 +107,7 @@ function TerminalCard() {
 
 function About() {
   const { data: npmData } = useNpmStats();
+  const { data: ossData } = useOssImpact();
 
   return (
     <section id="about" aria-labelledby="about-heading">
@@ -147,10 +149,14 @@ function About() {
                   </p>
                   <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
                     I&apos;ve created npm packages with{" "}
-                    <span className="text-slate-700 dark:text-slate-200 font-medium">25,000+ weekly users</span> and
-                    actively maintain contributions to libraries like Mantine, PrimeReact, and
+                    <span className="text-slate-700 dark:text-slate-200 font-medium">
+                      {npmData ? `${Math.round(npmData.total / 1000).toLocaleString()}K+` : "25,000+"} weekly users
+                    </span>{" "}
+                    and actively maintain contributions to libraries like Mantine, PrimeReact, and
                     RSuite — collectively impacting{" "}
-                    <span className="text-slate-700 dark:text-slate-200 font-medium">3.4M+ developers</span> monthly.
+                    <span className="text-slate-700 dark:text-slate-200 font-medium">
+                      {ossData ? `${(ossData.total / 1_000_000).toFixed(1)}M+` : "3.4M+"} developers
+                    </span> monthly.
                   </p>
                   <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
                     When I&apos;m not shipping production code, I&apos;m reviewing PRs, writing
@@ -168,9 +174,10 @@ function About() {
 
           {/* Stats — 4 cards */}
           {STATS.map((stat, i) => {
-            const liveCountTo = stat.liveKey === "npm" && npmData
-              ? Math.round(npmData.total / 1000)
-              : stat.countTo;
+            const liveCountTo =
+              stat.liveKey === "npm" && npmData ? Math.round(npmData.total / 1000) :
+              stat.liveKey === "oss" && ossData  ? parseFloat((ossData.total / 1_000_000).toFixed(1)) :
+              stat.countTo;
             return (
               <AnimatedSection key={stat.label} delay={0.1 * (i + 3)}>
                 <div className="glass-card p-5 flex items-center gap-4">

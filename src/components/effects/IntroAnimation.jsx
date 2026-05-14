@@ -44,7 +44,7 @@ export function IntroAnimation() {
               transition={{ duration: 0.55, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
             >
               <p className="font-mono text-xl sm:text-2xl font-bold text-orange-400 tracking-tight">
-                {"<jpranays />"}
+                {"jpranays"}
               </p>
             </motion.div>
 
