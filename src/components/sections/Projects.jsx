@@ -1,10 +1,26 @@
-import { memo, useState } from "react";
+import { memo, useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Github, ExternalLink, Star, Zap, Package } from "lucide-react";
 import { AnimatedSection, StaggerContainer, StaggerItem } from "../ui/AnimatedSection";
 import { PROJECTS, CATEGORIES } from "../../data/projects";
 import { cn } from "../../utils/cn";
 import { useTilt } from "../../hooks/useTilt";
+import { useNpmStats } from "../../hooks/useNpmStats";
+
+/** Merge live weekly-download figures into project records for npm packages. */
+function enrichProjects(projects, npmData) {
+  if (!npmData?.packages) return projects;
+  return projects.map((p) => {
+    const dl = npmData.packages.find((pkg) => pkg.name === p.id)?.downloads;
+    if (dl == null) return p;
+    const k = Math.round(dl / 1000);
+    return {
+      ...p,
+      badge:  p.id === "react-fast-hooks" ? `📦 ${k}K+/wk` : `⚡ ${k}K+/wk`,
+      impact: `${dl.toLocaleString()}+ weekly npm downloads`,
+    };
+  });
+}
 
 function ProjectCard({ project, featured = false }) {
   const isOrange = project.color !== "cyan";
@@ -129,11 +145,14 @@ function ProjectCard({ project, featured = false }) {
 
 function Projects() {
   const [activeFilter, setActiveFilter] = useState("all");
+  const { data: npmData } = useNpmStats();
+
+  const allProjects = useMemo(() => enrichProjects(PROJECTS, npmData), [npmData]);
 
   const filtered =
     activeFilter === "all"
-      ? PROJECTS
-      : PROJECTS.filter((p) => p.category === activeFilter);
+      ? allProjects
+      : allProjects.filter((p) => p.category === activeFilter);
 
   const featured = filtered.filter((p) => p.featured);
   const rest = filtered.filter((p) => !p.featured);

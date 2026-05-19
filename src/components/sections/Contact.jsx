@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 import { AnimatedSection } from "../ui/AnimatedSection";
 import { cn } from "../../utils/cn";
+import { useAvailability } from "../../hooks/useAvailability";
 
 const schema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters").max(50),
@@ -103,6 +104,7 @@ const inputErrorClass =
 
 function Contact() {
   const [status, setStatus] = useState("idle"); // idle | loading | success | error
+  const { available } = useAvailability();
 
   const {
     register,
@@ -281,21 +283,22 @@ function Contact() {
 
           {/* Right column — 2 cols */}
           <div className="lg:col-span-2 flex flex-col gap-4">
-            {/* Availability card */}
+            {/* Availability card — reflects same localStorage state as Hero badge */}
             <AnimatedSection delay={0.15}>
               <div className="glass-card p-5">
                 <div className="flex items-start gap-3">
                   <div
-                    className="w-2 h-2 rounded-full bg-green-400 mt-1.5 flex-shrink-0 animate-pulse"
+                    className={`w-2 h-2 rounded-full mt-1.5 flex-shrink-0 transition-colors duration-300 ${available ? "bg-green-400 animate-pulse" : "bg-slate-400"}`}
                     aria-hidden="true"
                   />
                   <div className="flex-1">
                     <p className="text-sm font-semibold text-slate-700 dark:text-slate-200">
-                      Open to opportunities
+                      {available ? "Open to opportunities" : "Not taking new projects"}
                     </p>
                     <p className="text-xs text-slate-500 mt-1 leading-relaxed">
-                      Available for full-time, freelance, or open-source collaboration.
-                      Typical response: under 24 hours.
+                      {available
+                        ? "Available for full-time, freelance, or open-source collaboration. Typical response: under 24 hours."
+                        : "Currently focused on existing projects. Feel free to reach out for future opportunities."}
                     </p>
                     {/* <a
                       href="https://cal.com/jpranays"

@@ -11,6 +11,7 @@ import { useTyping } from "../../hooks/useTyping";
 import { MagneticButton } from "../ui/MagneticButton";
 import { useNpmStats } from "../../hooks/useNpmStats";
 import { useOssImpact } from "../../hooks/useOssImpact";
+import { useAvailability } from "../../hooks/useAvailability";
 import { ImNpm } from "react-icons/im";
 
 
@@ -155,6 +156,7 @@ function Hero() {
   const { data: npmData } = useNpmStats();
   const { data: ossData } = useOssImpact();
   const reduced = useReducedMotion();
+  const { available, toggle: toggleAvailability } = useAvailability();
   const greeting = getGreeting();
   const { speak, speaking } = usePronounce();
   const credibilityPills = CREDIBILITY_PILLS_BASE.map((p) => {
@@ -237,12 +239,23 @@ function Hero() {
         <motion.div variants={container} initial="hidden" animate="visible"
           className="flex flex-col items-center gap-5">
 
-          {/* Availability badge */}
+          {/* Availability badge — click to toggle (persists in localStorage) */}
           <motion.div variants={item}>
-            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-mono font-medium bg-green-500/10 text-green-500 dark:text-green-400 border border-green-500/25">
-              <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" aria-hidden="true" />
-              Open to new opportunities
-            </span>
+            <button
+              onClick={toggleAvailability}
+              title="Click to toggle availability status"
+              className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-mono font-medium border transition-all duration-300 cursor-pointer
+                ${available
+                  ? "bg-green-500/10 text-green-500 dark:text-green-400 border-green-500/25 hover:bg-green-500/15"
+                  : "bg-slate-500/10 text-slate-500 dark:text-slate-400 border-slate-500/25 hover:bg-slate-500/15"
+                }`}
+            >
+              <span
+                className={`w-1.5 h-1.5 rounded-full ${available ? "bg-green-400 animate-pulse" : "bg-slate-400"}`}
+                aria-hidden="true"
+              />
+              {available ? "Open to new opportunities" : "Not taking new projects"}
+            </button>
           </motion.div>
 
           {/* Name — text reveal */}
@@ -348,6 +361,7 @@ function Hero() {
               target="_blank"
               rel="noopener noreferrer"
               className="btn-secondary"
+              onClick={() => window.dispatchEvent(new CustomEvent("portfolio:resume-download"))}
             >
               <Download className="w-4 h-4" aria-hidden="true" />
               Download Resume

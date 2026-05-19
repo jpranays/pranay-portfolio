@@ -1,10 +1,11 @@
-import { memo, useRef } from "react";
+import { memo, useRef, useState, useEffect, useCallback } from "react";
 import { motion, useInView } from "framer-motion";
-import { Code2, Users, Package, Trophy, Heart } from "lucide-react";
-import { AnimatedSection, StaggerContainer, StaggerItem } from "../ui/AnimatedSection";
+import { Code2, Users, Package, Trophy, Heart, Clock, Copy, Check, ExternalLink, Download } from "lucide-react";
+import { AnimatedSection } from "../ui/AnimatedSection";
 import { OdometerCount } from "../ui/OdometerCount";
 import { useNpmStats } from "../../hooks/useNpmStats";
 import { useOssImpact } from "../../hooks/useOssImpact";
+import { useNpmPackageInfo } from "../../hooks/useNpmPackageInfo";
 
 const STATS = [
   {
@@ -85,9 +86,105 @@ function TerminalCard({ npmData, ossData }) {
   );
 }
 
+/* ── Feature 6: Coding time clock ── */
+const CAREER_START = new Date("2022-01-15T09:00:00");
+
+function CodingTimeCard() {
+  const [hours, setHours] = useState(() => Math.floor((Date.now() - CAREER_START) / 3_600_000));
+
+  useEffect(() => {
+    const id = setInterval(() => setHours(Math.floor((Date.now() - CAREER_START) / 3_600_000)), 60_000);
+    return () => clearInterval(id);
+  }, []);
+
+  return (
+    <div className="glass-card p-5 flex items-center gap-4 h-full">
+      <div className="w-10 h-10 rounded-xl border border-amber-500/20 bg-amber-500/10 flex items-center justify-center flex-shrink-0">
+        <Clock className="w-4 h-4 text-amber-400" aria-hidden="true" />
+      </div>
+      <div>
+        <p className="text-2xl font-bold text-slate-800 dark:text-slate-100 leading-none tracking-tight">
+          <OdometerCount key={hours} to={hours} decimals={0} />
+        </p>
+        <p className="text-xs text-slate-500 mt-0.5 leading-snug">Hours coded (career)</p>
+      </div>
+    </div>
+  );
+}
+
+/* ── Feature 11: Single npm package card ── */
+function NpmPkgCard({ name, version, weeklyDownloads, gzip }) {
+  const [copied, setCopied] = useState(false);
+  const installCmd = `npm i ${name}`;
+
+  const copy = useCallback(async () => {
+    try {
+      await navigator.clipboard.writeText(installCmd);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1800);
+    } catch {}
+  }, [installCmd]);
+
+  return (
+    <div className="flex flex-col gap-3 p-4 rounded-xl bg-slate-50 dark:bg-white/[0.03] border border-slate-200 dark:border-white/[0.06]">
+      <div className="flex items-center justify-between gap-2">
+        <div className="flex items-center gap-2 min-w-0">
+          <Package className="w-3.5 h-3.5 text-red-400 flex-shrink-0" aria-hidden="true" />
+          <span className="font-mono text-sm font-semibold text-slate-800 dark:text-slate-100 truncate">{name}</span>
+          {version && (
+            <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-slate-200 dark:bg-white/[0.08] text-slate-500 dark:text-slate-400 border border-slate-300 dark:border-white/[0.1] flex-shrink-0">
+              v{version}
+            </span>
+          )}
+        </div>
+        <a
+          href={`https://www.npmjs.com/package/${name}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`View ${name} on npm`}
+          className="text-slate-400 hover:text-orange-400 transition-colors flex-shrink-0"
+        >
+          <ExternalLink className="w-3.5 h-3.5" aria-hidden="true" />
+        </a>
+      </div>
+
+      <div className="flex items-center gap-4 text-xs text-slate-500 dark:text-slate-400">
+        {weeklyDownloads != null && (
+          <span className="flex items-center gap-1">
+            <Download className="w-3 h-3" aria-hidden="true" />
+            {weeklyDownloads >= 1000 ? `${Math.round(weeklyDownloads / 1000)}K` : weeklyDownloads}/wk
+          </span>
+        )}
+        {gzip != null && (
+          <span className="flex items-center gap-1">
+            <span className="font-mono text-[10px]">gz</span>
+            {(gzip / 1024).toFixed(1)} kB
+          </span>
+        )}
+      </div>
+
+      <button
+        onClick={copy}
+        aria-label={`Copy install command: ${installCmd}`}
+        className="flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-mono
+                   bg-white dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.08]
+                   text-slate-600 dark:text-slate-400
+                   hover:border-orange-500/30 hover:text-slate-800 dark:hover:text-slate-200
+                   transition-all duration-200 w-full text-left group"
+      >
+        <span className="flex-1 truncate">{installCmd}</span>
+        <span className={`flex-shrink-0 transition-colors ${copied ? "text-green-400" : "text-slate-400 group-hover:text-slate-600 dark:group-hover:text-slate-300"}`}>
+          {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+        </span>
+      </button>
+    </div>
+  );
+}
+
 function About() {
   const { data: npmData } = useNpmStats();
   const { data: ossData } = useOssImpact();
+  const { data: pkgInfo } = useNpmPackageInfo();
 
   return (
     <section id="about" aria-labelledby="about-heading">
@@ -175,8 +272,38 @@ function About() {
             );
           })}
 
+          {/* Coding time clock — 1 col */}
+          {/* <AnimatedSection delay={0.42}>
+            <CodingTimeCard />
+          </AnimatedSection> */}
+
+          {/* npm packages — 2 cols */}
+          <AnimatedSection delay={0.44} className="md:col-span-1 lg:col-span-2">
+            <div className="glass-card p-5 h-full">
+              <div className="flex items-center gap-2 mb-4">
+                <Package className="w-4 h-4 text-orange-400" aria-hidden="true" />
+                <h3 className="text-xs font-mono text-slate-500 uppercase tracking-widest">My npm packages</h3>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {["react-fast-hooks", "cli-gh"].map((pkg) => {
+                  const info = pkgInfo?.find(p => p.name === pkg);
+                  const pkgDownloads = npmData?.packages?.find(p => p.name === pkg)?.downloads;
+                  return (
+                    <NpmPkgCard
+                      key={pkg}
+                      name={pkg}
+                      version={info?.version}
+                      weeklyDownloads={pkgDownloads}
+                      gzip={info?.gzip}
+                    />
+                  );
+                })}
+              </div>
+            </div>
+          </AnimatedSection>
+
           {/* Interests — spans full width */}
-          <AnimatedSection delay={0.45} className="md:col-span-2 lg:col-span-3">
+          <AnimatedSection delay={0.50} className="md:col-span-2 lg:col-span-3">
             <div className="glass-card p-6">
               <div className="flex items-center gap-2 mb-4">
                 <Heart className="w-4 h-4 text-orange-400" aria-hidden="true" />
@@ -203,38 +330,6 @@ function About() {
             </div>
           </AnimatedSection>
 
-          {/* GitHub contribution heatmap — full width, theme-reactive */}
-          {/* <AnimatedSection delay={0.55} className="md:col-span-2 lg:col-span-3">
-            <div className="glass-card p-6">
-              <div className="flex items-center gap-2 mb-5">
-                <GitCommit className="w-4 h-4 text-orange-400" aria-hidden="true" />
-                <h3 className="text-xs font-mono text-slate-500 uppercase tracking-widest">
-                  GitHub Contributions
-                </h3>
-                <a
-                  href="https://github.com/jpranays"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="ml-auto text-[11px] font-mono text-slate-400 hover:text-orange-400 transition-colors"
-                >
-                  @jpranays →
-                </a>
-              </div>
-              <div className="overflow-x-auto [&_.react-activity-calendar]:!font-mono">
-                <GitHubCalendar
-                  username="jpranays"
-                  colorScheme={colorScheme}
-                  theme={heatmapTheme}
-                  style={{ width: "100%" }}
-                  fontSize={11}
-                  blockSize={12}
-                  blockMargin={4}
-                  blockRadius={3}
-                  labels={{ totalCount: "{{count}} contributions in the last year" }}
-                />
-              </div>
-            </div>
-          </AnimatedSection> */}
         </div>
       </div>
     </section>

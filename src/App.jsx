@@ -22,6 +22,7 @@ import { ContextMenu } from "./components/effects/ContextMenu";
 import { MouseTrail } from "./components/effects/MouseTrail";
 import { AccentPicker } from "./components/effects/AccentPicker";
 import { useIdle } from "./hooks/useIdle";
+import TerminalOverlay from "./components/effects/TerminalOverlay";
 import { motion, useScroll, useVelocity, useTransform, useSpring } from "framer-motion";
 import Hero from "./components/sections/Hero";
 import About from "./components/sections/About";
@@ -50,6 +51,7 @@ function AppInner() {
   const [paletteOpen, setPaletteOpen] = useState(false);
   const [eggActive, setEggActive] = useState(false);
   const [shortcutsOpen, setShortcutsOpen] = useState(false);
+  const [terminalOpen, setTerminalOpen] = useState(false);
   const toast = useToast();
   const { playing: musicPlaying, toggle: toggleMusic } = useMusicPlayer();
 
@@ -80,6 +82,10 @@ function AppInner() {
       if (e.key === "?" && !e.metaKey && !e.ctrlKey && !["INPUT", "TEXTAREA"].includes(document.activeElement?.tagName)) {
         setShortcutsOpen((v) => !v);
       }
+      if (e.key === "`" && !e.metaKey && !e.ctrlKey && !["INPUT", "TEXTAREA"].includes(document.activeElement?.tagName)) {
+        e.preventDefault();
+        setTerminalOpen((v) => !v);
+      }
     };
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
@@ -90,6 +96,20 @@ function AppInner() {
     window.addEventListener("portfolio:confetti", handler);
     return () => window.removeEventListener("portfolio:confetti", handler);
   }, []);
+
+  useEffect(() => {
+    const handler = () => {
+      try {
+        const count = (parseInt(localStorage.getItem("portfolio-resume-dl") ?? "0", 10) || 0) + 1;
+        localStorage.setItem("portfolio-resume-dl", String(count));
+        toast.success(`Thanks for downloading my resume! 📄 (download #${count})`);
+      } catch {
+        toast.success("Thanks for downloading my resume! 📄");
+      }
+    };
+    window.addEventListener("portfolio:resume-download", handler);
+    return () => window.removeEventListener("portfolio:resume-download", handler);
+  }, [toast]);
 
   return (
     <>
@@ -114,6 +134,7 @@ function AppInner() {
       <Navbar activeSection={activeSection} toggle={toggle} isDark={isDark} theme={theme} onOpenPalette={() => setPaletteOpen(true)} musicPlaying={musicPlaying} onToggleMusic={toggleMusic} />
       <CommandPalette open={paletteOpen} onClose={() => setPaletteOpen(false)} theme={theme} toggleTheme={toggle} musicPlaying={musicPlaying} toggleMusic={toggleMusic} onOpenShortcuts={() => setShortcutsOpen(true)} />
       <ShortcutsModal open={shortcutsOpen} onClose={() => setShortcutsOpen(false)} />
+      <TerminalOverlay open={terminalOpen} onClose={() => setTerminalOpen(false)} />
       <ClickBurst />
       <ContextMenu />
       {/* <MouseTrail /> */}

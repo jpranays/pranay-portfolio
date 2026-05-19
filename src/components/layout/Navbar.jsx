@@ -140,6 +140,7 @@ function Navbar({ activeSection, toggle, isDark, theme, onOpenPalette, musicPlay
               href="/Pranay_Sunil_Jadhav_Resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => window.dispatchEvent(new CustomEvent("portfolio:resume-download"))}
               className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium
                          text-orange-400 border border-orange-500/25
                          hover:bg-orange-500/8 hover:border-orange-400/40 transition-all duration-200"
@@ -234,7 +235,7 @@ function Navbar({ activeSection, toggle, isDark, theme, onOpenPalette, musicPlay
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-secondary w-full justify-center mt-4 text-sm"
-                onClick={() => setMobileOpen(false)}
+                onClick={() => { setMobileOpen(false); window.dispatchEvent(new CustomEvent("portfolio:resume-download")); }}
               >
                 <Download className="w-4 h-4" aria-hidden="true" />
                 Download Resume
