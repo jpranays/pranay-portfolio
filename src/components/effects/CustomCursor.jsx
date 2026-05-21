@@ -58,7 +58,7 @@ export function CustomCursor() {
           // backgroundColor: isPointer
           //   ? "rgba(167, 139, 250, 0.18)"
           //   : "rgba(251, 146, 60, 0.2)",
-          boxShadow:"0 0 28px color-mix(in srgb, var(--ap-500) 45%, transparent) !important"
+          boxShadow:"0 0 28px rgba(var(--ap-500-rgb), 0.45)"
         }}
         transition={{
           opacity: { duration: 0.3 },

@@ -210,8 +210,8 @@ function About() {
               <div className="flex items-start gap-4">
                 <div className="flex-shrink-0 w-11 h-11 rounded-xl border flex items-center justify-center custom-border-color"
                   style={{
-                    backgroundColor: "color-mix(in srgb, var(--ap-500) 8%,  transparent) !important",
-                    borderColor:"color-mix(in srgb, var(--ap-500) 58%,  transparent) !important"
+                    backgroundColor: "rgba(var(--ap-500-rgb), 0.08)",
+                    borderColor: "rgba(var(--ap-500-rgb), 0.58)",
                 }}>
                   <Code2 className="w-5 h-5 text-orange-500" aria-hidden="true" />
                 </div>
@@ -263,8 +263,8 @@ function About() {
               <AnimatedSection key={stat.label} delay={0.1 * (i + 3)}>
                 <div className="glass-card p-5 flex items-center gap-4">
                   <div className={`w-10 h-10 rounded-xl border flex items-center justify-center flex-shrink-0 ${stat.iconBg}`} style={{
-                    backgroundColor: "color-mix(in srgb, var(--ap-500) 8%,  transparent) !important",
-                    borderColor:"color-mix(in srgb, var(--ap-500) 8%,  transparent) !important"
+                    backgroundColor: "rgba(var(--ap-500-rgb), 0.08)",
+                    borderColor: "rgba(var(--ap-500-rgb), 0.08)",
                 }}>
                     <stat.icon className={`w-4 h-4`} aria-hidden="true" color="var(--ap-500)" />
                   </div>

@@ -81,7 +81,7 @@ function Navbar({ activeSection, toggle, isDark, theme, onOpenPalette, musicPlay
                         ? "text-orange-400"
                         : "text-slate-500 hover:text-slate-800 dark:hover:text-slate-200"
                     )}
-                    style={{backgroundColor: isActive ? "color-mix(in srgb, var(--ap-500) 8%,  transparent) !important" : "transparent"}}
+                    style={{backgroundColor: isActive ? "rgba(var(--ap-500-rgb), 0.08)" : "transparent"}}
                     aria-current={isActive ? "page" : undefined}
                   >
                     {isActive && (

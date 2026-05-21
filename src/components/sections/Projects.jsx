@@ -74,7 +74,7 @@ function ProjectCard({ project, featured = false }) {
 										className="text-xs font-mono text-orange-400  border px-2 py-0.5 rounded-md whitespace-nowrap"
 										style={{
 											backgroundColor:
-												"color-mix(in srgb, var(--ap-500) 8%,  transparent) !important",
+												"rgba(var(--ap-500-rgb), 0.08)",
 										}}
 									>
 										{project.badge}
@@ -85,7 +85,7 @@ function ProjectCard({ project, featured = false }) {
 										className="inline-flex items-center gap-1 text-xs font-mono px-2 py-0.5 rounded-full border  text-orange-400 "
 										style={{
 											backgroundColor:
-												"color-mix(in srgb, var(--ap-500) 8%,  transparent) !important",
+												"rgba(var(--ap-500-rgb), 0.08)",
 										}}
 									>
 										<Star className="w-2.5 h-2.5" aria-hidden="true" />
@@ -227,7 +227,7 @@ function Projects() {
 								style={{
 									backgroundColor:
 										activeFilter === cat.id
-											? "color-mix(in srgb, var(--ap-500) 8%,  transparent) !important"
+											? "rgba(var(--ap-500-rgb), 0.08)"
 											: undefined,
 								}}
 							>

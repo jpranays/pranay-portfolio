@@ -66,6 +66,11 @@ function setVars({ c400, c500, c600 }) {
   root.style.setProperty("--ap-400", c400);
   root.style.setProperty("--ap-500", c500);
   root.style.setProperty("--ap-600", c600);
+  // RGB triplets so rgba() works on iOS without color-mix()
+  root.style.setProperty("--ap-500-rgb", hex2rgb(c500));
+  root.style.setProperty("--ap-400-rgb", hex2rgb(c400));
+  // Pre-blended light variant: ap-400 × 60% + white × 40% (for gradient-text)
+  root.style.setProperty("--ap-400-light", lerpHex(c400, "#ffffff", 0.4));
   root.style.setProperty("--color-border-hover", `rgba(${hex2rgb(c500)}, 0.25)`);
   root.style.setProperty(
     "--color-shadow-card-hover",
@@ -114,33 +119,33 @@ function injectStyle() {
     .from-orange-400 { --tw-gradient-from: var(--ap-400) !important; }
     .to-orange-400   { --tw-gradient-to:   var(--ap-400) !important; }
     .via-amber-200   { --tw-gradient-via:  var(--ap-400) !important; }
-    .border-orange-500\\/25 { border-color: color-mix(in srgb, var(--ap-500) 25%, transparent) !important; }
-    .border-orange-500\\/30 { border-color: color-mix(in srgb, var(--ap-500) 30%, transparent) !important; }
-    .focus\\:border-orange-500\\/50:focus { border-color: color-mix(in srgb, var(--ap-500) 50%, transparent) !important; }
-    .focus\\:ring-orange-500\\/30:focus   { --tw-ring-color: color-mix(in srgb, var(--ap-500) 30%, transparent) !important; }
+    .border-orange-500\\/25 { border-color: rgba(var(--ap-500-rgb), 0.25) !important; }
+    .border-orange-500\\/30 { border-color: rgba(var(--ap-500-rgb), 0.30) !important; }
+    .focus\\:border-orange-500\\/50:focus { border-color: rgba(var(--ap-500-rgb), 0.50) !important; }
+    .focus\\:ring-orange-500\\/30:focus   { --tw-ring-color: rgba(var(--ap-500-rgb), 0.30) !important; }
     .section-label {
-      background-color: color-mix(in srgb, var(--ap-500) 8%,  transparent) !important;
-      border-color:     color-mix(in srgb, var(--ap-500) 15%, transparent) !important;
+      background-color: rgba(var(--ap-500-rgb), 0.08) !important;
+      border-color:     rgba(var(--ap-500-rgb), 0.15) !important;
       color: var(--ap-500) !important;
     }
     .glow-dot {
       background-color: var(--ap-500) !important;
-      box-shadow: 0 0 8px color-mix(in srgb, var(--ap-500) 80%, transparent) !important;
+      box-shadow: 0 0 8px rgba(var(--ap-500-rgb), 0.80) !important;
     }
     .gradient-text {
-      background-image: linear-gradient(to right, var(--ap-400), color-mix(in srgb, var(--ap-400) 60%, white)) !important;
+      background-image: linear-gradient(to right, var(--ap-400), var(--ap-400-light)) !important;
     }
     .btn-primary {
       background-color: var(--ap-500) !important;
-      box-shadow: 0 0 20px color-mix(in srgb, var(--ap-500) 30%, transparent) !important;
+      box-shadow: 0 0 20px rgba(var(--ap-500-rgb), 0.30) !important;
     }
     .btn-primary:hover {
       background-color: var(--ap-400) !important;
-      box-shadow: 0 0 28px color-mix(in srgb, var(--ap-500) 45%, transparent) !important;
+      box-shadow: 0 0 28px rgba(var(--ap-500-rgb), 0.45) !important;
     }
-    ::selection    { background: color-mix(in srgb, var(--ap-500) 25%, transparent) !important; }
-    :focus-visible { outline-color: color-mix(in srgb, var(--ap-500) 70%, transparent) !important; }
-    ::-webkit-scrollbar-thumb { background: color-mix(in srgb, var(--ap-500) 40%, transparent) !important; }
+    ::selection    { background: rgba(var(--ap-500-rgb), 0.25) !important; }
+    :focus-visible { outline-color: rgba(var(--ap-500-rgb), 0.70) !important; }
+    ::-webkit-scrollbar-thumb { background: rgba(var(--ap-500-rgb), 0.40) !important; }
   `;
   document.head.appendChild(s);
 }

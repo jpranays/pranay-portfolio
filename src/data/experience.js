@@ -23,7 +23,7 @@ export const EXPERIENCE = [
     role: "Web Developer",
     company: "MiniOrange",
     period: "Jul 2022 — Nov 2022",
-    type: "Internship",
+    type: "Full-time",
     current: false,
     description:
       "Focused on performance optimization and frontend improvements for WordPress plugins and React applications.",

@@ -200,7 +200,7 @@
     border: 1px solid var(--color-border);
     &:hover {
       @apply text-yellow-500;
-      background-color: color-mix(in srgb, var(--ap-500) 10%, transparent);
+      background-color: rgba(var(--ap-500-rgb), 0.10);
       color: var(--ap-500) !important;
       border-color: rgba(250, 204, 21, 0.2);
     }
