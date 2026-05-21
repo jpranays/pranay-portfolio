@@ -136,9 +136,10 @@ function SocialLink({ href, icon: Icon, label, username, reduced, fillColor }) {
         transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
         className="flex-shrink-0"
       >
-        <Icon className="w-4 h-4 transition-colors" aria-hidden="true" style={{ color: fillColor }} />
+        {/* if dark mode then fillColor */}
+        <Icon className="w-4 h-4 transition-colors" aria-hidden="true" />
       </motion.span>
-      <span className="text-xs font-mono hidden sm:inline">{username}</span>
+      <span className="text-xs font-mono hidden sm:inline dark:text-slate-400">{username}</span>
     </motion.a>
   );
 }

@@ -52,7 +52,7 @@ export function Footer() {
                     aria-label={label}
                     className="text-slate-400 hover:text-slate-700 dark:hover:text-slate-300 transition-colors duration-200"
                   >
-                    <Icon className="w-4 h-4" aria-hidden="true" color={fillColor} />
+                    <Icon className="w-4 h-4" aria-hidden="true" />
                   </a>
                 </li>
               ))}
