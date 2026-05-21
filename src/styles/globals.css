@@ -202,7 +202,6 @@
       @apply text-yellow-500;
       background-color: rgba(var(--ap-500-rgb), 0.10);
       color: var(--ap-500) !important;
-      border-color: rgba(250, 204, 21, 0.2);
     }
   }
 }

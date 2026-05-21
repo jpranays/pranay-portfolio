@@ -169,7 +169,7 @@ function NpmPkgCard({ name, version, weeklyDownloads, gzip }) {
         className="flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-mono
                    bg-white dark:bg-white/[0.04] border border-slate-200 dark:border-white/[0.08]
                    text-slate-600 dark:text-slate-400
-                   hover:border-orange-500/30 hover:text-slate-800 dark:hover:text-slate-200
+                   custom-border-color hover:text-slate-800 dark:hover:text-slate-200
                    transition-all duration-200 w-full text-left group"
       >
         <span className="flex-1 truncate">{installCmd}</span>
