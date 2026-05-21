@@ -139,7 +139,8 @@ function AppInner() {
       <ContextMenu />
       {/* <MouseTrail /> */}
 
-      <motion.main id="main-content" style={{ rotateX: tilt }} className="transform-gpu">
+      {/* <motion.main id="main-content" style={{ rotateX: tilt }} className="transform-gpu"> */}
+      <motion.main id="main-content"  className="transform-gpu">
         <Hero />
         <Divider />
         <About />
