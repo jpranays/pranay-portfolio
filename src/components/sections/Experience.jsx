@@ -7,13 +7,13 @@ import { EXPERIENCE, EDUCATION } from "../../data/experience";
 function Dot({ current }) {
   return (
     <div className="relative flex-shrink-0 mt-[22px]">
-      <div className={`w-3 h-3 rounded-full border-2 ring-4 ring-offset-0 ${
+      <div className={`w-3 h-3 rounded-full border-2 ring-offset-0 ${
         current
-          ? "bg-orange-500 border-orange-300 ring-orange-500/20"
+          ? "bg-orange-500"
           : "bg-slate-300 dark:bg-slate-600 border-slate-200 dark:border-white/20 ring-transparent"
       }`} />
       {current && (
-        <div className="absolute inset-0 rounded-full bg-orange-400 animate-ping opacity-50" aria-hidden="true" />
+        <div className="absolute inset-0 rounded-full bg-orange-500 animate-ping opacity-50" aria-hidden="true" />
       )}
     </div>
   );
@@ -137,7 +137,7 @@ function Experience() {
           <div className="lg:col-span-2">
             <AnimatedSection delay={0.2}>
               <div className="flex items-center gap-2 mb-8">
-                <GraduationCap className="w-4 h-4 text-cyan-400" aria-hidden="true" />
+                <GraduationCap className="w-4 h-4 text-orange-500" aria-hidden="true" />
                 <h3 className="text-sm font-semibold text-slate-600 dark:text-slate-300 uppercase tracking-wider font-mono">Education</h3>
               </div>
             </AnimatedSection>

@@ -76,21 +76,22 @@ function Navbar({ activeSection, toggle, isDark, theme, onOpenPalette, musicPlay
                   <button
                     onClick={() => handleNavClick(link.href)}
                     className={cn(
-                      "relative px-3 py-1.5 text-sm font-medium rounded-lg transition-colors duration-200",
+                      `relative px-3 py-1.5 text-sm font-medium rounded-lg transition-colors duration-200`,
                       isActive
                         ? "text-orange-400"
                         : "text-slate-500 hover:text-slate-800 dark:hover:text-slate-200"
                     )}
+                    style={{backgroundColor: isActive ? "color-mix(in srgb, var(--ap-500) 8%,  transparent) !important" : "transparent"}}
                     aria-current={isActive ? "page" : undefined}
                   >
                     {isActive && (
                       <motion.span
                         layoutId="nav-pill"
-                        className="absolute inset-0 rounded-lg bg-orange-500/10"
-                        transition={{ type: "spring", stiffness: 400, damping: 32 }}
+                        className="absolute inset-0 rounded-lg"
+                        // transition={{ type: "spring", stiffness: 400, damping: 32 }}
                       />
                     )}
-                    <span className="relative z-10">{link.label}</span>
+                    <span className="relative z-10 ">{link.label}</span>
                   </button>
                 </li>
               );

@@ -55,9 +55,10 @@ export function CustomCursor() {
           opacity: hasMoved ? 1 : 0,
           width: isPointer ? 56 : 28,
           height: isPointer ? 56 : 28,
-          backgroundColor: isPointer
-            ? "rgba(167, 139, 250, 0.18)"
-            : "rgba(251, 146, 60, 0.2)",
+          // backgroundColor: isPointer
+          //   ? "rgba(167, 139, 250, 0.18)"
+          //   : "rgba(251, 146, 60, 0.2)",
+          boxShadow:"0 0 28px color-mix(in srgb, var(--ap-500) 45%, transparent) !important"
         }}
         transition={{
           opacity: { duration: 0.3 },

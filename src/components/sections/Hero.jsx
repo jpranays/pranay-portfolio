@@ -49,10 +49,11 @@ const TYPING_WORDS = [
 ];
 
 const SOCIAL_LINKS = [
-  { href: "https://github.com/jpranays", icon: Github, label: "GitHub", username: "Github" },
-  { href: "https://www.linkedin.com/in/jpranays", icon: Linkedin, label: "LinkedIn", username: "LinkedIn" },
-  { href: "https://x.com/jpranays", icon: FaXTwitter, label: "Twitter/X", username: "X" },
-  { href: "https://www.npmjs.com/~jpranays", icon: ImNpm, label: "NPM", username: "NPM" },
+  // give me github icon color 
+  { href: "https://github.com/jpranays", icon: Github, label: "GitHub", username: "Github",fillColor:"#181717" },
+  { href: "https://www.linkedin.com/in/jpranays", icon: Linkedin, label: "LinkedIn", username: "LinkedIn", fillColor:"#0A66C2" },
+  { href: "https://x.com/jpranays", icon: FaXTwitter, label: "Twitter/X", username: "X", fillColor:"#000000" },
+  { href: "https://www.npmjs.com/~jpranays", icon: ImNpm, label: "NPM", username: "NPM", fillColor:"#CB3837" },
 ];
 
 const CREDIBILITY_PILLS_BASE = [
@@ -103,7 +104,7 @@ const FLOATING_BADGES = [
   { name: "Postman",    cls: "right-[17%] top-[78%]", delay: 2.0, dur: 6.2, rot:  7,  show: "2xl" },
 ];
 
-function SocialLink({ href, icon: Icon, label, username, reduced }) {
+function SocialLink({ href, icon: Icon, label, username, reduced, fillColor }) {
   const ref = useRef(null);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -135,7 +136,7 @@ function SocialLink({ href, icon: Icon, label, username, reduced }) {
         transition={{ duration: 0.42, ease: [0.22, 1, 0.36, 1] }}
         className="flex-shrink-0"
       >
-        <Icon className="w-4 h-4 group-hover:text-orange-400 transition-colors" aria-hidden="true" />
+        <Icon className="w-4 h-4 transition-colors" aria-hidden="true" style={{ color: fillColor }} />
       </motion.span>
       <span className="text-xs font-mono hidden sm:inline">{username}</span>
     </motion.a>

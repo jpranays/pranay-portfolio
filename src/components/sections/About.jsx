@@ -129,7 +129,7 @@ function NpmPkgCard({ name, version, weeklyDownloads, gzip }) {
     <div className="flex flex-col gap-3 p-4 rounded-xl bg-slate-50 dark:bg-white/[0.03] border border-slate-200 dark:border-white/[0.06]">
       <div className="flex items-center justify-between gap-2">
         <div className="flex items-center gap-2 min-w-0">
-          <Package className="w-3.5 h-3.5 text-red-400 flex-shrink-0" aria-hidden="true" />
+          <Package className="w-3.5 h-3.5 text-orange-500 flex-shrink-0" aria-hidden="true" />
           <span className="font-mono text-sm font-semibold text-slate-800 dark:text-slate-100 truncate">{name}</span>
           {version && (
             <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-slate-200 dark:bg-white/[0.08] text-slate-500 dark:text-slate-400 border border-slate-300 dark:border-white/[0.1] flex-shrink-0">
@@ -208,8 +208,12 @@ function About() {
           <AnimatedSection delay={0.1} className="lg:col-span-2">
             <div className="glass-card p-6 h-full">
               <div className="flex items-start gap-4">
-                <div className="flex-shrink-0 w-11 h-11 rounded-xl bg-orange-500/10 border border-orange-500/20 flex items-center justify-center">
-                  <Code2 className="w-5 h-5 text-orange-400" aria-hidden="true" />
+                <div className="flex-shrink-0 w-11 h-11 rounded-xl border flex items-center justify-center"
+                  style={{
+                    backgroundColor: "color-mix(in srgb, var(--ap-500) 8%,  transparent) !important",
+                    borderColor:"color-mix(in srgb, var(--ap-500) 8%,  transparent) !important"
+                }}>
+                  <Code2 className="w-5 h-5 text-orange-500" aria-hidden="true" />
                 </div>
                 <div className="space-y-3">
                   <h3 className="text-base font-semibold text-slate-800 dark:text-slate-100">Who I am</h3>
@@ -258,8 +262,11 @@ function About() {
             return (
               <AnimatedSection key={stat.label} delay={0.1 * (i + 3)}>
                 <div className="glass-card p-5 flex items-center gap-4">
-                  <div className={`w-10 h-10 rounded-xl border flex items-center justify-center flex-shrink-0 ${stat.iconBg}`}>
-                    <stat.icon className={`w-4 h-4 ${stat.iconColor}`} aria-hidden="true" />
+                  <div className={`w-10 h-10 rounded-xl border flex items-center justify-center flex-shrink-0 ${stat.iconBg}`} style={{
+                    backgroundColor: "color-mix(in srgb, var(--ap-500) 8%,  transparent) !important",
+                    borderColor:"color-mix(in srgb, var(--ap-500) 8%,  transparent) !important"
+                }}>
+                    <stat.icon className={`w-4 h-4`} aria-hidden="true" color="var(--ap-500)" />
                   </div>
                   <div>
                     <p className="text-2xl font-bold text-slate-800 dark:text-slate-100 leading-none tracking-tight">

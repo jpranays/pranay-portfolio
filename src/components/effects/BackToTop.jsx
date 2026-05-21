@@ -26,9 +26,8 @@ export function BackToTop() {
           className="fixed bottom-6 right-6 z-40 w-10 h-10 rounded-full
                      bg-orange-500 hover:bg-orange-400 text-white
                      flex items-center justify-center
-                     shadow-[0_0_20px_rgba(249,115,22,0.5)]
-                     hover:shadow-[0_0_28px_rgba(249,115,22,0.7)]
                      transition-colors duration-200"
+          style={{backgroundColor:"var(--ap-400)",boxShadow:"0 0 28px color-mix(in srgb, var(--ap-500) 45%, transparent) !important"}}
         >
           <ArrowUp className="w-4 h-4" aria-hidden="true" />
         </motion.button>
