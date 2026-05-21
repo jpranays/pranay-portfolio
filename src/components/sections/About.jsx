@@ -208,10 +208,10 @@ function About() {
           <AnimatedSection delay={0.1} className="lg:col-span-2">
             <div className="glass-card p-6 h-full">
               <div className="flex items-start gap-4">
-                <div className="flex-shrink-0 w-11 h-11 rounded-xl border flex items-center justify-center"
+                <div className="flex-shrink-0 w-11 h-11 rounded-xl border flex items-center justify-center custom-border-color"
                   style={{
                     backgroundColor: "color-mix(in srgb, var(--ap-500) 8%,  transparent) !important",
-                    borderColor:"color-mix(in srgb, var(--ap-500) 8%,  transparent) !important"
+                    borderColor:"color-mix(in srgb, var(--ap-500) 58%,  transparent) !important"
                 }}>
                   <Code2 className="w-5 h-5 text-orange-500" aria-hidden="true" />
                 </div>
