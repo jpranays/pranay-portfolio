@@ -36,7 +36,7 @@ export function Footer() {
           <p className="text-sm text-slate-500 font-mono">
             <span className="ml-3">
               © {year} Pranay Jadhav. Built with{" "}
-              <Heart className="w-3 h-3 inline text-orange-500" aria-label="love" />
+              <Heart className="w-3 h-3 inline text-orange-500" aria-label="love" fill="currentColor" style={{transition:"all 0.3s linear"}}/>
             </span>
           </p>
 
