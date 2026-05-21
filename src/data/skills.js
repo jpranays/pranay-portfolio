@@ -59,7 +59,7 @@ export const SKILL_GROUPS = [
   {
     label: "Build & DevOps",
     icon: "Wrench",
-    color: "orange",
+    color: "yellow",
     skills: [
       { name: "Vite" },
       { name: "Rollup" },

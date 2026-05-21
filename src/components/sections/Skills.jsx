@@ -12,7 +12,8 @@ const COLOR_MAP = {
   violet: { icon: "text-violet-400", bg: "bg-violet-500/10", border: "border-violet-500/20", label: "text-violet-400" },
   teal:   { icon: "text-teal-400",   bg: "bg-teal-500/10",   border: "border-teal-500/20",   label: "text-teal-400" },
   orange: { icon: "text-orange-400", bg: "bg-orange-500/10", border: "border-orange-500/20", label: "text-orange-400" },
-  pink:   { icon: "text-pink-400",   bg: "bg-pink-500/10",   border: "border-pink-500/20",   label: "text-pink-400" },
+  pink: { icon: "text-pink-400", bg: "bg-pink-500/10", border: "border-pink-500/20", label: "text-pink-400" },
+  yellow: { icon: "text-yellow-400", bg: "bg-yellow-500/10", border: "border-yellow-500/20", label: "text-yellow-400" },
 };
 
 function SkillGroup({ group, index }) {

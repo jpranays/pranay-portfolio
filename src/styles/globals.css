@@ -199,11 +199,23 @@
     color: var(--color-text-secondary);
     border: 1px solid var(--color-border);
     &:hover {
-      @apply text-orange-500;
-      background-color: rgba(249, 115, 22, 0.08);
-      border-color: rgba(249, 115, 22, 0.2);
+      @apply text-yellow-500;
+      background-color: color-mix(in srgb, var(--ap-500) 10%, transparent);
+      color: var(--ap-500) !important;
+      border-color: rgba(250, 204, 21, 0.2);
     }
   }
+}
+
+.custom-link{
+  &:hover{
+      color: var(--ap-500) !important;
+  }
+}
+.custom-border-color{
+  &:hover{
+      border-color: var(--ap-500) !important;
+}
 }
 
 /* ─────────────────────────────────────────────

@@ -61,7 +61,7 @@ export function MusicPlayer({ playing, onToggle }) {
                          shadow-sm backdrop-blur-sm transition-all duration-200
                          ${playing
                            ? "bg-orange-500/12 border-orange-500/30 text-orange-400 hover:bg-orange-500/18"
-                           : "bg-white/80 dark:bg-white/[0.05] border-slate-200 dark:border-white/[0.1] text-slate-400 hover:text-orange-400 hover:border-orange-500/30"
+                           : "bg-white/80 dark:bg-white/[0.05] border-slate-200 dark:border-white/[0.1] text-slate-400 custom-link custom-border-color"
                          }`}
             >
               {playing && !reduced ? <EqualizerBars /> : <Music className="w-4 h-4" />}

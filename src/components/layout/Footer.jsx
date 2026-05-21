@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 import { Github, Linkedin, Mail, Heart } from "lucide-react";
 
+
 const LINKS = [
-  { href: "https://github.com/jpranays", icon: Github, label: "GitHub" },
-  { href: "https://www.linkedin.com/in/pranay-jadhav-a8897b1b1", icon: Linkedin, label: "LinkedIn" },
-  { href: "mailto:pranayjadhavcr7@gmail.com", icon: Mail, label: "Email" },
+  { href: "https://github.com/jpranays", icon: Github, label: "GitHub", username: "Github",fillColor:"#181717" },
+  { href: "https://www.linkedin.com/in/jpranays", icon: Linkedin, label: "LinkedIn", username: "LinkedIn", fillColor:"#0A66C2" },
+  { href: "mailto:pranay1315@gmail.com", icon: Mail, label: "Email", username: "Email", fillColor:"#EA4335" },
 ];
 
 const TIME_FMT = { timeZone: "Asia/Kolkata", hour: "2-digit", minute: "2-digit", hour12: true };
@@ -42,7 +43,7 @@ export function Footer() {
 
           <nav aria-label="Social links">
             <ul className="flex items-center gap-4" role="list">
-              {LINKS.map(({ href, icon: Icon, label }) => (
+              {LINKS.map(({ href, icon: Icon, label,fillColor }) => (
                 <li key={label}>
                   <a
                     href={href}
@@ -51,7 +52,7 @@ export function Footer() {
                     aria-label={label}
                     className="text-slate-400 hover:text-slate-700 dark:hover:text-slate-300 transition-colors duration-200"
                   >
-                    <Icon className="w-4 h-4" aria-hidden="true" />
+                    <Icon className="w-4 h-4" aria-hidden="true" color={fillColor} />
                   </a>
                 </li>
               ))}

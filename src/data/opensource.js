@@ -45,7 +45,7 @@ export const OSS_CONTRIBUTIONS = [
     npm: "https://www.npmjs.com/package/react-tooltip",
     description: "Improved component accessibility and added MDX docs, enhancing developer experience.",
     impact: "6M+ monthly users",
-    color: "orange",
+    color: "lightblue",
   },
   {
     id: "grommet",
