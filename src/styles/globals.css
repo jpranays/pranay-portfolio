@@ -216,6 +216,9 @@
       border-color: var(--ap-500) !important;
 }
 }
+.no-focus:focus {
+  outline: none !important;
+}
 
 /* ─────────────────────────────────────────────
    UTILITIES

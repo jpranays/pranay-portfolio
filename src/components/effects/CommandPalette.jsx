@@ -137,12 +137,12 @@ function CommandPalette({ open, onClose, theme, toggleTheme, musicPlaying, toggl
             >
               {/* Search input */}
               <div className="flex items-center gap-3 px-4 py-3 border-b border-slate-200 dark:border-white/[0.07]">
-                <Search className="w-4 h-4 text-slate-400 flex-shrink-0" aria-hidden="true" />
+                <Search className="w-4 h-4 text-slate-400 flex-shrink-0 outline-none focus:ring-2 focus:ring-orange-400" aria-hidden="true" />
                 <Command.Input
                   placeholder="Search commands…"
                   className="flex-1 bg-transparent text-sm text-slate-700 dark:text-slate-200
                              placeholder-slate-400 dark:placeholder-slate-600
-                             outline-none caret-orange-400"
+                             outline-none caret-orange-400 no-focus"
                   autoFocus
                 />
                 <kbd className="hidden sm:inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-md text-[10px]

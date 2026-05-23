@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 
 export function useTheme() {
   const [theme, setTheme] = useState(() => {
-    if (typeof window === "undefined") return "system";
-    return localStorage.getItem("pj-theme") ?? "system";
+    if (typeof window === "undefined") return "dark";
+    return localStorage.getItem("pj-theme") ?? "dark";
   });
 
   const [systemDark, setSystemDark] = useState(() => {
