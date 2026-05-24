@@ -146,6 +146,21 @@ function injectStyle() {
     ::selection    { background: rgba(var(--ap-500-rgb), 0.25) !important; }
     :focus-visible { outline-color: rgba(var(--ap-500-rgb), 0.70) !important; }
     ::-webkit-scrollbar-thumb { background: rgba(var(--ap-500-rgb), 0.40) !important; }
+
+    /* ── CommandPalette: aria-selected item highlight ── */
+    .aria-selected\\:bg-orange-500\\/10[aria-selected="true"] {
+      background-color: rgba(var(--ap-500-rgb), 0.10) !important;
+    }
+    .aria-selected\\:text-orange-500[aria-selected="true"] {
+      color: var(--ap-500) !important;
+    }
+    .dark .dark\\:aria-selected\\:text-orange-400[aria-selected="true"] {
+      color: var(--ap-400) !important;
+    }
+    .group[aria-selected="true"] .group-aria-selected\\:text-orange-400 {
+      color: var(--ap-400) !important;
+    }
+    .caret-orange-400 { caret-color: var(--ap-400) !important; }
   `;
   document.head.appendChild(s);
 }
