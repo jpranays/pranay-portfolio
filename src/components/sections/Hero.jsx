@@ -359,7 +359,7 @@ function Hero() {
               View My Work
             </MagneticButton>
             <MagneticButton
-              href="/Pranay_Sunil_Jadhav_Resume.pdf"
+              href="/Pranay_Jadhav_Resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className="btn-secondary"

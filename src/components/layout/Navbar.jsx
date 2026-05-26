@@ -138,7 +138,7 @@ function Navbar({ activeSection, toggle, isDark, theme, onOpenPalette, musicPlay
             </button>
 
             <a
-              href="/Pranay_Sunil_Jadhav_Resume.pdf"
+              href="/Pranay_Jadhav_Resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => window.dispatchEvent(new CustomEvent("portfolio:resume-download"))}
@@ -232,7 +232,7 @@ function Navbar({ activeSection, toggle, isDark, theme, onOpenPalette, musicPlay
                 ))}
               </ul>
               <a
-                href="/Pranay_Sunil_Jadhav_Resume.pdf"
+                href="/Pranay_Jadhav_Resume.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-secondary w-full justify-center mt-4 text-sm"

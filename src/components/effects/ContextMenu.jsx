@@ -15,7 +15,7 @@ const ITEMS = [
     id: "resume",
     label: "View resume",
     icon: FileText,
-    href: "/Pranay_Sunil_Jadhav_Resume.pdf",
+    href: "/Pranay_Jadhav_Resume.pdf",
   },
   {
     id: "email",
