@@ -6,7 +6,6 @@ export const SKILL_GROUPS = [
     skills: [
       { name: "React" },
       { name: "Next.js" },
-      { name: "Vue.js" },
       { name: "TypeScript" },
       { name: "JavaScript" },
       { name: "HTML5 / CSS3" },
@@ -14,7 +13,6 @@ export const SKILL_GROUPS = [
       { name: "SCSS / Sass" },
       { name: "Framer Motion" },
       { name: "Redux / Zustand" },
-      { name: "Pinia / Vuex" },
       { name: "Styled Components" },
     ],
   },

@@ -70,7 +70,7 @@ const CREDIBILITY_PILLS_BASE = [
  */
 const FLOATING_BADGES = [
   // ── Left outer  (lg+) ──
-  { name: "Vue.js",     cls: "left-[4%]  top-[10%]", delay: 1.5, dur: 7.1, rot:  7,  show: "lg" },
+  { name: "Stripe",     cls: "left-[4%]  top-[10%]", delay: 1.5, dur: 7.1, rot:  7,  show: "lg" },
   { name: "React",      cls: "left-[5%]  top-[28%]", delay: 0.0, dur: 6.2, rot: -8,  show: "lg" },
   { name: "Node.js",    cls: "left-[3%]  top-[50%]", delay: 0.7, dur: 5.8, rot:  11, show: "lg" },
   { name: "Socket.IO",  cls: "left-[4%]  top-[70%]", delay: 2.1, dur: 6.0, rot: -12, show: "lg" },
@@ -90,11 +90,11 @@ const FLOATING_BADGES = [
 
   // ── Right inner (xl+) ──
   { name: "Framer",     cls: "right-[10%] top-[28%]", delay: 0.2, dur: 7.2, rot: -4,  show: "xl" },
-  { name: "Pinia",      cls: "right-[9%]  top-[64%]", delay: 1.6, dur: 6.4, rot:  9,  show: "xl" },
+  { name: "Zustand",    cls: "right-[9%]  top-[64%]", delay: 1.6, dur: 6.4, rot:  9,  show: "xl" },
   { name: "Rollup",     cls: "right-[11%] top-[82%]", delay: 2.8, dur: 5.7, rot: -6,  show: "xl" },
 
   // ── Left deep   (2xl+) ──
-  { name: "Zustand",    cls: "left-[16%] top-[22%]", delay: 1.0, dur: 6.5, rot: -9,  show: "2xl" },
+  { name: "Redux",      cls: "left-[16%] top-[22%]", delay: 1.0, dur: 6.5, rot: -9,  show: "2xl" },
   { name: "Webpack",    cls: "left-[15%] top-[55%]", delay: 2.2, dur: 7.4, rot:  6,  show: "2xl" },
   { name: "SCSS",       cls: "left-[17%] top-[76%]", delay: 0.8, dur: 6.1, rot: -13, show: "2xl" },
 

@@ -53,7 +53,7 @@ function SkillGroup({ group, index }) {
 }
 
 const MARQUEE_TECHS = [
-  "React", "Next.js", "Vue.js", "TypeScript", "Node.js", "MongoDB",
+  "React", "Next.js", "Stripe", "TypeScript", "Node.js", "MongoDB",
   "Socket.IO", "Jest", "TailwindCSS", "Framer Motion", "Vite", "Rollup",
   "Redis", "Docker", "Figma", "Git", "SCSS", "Express.js",
 ];

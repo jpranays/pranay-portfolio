@@ -51,7 +51,6 @@ const LANG_COLORS = {
 	TypeScript: "#3178c6",
 	HTML: "#e34f26",
 	CSS: "#1572b6",
-	Vue: "#4fc08d",
 	Python: "#3776ab",
 	SCSS: "#c6538c",
 	Shell: "#89e051",
