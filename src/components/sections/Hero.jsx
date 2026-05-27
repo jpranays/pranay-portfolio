@@ -244,9 +244,8 @@ function Hero() {
           {/* Availability badge — click to toggle (persists in localStorage) */}
           <motion.div variants={item}>
             <button
-              onClick={toggleAvailability}
-              title="Click to toggle availability status"
-              className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-mono font-medium border transition-all duration-300 cursor-pointer
+              // onClick={toggleAvailability}
+              className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-mono font-medium border transition-all duration-300 cursor-default
                 ${available
                   ? "bg-green-500/10 text-green-500 dark:text-green-400 border-green-500/25 hover:bg-green-500/15"
                   : "bg-slate-500/10 text-slate-500 dark:text-slate-400 border-slate-500/25 hover:bg-slate-500/15"
