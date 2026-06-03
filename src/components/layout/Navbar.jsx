@@ -172,7 +172,10 @@ function Navbar({ activeSection, toggle, isDark, theme, onOpenPalette, musicPlay
                 musicPlaying
                   ? "text-orange-400 bg-orange-500/10"
                   : "text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/[0.06]"
-              }`}
+                }`}
+              style={{
+                backgroundColor: musicPlaying ? "rgba(var(--ap-500-rgb), 0.08)" : "transparent",
+               }}
             >
               {musicPlaying ? <EqualizerBars count={3} /> : <Music className="w-4 h-4" />}
             </button>
