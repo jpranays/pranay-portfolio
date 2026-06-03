@@ -5,7 +5,7 @@ import {
   Download, ExternalLink, Twitter, Package, Volume2,
   X,
 } from "lucide-react";
-import { FaNpm } from "react-icons/fa";
+import { FaNpm, FaReddit } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { useTyping } from "../../hooks/useTyping";
 import { MagneticButton } from "../ui/MagneticButton";
@@ -49,11 +49,11 @@ const TYPING_WORDS = [
 ];
 
 const SOCIAL_LINKS = [
-  // give me github icon color 
-  { href: "https://github.com/jpranays", icon: Github, label: "GitHub", username: "Github",fillColor:"#181717" },
-  { href: "https://www.linkedin.com/in/jpranays", icon: Linkedin, label: "LinkedIn", username: "LinkedIn", fillColor:"#0A66C2" },
-  { href: "https://x.com/jpranays", icon: FaXTwitter, label: "Twitter/X", username: "X", fillColor:"#000000" },
-  { href: "https://www.npmjs.com/~jpranays", icon: ImNpm, label: "NPM", username: "NPM", fillColor:"#CB3837" },
+  { href: "https://github.com/jpranays",                icon: Github,    label: "GitHub",    username: "Github",    fillColor: "#181717" },
+  { href: "https://www.linkedin.com/in/jpranays",       icon: Linkedin,  label: "LinkedIn",  username: "LinkedIn",  fillColor: "#0A66C2" },
+  { href: "https://x.com/jpranays",                     icon: FaXTwitter,label: "Twitter/X", username: "X",         fillColor: "#000000" },
+  // { href: "https://www.reddit.com/user/jpranays/",      icon: FaReddit,  label: "Reddit",    username: "Reddit",    fillColor: "#FF4500" },
+  { href: "https://www.npmjs.com/~jpranays",            icon: ImNpm,     label: "NPM",       username: "NPM",       fillColor: "#CB3837" },
 ];
 
 const CREDIBILITY_PILLS_BASE = [

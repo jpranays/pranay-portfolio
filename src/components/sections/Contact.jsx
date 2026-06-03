@@ -7,6 +7,8 @@ import {
   Github, Linkedin, Mail, Send, CheckCircle,
   AlertCircle, Code2, Twitter, Package, CalendarDays,
 } from "lucide-react";
+import { FaReddit, FaDiscord, FaWhatsapp } from "react-icons/fa";
+import { SiGmail } from "react-icons/si";
 import { AnimatedSection } from "../ui/AnimatedSection";
 import { cn } from "../../utils/cn";
 import { useAvailability } from "../../hooks/useAvailability";
@@ -44,9 +46,37 @@ const SOCIAL_LINKS = [
   },
   {
     href: "mailto:pranay1315@gmail.com",
-    icon: Mail,
-    label: "Email",
+    icon: SiGmail,
+    label: "Gmail",
     handle: "pranay1315@gmail.com",
+    hoverColor: "group-hover:text-red-500 dark:group-hover:text-red-400",
+  },
+  // {
+  //   href: "mailto:jpranays@outlook.com",
+  //   icon: Mail,
+  //   label: "Outlook",
+  //   handle: "jpranays@outlook.com",
+  //   hoverColor: "group-hover:text-blue-600 dark:group-hover:text-blue-400",
+  // },
+  {
+    href: "https://wa.me/918888399676",
+    icon: FaWhatsapp,
+    label: "WhatsApp",
+    handle: "Let's connect",
+    hoverColor: "group-hover:text-green-500 dark:group-hover:text-green-400",
+  },
+  {
+    href: "https://discord.com/users/jpranays",
+    icon: FaDiscord,
+    label: "Discord",
+    handle: "jpranays",
+    hoverColor: "group-hover:text-indigo-400 dark:group-hover:text-indigo-400",
+  },
+  {
+    href: "https://www.reddit.com/user/jpranays/",
+    icon: FaReddit,
+    label: "Reddit",
+    handle: "u/jpranays",
     hoverColor: "group-hover:text-orange-500 dark:group-hover:text-orange-400",
   },
   {

@@ -1,6 +1,6 @@
 import { memo, useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Github, ExternalLink, Star, Zap, Package } from "lucide-react";
+import { Github, ExternalLink, Star, Zap, Package, Notebook } from "lucide-react";
 import {
 	AnimatedSection,
 	StaggerContainer,
@@ -117,7 +117,7 @@ function ProjectCard({ project, featured = false }) {
 						</div>
 
 						{/* Footer links */}
-						<div className="flex items-center gap-4 pt-3 border-t border-slate-200 dark:border-white/[0.05]">
+						<div className="flex items-center gap-4 pt-3 border-t border-slate-200 dark:border-white/[0.05] justify-center">
 							{project.github && (
 								<a
 									href={project.github}
@@ -140,7 +140,7 @@ function ProjectCard({ project, featured = false }) {
 									className="flex items-center gap-1 text-xs font-medium text-slate-500 hover:text-red-400 transition-colors"
 								>
 									<Package className="w-3.5 h-3.5" aria-hidden="true" />
-									npm
+									NPM
 								</a>
 							)}
 							{project.docs && (
@@ -151,7 +151,7 @@ function ProjectCard({ project, featured = false }) {
 									aria-label={`${project.title} documentation`}
 									className="flex items-center gap-1 text-xs font-medium text-slate-500 hover:text-slate-700 dark:hover:text-slate-200 transition-colors"
 								>
-									<ExternalLink className="w-3.5 h-3.5" aria-hidden="true" />
+									<Notebook className="w-3.5 h-3.5" aria-hidden="true" />
 									Docs
 								</a>
 							)}
@@ -161,7 +161,7 @@ function ProjectCard({ project, featured = false }) {
 									target="_blank"
 									rel="noopener noreferrer"
 									aria-label={`${project.title} live demo`}
-									className="flex items-center gap-1 text-xs font-medium text-slate-500 hover:text-cyan-400 transition-colors ml-auto"
+									className="flex items-center gap-1 text-xs font-medium text-slate-500 hover:text-cyan-400 transition-colors"
 								>
 									<ExternalLink className="w-3.5 h-3.5" aria-hidden="true" />
 									Live Demo

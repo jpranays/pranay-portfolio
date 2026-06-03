@@ -103,7 +103,6 @@ export const PROJECTS = [
 		category: "frontend",
 		featured: false,
 		github: "https://github.com/jpranays/pranay-portfolio",
-		demo: "https://jpranays.netlify.app/",
 		npm: null,
 		color: "cyan",
 		badge: null,

@@ -1,11 +1,14 @@
 import { useState, useEffect } from "react";
 import { Github, Linkedin, Mail, Heart } from "lucide-react";
-
+import { FaReddit, FaDiscord, FaWhatsapp } from "react-icons/fa";
 
 const LINKS = [
-  { href: "https://github.com/jpranays", icon: Github, label: "GitHub", username: "Github",fillColor:"#181717" },
-  { href: "https://www.linkedin.com/in/jpranays", icon: Linkedin, label: "LinkedIn", username: "LinkedIn", fillColor:"#0A66C2" },
-  { href: "mailto:pranay1315@gmail.com", icon: Mail, label: "Email", username: "Email", fillColor:"#EA4335" },
+  { href: "https://github.com/jpranays",                icon: Github,      label: "GitHub",    fillColor: "#181717" },
+  { href: "https://www.linkedin.com/in/jpranays",       icon: Linkedin,    label: "LinkedIn",  fillColor: "#0A66C2" },
+  { href: "https://www.reddit.com/user/jpranays/",      icon: FaReddit,    label: "Reddit",    fillColor: "#FF4500" },
+  { href: "https://discord.com/users/jpranays",         icon: FaDiscord,   label: "Discord",   fillColor: "#5865F2" },
+  { href: "https://wa.me/918888399676",                 icon: FaWhatsapp,  label: "WhatsApp",  fillColor: "#25D366" },
+  { href: "mailto:pranay1315@gmail.com",                icon: Mail,        label: "Email",     fillColor: "#EA4335" },
 ];
 
 const TIME_FMT = { timeZone: "Asia/Kolkata", hour: "2-digit", minute: "2-digit", hour12: true };
