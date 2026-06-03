@@ -48,11 +48,7 @@ function ProjectCard({ project, featured = false }) {
 				>
 					{/* Accent top bar */}
 					<div
-						className={`absolute top-0 inset-x-0 h-px ${
-							isOrange
-								? "bg-gradient-to-r from-orange-500/60 via-orange-500/20 to-transparent"
-								: "bg-gradient-to-r from-cyan-500/60 via-cyan-500/20 to-transparent"
-						}`}
+						className={`absolute top-0 inset-x-0 h-px`}
 						aria-hidden="true"
 					/>
 
@@ -60,10 +56,10 @@ function ProjectCard({ project, featured = false }) {
 						{/* Header row */}
 						<div className="flex items-start justify-between gap-2 mb-2">
 							<div className="flex items-center gap-2 min-w-0">
-								<span
+								{/* <span
 									className={`w-2 h-2 rounded-full flex-shrink-0 ${isOrange ? "bg-orange-400" : "bg-cyan-400"}`}
 									aria-hidden="true"
-								/>
+								/> */}
 								<h3 className="text-sm font-semibold text-slate-800 dark:text-slate-100 group-hover:text-slate-900 dark:group-hover:text-white transition-colors truncate">
 									{project.title}
 								</h3>

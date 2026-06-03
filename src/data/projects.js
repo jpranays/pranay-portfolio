@@ -41,7 +41,7 @@ export const PROJECTS = [
 		category: "frontend",
 		featured: true,
 		github: "https://github.com/jpranays/ui-challenges",
-		demo: null,
+		demo: "https://jpranays-ui-challenges.netlify.app/",
 		npm: null,
 		docs: "https://jpranays.github.io/ui-challenges/",
 		color: "orange",
