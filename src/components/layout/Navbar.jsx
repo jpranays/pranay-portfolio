@@ -231,6 +231,11 @@ function Navbar({ activeSection, toggle, isDark, theme, onOpenPalette, musicPlay
                           ? "bg-orange-500/10 text-orange-400"
                           : "text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/[0.04]"
                       )}
+                      style={{
+                        backgroundColor: activeSection === link.href.replace("#", "")
+                          ? "rgba(var(--ap-500-rgb), 0.08)"
+                          : "transparent",
+                      }}
                     >
                       {link.label}
                     </button>
@@ -245,7 +250,7 @@ function Navbar({ activeSection, toggle, isDark, theme, onOpenPalette, musicPlay
                 onClick={() => { setMobileOpen(false); window.dispatchEvent(new CustomEvent("portfolio:resume-download")); }}
               >
                 <Download className="w-4 h-4" aria-hidden="true" />
-                Download Resume
+                My Resume
               </a>
             </motion.div>
           </motion.div>

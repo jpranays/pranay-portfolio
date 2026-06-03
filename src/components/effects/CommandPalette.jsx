@@ -26,7 +26,7 @@ const LINK_COMMANDS = [
   { id: "link-npm",       label: "npm profile",              icon: Package,       href: "https://www.npmjs.com/~jpranays"                 },
   { id: "link-leetcode",  label: "LeetCode — @jpranays",     icon: LeetCodeIcon,  href: "https://leetcode.com/u/jpranays"                 },
   { id: "link-source",    label: "Portfolio source code",    icon: Github,        href: "https://github.com/jpranays/pranay-portfolio"    },
-  { id: "link-resume",    label: "Download Resume",          icon: Download,      href: "/Pranay_Jadhav_Resume.pdf", download: true },
+  { id: "link-resume",    label: "My Resume",          icon: Download,      href: "/Pranay_Jadhav_Resume.pdf", download: true },
 ];
 
 const THEME_ICONS = { light: Sun, dark: Moon, system: Monitor };

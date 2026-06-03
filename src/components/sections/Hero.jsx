@@ -365,7 +365,7 @@ function Hero() {
               onClick={() => window.dispatchEvent(new CustomEvent("portfolio:resume-download"))}
             >
               <Download className="w-4 h-4" aria-hidden="true" />
-              Download Resume
+              My Resume
             </MagneticButton>
           </motion.div>
 
