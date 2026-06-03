@@ -73,8 +73,7 @@ function ProjectCard({ project, featured = false }) {
 									<span
 										className="text-xs font-mono text-orange-400  border px-2 py-0.5 rounded-md whitespace-nowrap"
 										style={{
-											backgroundColor:
-												"rgba(var(--ap-500-rgb), 0.08)",
+											backgroundColor: "rgba(var(--ap-500-rgb), 0.08)",
 										}}
 									>
 										{project.badge}
@@ -84,8 +83,7 @@ function ProjectCard({ project, featured = false }) {
 									<span
 										className="inline-flex items-center gap-1 text-xs font-mono px-2 py-0.5 rounded-full border  text-orange-400 "
 										style={{
-											backgroundColor:
-												"rgba(var(--ap-500-rgb), 0.08)",
+											backgroundColor: "rgba(var(--ap-500-rgb), 0.08)",
 										}}
 									>
 										<Star className="w-2.5 h-2.5" aria-hidden="true" />
@@ -132,6 +130,7 @@ function ProjectCard({ project, featured = false }) {
 									Source
 								</a>
 							)}
+
 							{project.npm && (
 								<a
 									href={project.npm}
@@ -142,6 +141,18 @@ function ProjectCard({ project, featured = false }) {
 								>
 									<Package className="w-3.5 h-3.5" aria-hidden="true" />
 									npm
+								</a>
+							)}
+							{project.docs && (
+								<a
+									href={project.docs}
+									target="_blank"
+									rel="noopener noreferrer"
+									aria-label={`${project.title} documentation`}
+									className="flex items-center gap-1 text-xs font-medium text-slate-500 hover:text-slate-700 dark:hover:text-slate-200 transition-colors"
+								>
+									<ExternalLink className="w-3.5 h-3.5" aria-hidden="true" />
+									Docs
 								</a>
 							)}
 							{project.demo && (
