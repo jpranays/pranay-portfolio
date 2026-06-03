@@ -117,7 +117,7 @@ function ProjectCard({ project, featured = false }) {
 						</div>
 
 						{/* Footer links */}
-						<div className="flex items-center gap-4 pt-3 border-t border-slate-200 dark:border-white/[0.05] justify-center">
+						<div className="flex items-center gap-4 pt-4 border-t border-slate-200 dark:border-white/[0.05] justify-center">
 							{project.github && (
 								<a
 									href={project.github}
