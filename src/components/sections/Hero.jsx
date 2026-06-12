@@ -237,9 +237,9 @@ function Hero() {
       ))}
 
       {/* ── Content ── */}
-      <div className="relative z-10 max-w-3xl mx-auto px-6 text-center">
+      <div className="relative z-10 max-w-3xl mx-auto px-5 text-center">
         <motion.div variants={container} initial="hidden" animate="visible"
-          className="flex flex-col items-center gap-5">
+          className="flex flex-col items-center gap-3 sm:gap-5">
 
           {/* Availability badge — click to toggle (persists in localStorage) */}
           <motion.div variants={item}>
@@ -265,12 +265,12 @@ function Hero() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.4, delay: 0.2 }}
-              className="text-slate-500 text-base font-mono tracking-wide"
+              className="text-slate-500 text-sm sm:text-base font-mono tracking-wide"
             >
               {greeting} I&apos;m
             </motion.p>
             <div className="flex items-center justify-center gap-3">
-              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.08]">
+              <h1 className="text-[2.4rem] sm:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.08]">
                 <span className="overflow-hidden inline-block">
                   <motion.span
                     initial={{ y: "110%" }}
@@ -317,8 +317,8 @@ function Hero() {
           </motion.div>
 
           {/* Typing subtitle */}
-          <motion.div variants={item} className="h-7 flex items-center justify-center">
-            <span className="text-lg sm:text-xl font-mono text-slate-600 dark:text-slate-300" aria-live="polite">
+          <motion.div variants={item} className="h-6 sm:h-7 flex items-center justify-center">
+            <span className="text-sm sm:text-xl font-mono text-slate-600 dark:text-slate-300" aria-live="polite">
               {typed}
               <span className="inline-block w-px h-5 ml-0.5 bg-orange-400 animate-blink align-middle" aria-hidden="true" />
             </span>
@@ -328,7 +328,7 @@ function Hero() {
           <motion.div variants={item} className="flex flex-wrap items-center justify-center gap-2">
             {credibilityPills.map((pill) => (
               <span key={pill.label}
-                className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs border border-slate-200 dark:border-white/[0.08] bg-slate-100 dark:bg-white/[0.04] text-slate-500 dark:text-slate-400">
+                className="inline-flex items-center gap-1 px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-lg text-xs border border-slate-200 dark:border-white/[0.08] bg-slate-100 dark:bg-white/[0.04] text-slate-500 dark:text-slate-400">
                 <span className="font-semibold text-slate-700 dark:text-slate-200">{pill.label}</span>
                 <span>{pill.note}</span>
               </span>
@@ -337,23 +337,24 @@ function Hero() {
 
           {/* Bio */}
           <motion.p variants={item}
-            className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
+            className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed max-w-xs sm:max-w-none">
             Senior Software Developer at{" "}
             <span className="text-slate-700 dark:text-slate-200 font-medium">Sears India</span> with 3+ years
             building production-grade apps. Creator of npm packages with{" "}
             <span className="text-orange-500 dark:text-orange-400 font-medium">
               {npmData ? `${(npmData.total / 1000).toFixed(1)}K+` : "25K+"} weekly users
-            </span>, and open source contributor touching{" "}
-            <span className="text-orange-500 dark:text-orange-400 font-medium">
-              {ossData ? `${(ossData.total / 1_000_000).toFixed(1)}M+` : "3.4M+"} developers
-            </span> monthly through Mantine, PrimeReact, RSuite, and more.
+            </span>
+            <span className="hidden sm:inline">, and open source contributor touching{" "}
+              <span className="text-orange-500 dark:text-orange-400 font-medium">
+                {ossData ? `${(ossData.total / 1_000_000).toFixed(1)}M+` : "3.4M+"} developers
+              </span> monthly through Mantine, PrimeReact, RSuite, and more</span>.
           </motion.p>
 
           {/* CTAs — magnetic */}
-          <motion.div variants={item} className="flex flex-wrap items-center justify-center gap-3">
+          <motion.div variants={item} className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-2 sm:gap-3 w-full sm:w-auto px-2 sm:px-0">
             <MagneticButton
               onClick={() => document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })}
-              className="btn-primary"
+              className="btn-primary justify-center w-full sm:w-auto"
             >
               View My Work
             </MagneticButton>
@@ -361,7 +362,7 @@ function Hero() {
               href="/Pranay_Jadhav_Resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-secondary"
+              className="btn-secondary justify-center w-full sm:w-auto"
               onClick={() => window.dispatchEvent(new CustomEvent("portfolio:resume-download"))}
             >
               <Download className="w-4 h-4" aria-hidden="true" />

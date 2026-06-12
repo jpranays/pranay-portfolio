@@ -70,9 +70,9 @@
   }
 
   /* Hide default cursor on fine-pointer devices — replaced by CustomCursor */
-  @media (pointer: fine) {
+  /* @media (pointer: fine) {
     html { cursor: none; }
-  }
+  } */
 
   body {
     background-color: var(--color-base);
@@ -276,7 +276,7 @@
     background: #fff !important;
     color: #0f172a !important;
     font-size: 11pt;
-    cursor: auto !important;
+    /* cursor: auto !important; */
   }
 
   /* Sections flow naturally */

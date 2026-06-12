@@ -114,7 +114,7 @@ function AppInner() {
   return (
     <>
       <IntroAnimation />
-      <CustomCursor />
+      {/* <CustomCursor /> */}
       <ScrollProgress />
       <CursorSpotlight />
       <EasterEgg active={eggActive} onDone={() => setEggActive(false)} />
