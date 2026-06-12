@@ -1,18 +1,14 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 
 const ACCENTS = [
-  { name: "orange", c400: "#fb923c", c500: "#f97316", c600: "#ea580c" },
   { name: "blue",   c400: "#60a5fa", c500: "#3b82f6", c600: "#2563eb" },
   { name: "violet", c400: "#a78bfa", c500: "#8b5cf6", c600: "#7c3aed" },
-  { name: "green",  c400: "#4ade80", c500: "#22c55e", c600: "#16a34a" },
   { name: "rose",   c400: "#fb7185", c500: "#f43f5e", c600: "#e11d48" },
+  { name: "orange", c400: "#fb923c", c500: "#f97316", c600: "#ea580c" },
+  { name: "green",  c400: "#4ade80", c500: "#22c55e", c600: "#16a34a" },
 ];
 
 export const ACCENT_HEATMAP = {
-  orange: {
-    light: ["#f1f5f9", "#fed7aa", "#fb923c", "#f97316", "#ea580c"],
-    dark:  ["#1e293b", "#431407", "#9a3412", "#f97316", "#fb923c"],
-  },
   blue: {
     light: ["#f1f5f9", "#bfdbfe", "#93c5fd", "#3b82f6", "#1d4ed8"],
     dark:  ["#1e293b", "#1e3a5f", "#1e40af", "#3b82f6", "#60a5fa"],
@@ -21,13 +17,17 @@ export const ACCENT_HEATMAP = {
     light: ["#f1f5f9", "#ddd6fe", "#c4b5fd", "#8b5cf6", "#6d28d9"],
     dark:  ["#1e293b", "#2e1065", "#4c1d95", "#8b5cf6", "#a78bfa"],
   },
-  green: {
-    light: ["#f1f5f9", "#bbf7d0", "#86efac", "#22c55e", "#15803d"],
-    dark:  ["#1e293b", "#052e16", "#14532d", "#22c55e", "#4ade80"],
-  },
   rose: {
     light: ["#f1f5f9", "#fecdd3", "#fda4af", "#f43f5e", "#be123c"],
     dark:  ["#1e293b", "#4c0519", "#881337", "#f43f5e", "#fb7185"],
+  },
+  orange: {
+    light: ["#f1f5f9", "#fed7aa", "#fb923c", "#f97316", "#ea580c"],
+    dark:  ["#1e293b", "#431407", "#9a3412", "#f97316", "#fb923c"],
+  },
+  green: {
+    light: ["#f1f5f9", "#bbf7d0", "#86efac", "#22c55e", "#15803d"],
+    dark:  ["#1e293b", "#052e16", "#14532d", "#22c55e", "#4ade80"],
   },
 };
 
