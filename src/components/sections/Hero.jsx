@@ -227,7 +227,7 @@ function Hero() {
         >
           <span
             className="inline-flex items-center px-2.5 py-1 rounded-md text-[10px] font-mono font-medium
-                       text-slate-400/40 dark:text-slate-500/30
+                       text-slate-700 dark:text-slate-200 bg-slate-100/80 dark:bg-white/[0.12]
                        border border-slate-300/15 dark:border-white/[0.05]"
             style={{ transform: `rotate(${b.rot}deg)` }}
           >
