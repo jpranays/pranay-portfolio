@@ -222,7 +222,7 @@ function About() {
                     <span className="text-slate-700 dark:text-slate-200 font-medium">
                       Senior Software Developer at Sears India
                     </span>{" "}
-                    with 3+ years of professional experience, specializing in{" "}
+                    with 3.5+ years of professional experience, specializing in{" "}
                     <span className="text-orange-500 dark:text-orange-400 font-mono text-xs">Security</span>,{" "}
                     <span className="text-orange-500 dark:text-orange-400 font-mono text-xs">Accessibility</span>,{" "}
                     <span className="text-orange-500 dark:text-orange-400 font-mono text-xs">Performance</span>, and{" "}

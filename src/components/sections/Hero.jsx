@@ -339,7 +339,7 @@ function Hero() {
           <motion.p variants={item}
             className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed max-w-xs sm:max-w-none">
             Senior Software Developer at{" "}
-            <span className="text-slate-700 dark:text-slate-200 font-medium">Sears India</span> with 3+ years
+            <span className="text-slate-700 dark:text-slate-200 font-medium">Sears India</span> with 3.5+ years
             building production-grade apps. Creator of npm packages with{" "}
             <span className="text-orange-500 dark:text-orange-400 font-medium">
               {npmData ? `${(npmData.total / 1000).toFixed(1)}K+` : "25K+"} weekly users
