@@ -19,6 +19,22 @@ const THEME_NEXT = {
   system: { icon: Sun,     label: "Switch to light mode" },
 };
 
+function Tip({ label, children }) {
+  return (
+    <div className="group relative flex items-center justify-end">
+      {children}
+      <span className="absolute right-full mr-3 px-2 py-0.5 rounded-md text-[11px] font-mono
+                         text-slate-600 dark:text-slate-300 whitespace-nowrap
+                         bg-white dark:bg-[#0d1117]
+                         border border-slate-200 dark:border-white/[0.08] shadow-sm
+                         opacity-0 group-hover:opacity-100 pointer-events-none
+                         transition-opacity duration-150">
+        {label}
+      </span>
+    </div>
+  );
+}
+
 function Navbar({ activeSection, toggle, isDark, theme, onOpenPalette, musicPlaying, onToggleMusic }) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -101,44 +117,50 @@ function Navbar({ activeSection, toggle, isDark, theme, onOpenPalette, musicPlay
           {/* Right controls */}
           <div className="hidden md:flex items-center gap-2">
             {/* ⌘K hint */}
-            <button
-              onClick={onOpenPalette}
-              aria-label="Open command palette"
-              className="hidden lg:flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-mono
-                         text-slate-400 dark:text-slate-600 border border-slate-200 dark:border-white/[0.07]
-                         hover:text-slate-600 dark:hover:text-slate-400 hover:border-slate-300 dark:hover:border-white/[0.12]
-                         transition-colors duration-200"
-            >
-              <span>⌘K</span>
-            </button>
+            <Tip label="Command palette">
+              <button
+                onClick={onOpenPalette}
+                aria-label="Open command palette"
+                className="hidden lg:flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-mono
+                           text-slate-400 dark:text-slate-600 border border-slate-200 dark:border-white/[0.07]
+                           hover:text-slate-600 dark:hover:text-slate-400 hover:border-slate-300 dark:hover:border-white/[0.12]
+                           transition-colors duration-200"
+              >
+                <span>⌘K</span>
+              </button>
+            </Tip>
 
             {/* Theme toggle */}
-            <button
-              onClick={toggle}
-              aria-label={THEME_NEXT[theme]?.label}
-              className="p-2 rounded-lg text-slate-500 hover:text-slate-800 dark:hover:text-slate-200
-                         hover:bg-slate-100 dark:hover:bg-white/[0.06] transition-colors duration-200"
-            >
-              {(() => { const I = THEME_NEXT[theme]?.icon ?? Sun; return <I className="w-4 h-4" />; })()}
-            </button>
+            <Tip label={THEME_NEXT[theme]?.label}>
+              <button
+                onClick={toggle}
+                aria-label={THEME_NEXT[theme]?.label}
+                className="p-2 rounded-lg text-slate-500 hover:text-slate-800 dark:hover:text-slate-200
+                           hover:bg-slate-100 dark:hover:bg-white/[0.06] transition-colors duration-200"
+              >
+                {(() => { const I = THEME_NEXT[theme]?.icon ?? Sun; return <I className="w-4 h-4" />; })()}
+              </button>
+            </Tip>
 
             {/* Ambient music toggle */}
-            <button
-              onClick={onToggleMusic}
-              aria-label={musicPlaying ? "Pause ambient music" : "Play ambient music"}
-              className={`p-2 rounded-lg transition-colors duration-200 ${
-                musicPlaying
-                  ? "text-orange-400 bg-orange-500/10 hover:bg-orange-500/15"
-                  : "text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/[0.06]"
-                }`}
-              style={{
-                backgroundColor: musicPlaying ? "rgba(var(--ap-500-rgb), 0.08)" : "transparent",
-               }}
-            >
-              {musicPlaying
-                ? <EqualizerBars count={3} />
-                : <Music className="w-4 h-4" />}
-            </button>
+            <Tip label={musicPlaying ? "Pause ambient music" : "Play ambient music"}>
+              <button
+                onClick={onToggleMusic}
+                aria-label={musicPlaying ? "Pause ambient music" : "Play ambient music"}
+                className={`p-2 rounded-lg transition-colors duration-200 ${
+                  musicPlaying
+                    ? "text-orange-400 bg-orange-500/10 hover:bg-orange-500/15"
+                    : "text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/[0.06]"
+                  }`}
+                style={{
+                  backgroundColor: musicPlaying ? "rgba(var(--ap-500-rgb), 0.08)" : "transparent",
+                }}
+              >
+                {musicPlaying
+                  ? <EqualizerBars count={3} />
+                  : <Music className="w-4 h-4" />}
+              </button>
+            </Tip>
 
             <a
               href="/Pranay_Jadhav_Resume.pdf"
