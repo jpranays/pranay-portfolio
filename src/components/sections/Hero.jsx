@@ -7,9 +7,6 @@ import {
 	useReducedMotion,
 } from "framer-motion";
 import {
-	Github,
-	Linkedin,
-	Mail,
 	ArrowDown,
 	Download,
 	ExternalLink,
@@ -18,16 +15,73 @@ import {
 	Volume2,
 	X,
 } from "lucide-react";
-import { FaDiscord, FaNpm, FaReddit, FaWhatsapp } from "react-icons/fa";
-import { FaXTwitter } from "react-icons/fa6";
+import { FaLinkedin } from "react-icons/fa6";
+import {
+	SiX,
+	SiNpm,
+	SiGithub,
+	SiReddit,
+	SiDiscord,
+	SiWhatsapp,
+	SiGmail,
+} from "react-icons/si";
 import { useTyping } from "../../hooks/useTyping";
 import { MagneticButton } from "../ui/MagneticButton";
 import { useNpmStats } from "../../hooks/useNpmStats";
 import { useOssImpact } from "../../hooks/useOssImpact";
 import { useAvailability } from "../../hooks/useAvailability";
-import { ImNpm } from "react-icons/im";
 import { experienceLabel } from "../../utils/experience";
 
+export const SOCIAL_LINKS = [
+	{
+		href: "https://x.com/jpranays",
+		icon: SiX,
+		label: "Twitter/X",
+		fillColor: "#000000",
+	},
+	{
+		href: "https://www.npmjs.com/~jpranays",
+		icon: SiNpm,
+		label: "NPM",
+		fillColor: "#CB3837",
+	},
+	{
+		href: "https://github.com/jpranays",
+		icon: SiGithub,
+		label: "GitHub",
+		fillColor: "#181717",
+	},
+	{
+		href: "https://www.linkedin.com/in/jpranays",
+		icon: FaLinkedin,
+		label: "LinkedIn",
+		fillColor: "#0A66C2",
+	},
+	{
+		href: "https://www.reddit.com/user/jpranays/",
+		icon: SiReddit,
+		label: "Reddit",
+		fillColor: "#FF4500",
+	},
+	{
+		href: "https://discord.com/users/jpranays",
+		icon: SiDiscord,
+		label: "Discord",
+		fillColor: "#5865F2",
+	},
+	{
+		href: "https://wa.me/918888399676",
+		icon: SiWhatsapp,
+		label: "WhatsApp",
+		fillColor: "#25D366",
+	},
+	{
+		href: "mailto:pranay1315@gmail.com",
+		icon: SiGmail,
+		label: "Email",
+		fillColor: "#EA4335",
+	},
+];
 function getGreeting() {
 	const h = new Date().getHours();
 	if (h < 5) return "Burning the midnight oil?";
@@ -61,56 +115,7 @@ const TYPING_WORDS = [
 	"MERN Stack Developer",
 ];
 
-const SOCIAL_LINKS = [
-	{
-		href: "https://x.com/jpranays",
-		icon: FaXTwitter,
-		label: "Twitter/X",
-		fillColor: "#000000",
-	},
-	{
-		href: "https://www.npmjs.com/~jpranays",
-		icon: ImNpm,
-		label: "NPM",
-		fillColor: "#CB3837",
-	},
-	{
-		href: "https://github.com/jpranays",
-		icon: Github,
-		label: "GitHub",
-		fillColor: "#181717",
-	},
-	{
-		href: "https://www.linkedin.com/in/jpranays",
-		icon: Linkedin,
-		label: "LinkedIn",
-		fillColor: "#0A66C2",
-	},
-	{
-		href: "https://www.reddit.com/user/jpranays/",
-		icon: FaReddit,
-		label: "Reddit",
-		fillColor: "#FF4500",
-	},
-	{
-		href: "https://discord.com/users/jpranays",
-		icon: FaDiscord,
-		label: "Discord",
-		fillColor: "#5865F2",
-	},
-	{
-		href: "https://wa.me/918888399676",
-		icon: FaWhatsapp,
-		label: "WhatsApp",
-		fillColor: "#25D366",
-	},
-	{
-		href: "mailto:pranay1315@gmail.com",
-		icon: Mail,
-		label: "Email",
-		fillColor: "#EA4335",
-	},
-];
+
 
 const CREDIBILITY_PILLS_BASE = [
 	{ label: "Sears India", note: "Senior SWE" },
