@@ -4,6 +4,7 @@ import { X, Terminal } from "lucide-react";
 import { SKILL_GROUPS } from "../../data/skills";
 import { PROJECTS } from "../../data/projects";
 import { useNpmStats } from "../../hooks/useNpmStats";
+import { experienceLabel } from "../../utils/experience";
 
 const OPEN_URLS = {
   github:    "https://github.com/jpranays",
@@ -53,7 +54,7 @@ function getOutput(raw, onExit, projects) {
         { t: "────────────────────────────────" },
         { t: "  Role      Senior Software Developer" },
         { t: "  Company   Sears India" },
-        { t: "  Exp       3.5+ years" },
+        { t: `  Exp       ${experienceLabel()} years` },
         { t: "  npm       25K+ weekly downloads" },
         { t: "  OSS       3.4M+ developers / month" },
         { t: "  Email     pranay1315@gmail.com" },
@@ -82,7 +83,7 @@ function getOutput(raw, onExit, projects) {
         { t: '  "name":       "Pranay Jadhav"',           c: "text-cyan-400" },
         { t: '  "role":       "Senior Software Developer"', c: "text-cyan-400" },
         { t: '  "company":    "Sears India"',               c: "text-cyan-400" },
-        { t: '  "experience": "3.5+ years"',                  c: "text-cyan-400" },
+        { t: `  "experience": "${experienceLabel()} years"`,  c: "text-cyan-400" },
         { t: '  "npm":        "25K+ weekly downloads"',     c: "text-green-400" },
         { t: '  "oss":        "3.4M+ devs / month"',        c: "text-green-400" },
         { t: '  "available":  true',                         c: "text-green-400" },

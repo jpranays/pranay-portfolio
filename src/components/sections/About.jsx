@@ -6,10 +6,13 @@ import { OdometerCount } from "../ui/OdometerCount";
 import { useNpmStats } from "../../hooks/useNpmStats";
 import { useOssImpact } from "../../hooks/useOssImpact";
 import { useNpmPackageInfo } from "../../hooks/useNpmPackageInfo";
+import { experienceLabel, yearsFloorHalf } from "../../utils/experience";
+
+const EXP_YEARS = yearsFloorHalf();
 
 const STATS = [
   {
-    countTo: 3, suffix: "+", decimals: 0,
+    countTo: EXP_YEARS, suffix: "+", decimals: Number.isInteger(EXP_YEARS) ? 0 : 1,
     label: "Years professional experience", icon: Code2,
     iconColor: "text-orange-400", iconBg: "bg-orange-500/10 border-orange-500/20",
   },
@@ -222,7 +225,7 @@ function About() {
                     <span className="text-slate-700 dark:text-slate-200 font-medium">
                       Senior Software Developer at Sears India
                     </span>{" "}
-                    with 3.5+ years of professional experience, specializing in{" "}
+                    with {experienceLabel()} years of professional experience, specializing in{" "}
                     <span className="text-orange-500 dark:text-orange-400 font-mono text-xs">Security</span>,{" "}
                     <span className="text-orange-500 dark:text-orange-400 font-mono text-xs">Accessibility</span>,{" "}
                     <span className="text-orange-500 dark:text-orange-400 font-mono text-xs">Performance</span>, and{" "}

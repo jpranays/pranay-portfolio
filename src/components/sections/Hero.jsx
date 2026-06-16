@@ -26,6 +26,7 @@ import { useNpmStats } from "../../hooks/useNpmStats";
 import { useOssImpact } from "../../hooks/useOssImpact";
 import { useAvailability } from "../../hooks/useAvailability";
 import { ImNpm } from "react-icons/im";
+import { experienceLabel } from "../../utils/experience";
 
 function getGreeting() {
 	const h = new Date().getHours();
@@ -607,7 +608,7 @@ function Hero() {
 						<span className="text-slate-700 dark:text-slate-200 font-medium">
 							Sears India
 						</span>{" "}
-						with 3.5+ years building production-grade apps. Creator of npm
+						with {experienceLabel()} years building production-grade apps. Creator of npm
 						packages with{" "}
 						<span className="text-orange-500 dark:text-orange-400 font-medium">
 							{npmData ? `${(npmData.total / 1000).toFixed(1)}K+` : "25K+"}{" "}

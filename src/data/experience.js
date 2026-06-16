@@ -1,3 +1,5 @@
+import { experienceLabel, SEARS_START } from "../utils/experience";
+
 export const EXPERIENCE = [
   {
     id: 1,
@@ -9,14 +11,14 @@ export const EXPERIENCE = [
     description:
       "Working across the full stack on high-impact internal products — from real-time communication platforms to AI-powered tools and no-code automation systems.",
     highlights: [
-      "Owned key frontend modules of a PCI-DSS compliant checkout system on shopyourway.com — a no-login, ref-ID-validated React checkout handling credit card payments across saved and custom cards over 3.5+ years of continuous ownership.",
+      `Owned key frontend modules of a PCI-DSS compliant checkout system on shopyourway.com — a no-login, ref-ID-validated React checkout handling credit card payments across saved and custom cards over ${experienceLabel(SEARS_START)} years of continuous ownership.`,
       "Hardened checkout security by isolating card-data into a sandboxed iframe with SRI hash injection and strict Content Security Policies (CSP) with report-uri telemetry — reducing client-side attack exposure by ~80%.",
       "Migrated payment processing from a legacy in-house backend to Stripe Elements, offloading card validation and PCI scope to Stripe — increasing payment success rates by ~12% and reducing checkout load time by ~35%.",
       "Architected an in-house React-Table library from scratch — priority-based sorting, multi-column filtering, virtualization, full WCAG accessibility, 90% test coverage with CI/CD and Docusaurus-powered docs, adopted company-wide.",
       "Integrated OpenAI's Streaming API for real-time content delivery with markdown support, error handling, response regeneration, and request abortion.",
       "Led development of a real-time in-house chat platform with Node.js + Socket.IO, replacing a third-party vendor — cutting issue resolution time by 55%, saving $30,000+ annually, and earning the Excellence Award.",
       "Revamped wiki docs with Next.js (SSG + Incremental Builds) for a blazing-fast, searchable documentation experience.",
-      "Built a no-code offers management platform enabling vendors to create and schedule ad campaigns via Cron-based automation — adopted by 3.5+ high-profile vendors.",
+      "Built a no-code offers management platform enabling vendors to create and schedule ad campaigns via Cron-based automation — adopted by 3+ high-profile vendors.",
     ],
     tech: ["React", "Next.js", "Node.js", "Socket.IO", "OpenAI API", "TypeScript", "Jest", "Stripe"],
   },
