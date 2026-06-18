@@ -417,7 +417,7 @@ function Hero() {
 	return (
 		<section
 			id="hero"
-			className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-white"
+			className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden"
 			aria-label="Introduction"
 		>
 			{/* ── Background glows (parallax) ── */}
