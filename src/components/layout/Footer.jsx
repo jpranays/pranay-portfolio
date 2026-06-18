@@ -1,16 +1,65 @@
 import { useState, useEffect } from "react";
 import { Github, Linkedin, Mail, Heart } from "lucide-react";
-import { FaReddit, FaDiscord, FaWhatsapp } from "react-icons/fa";
-
-const LINKS = [
-  { href: "https://github.com/jpranays",                icon: Github,      label: "GitHub",    fillColor: "#181717" },
-  { href: "https://www.linkedin.com/in/jpranays",       icon: Linkedin,    label: "LinkedIn",  fillColor: "#0A66C2" },
-  { href: "https://www.reddit.com/user/jpranays/",      icon: FaReddit,    label: "Reddit",    fillColor: "#FF4500" },
-  { href: "https://discord.com/users/jpranays",         icon: FaDiscord,   label: "Discord",   fillColor: "#5865F2" },
-  { href: "https://wa.me/918888399676",                 icon: FaWhatsapp,  label: "WhatsApp",  fillColor: "#25D366" },
-  { href: "mailto:pranay1315@gmail.com",                icon: Mail,        label: "Email",     fillColor: "#EA4335" },
+import { FaReddit, FaDiscord, FaWhatsapp ,FaLinkedin} from "react-icons/fa";
+import {
+  SiX,
+  SiNpm,
+  SiGithub,
+  SiReddit,
+  SiDiscord,
+  SiWhatsapp,
+  SiGmail,
+} from "react-icons/si";
+export const SOCIAL_LINKS = [
+  {
+    href: "https://x.com/jpranays",
+    icon: SiX,
+    label: "Twitter/X",
+    fillColor: "#000000",
+  },
+  {
+    href: "https://www.npmjs.com/~jpranays",
+    icon: SiNpm,
+    label: "NPM",
+    fillColor: "#CB3837",
+  },
+  {
+    href: "https://github.com/jpranays",
+    icon: SiGithub,
+    label: "GitHub",
+    fillColor: "#181717",
+  },
+  {
+    href: "https://www.linkedin.com/in/jpranays",
+    icon: FaLinkedin,
+    label: "LinkedIn",
+    fillColor: "#0A66C2",
+  },
+  {
+    href: "https://www.reddit.com/user/jpranays/",
+    icon: SiReddit,
+    label: "Reddit",
+    fillColor: "#FF4500",
+  },
+  {
+    href: "https://discord.com/users/jpranays",
+    icon: SiDiscord,
+    label: "Discord",
+    fillColor: "#5865F2",
+  },
+  {
+    href: "https://wa.me/918888399676",
+    icon: SiWhatsapp,
+    label: "WhatsApp",
+    fillColor: "#25D366",
+  },
+  {
+    href: "mailto:pranay1315@gmail.com",
+    icon: SiGmail,
+    label: "Email",
+    fillColor: "#EA4335",
+  },
 ];
-
 const TIME_FMT = { timeZone: "Asia/Kolkata", hour: "2-digit", minute: "2-digit", hour12: true };
 
 function PuneClock() {
@@ -46,7 +95,7 @@ export function Footer() {
 
           <nav aria-label="Social links">
             <ul className="flex items-center gap-4" role="list">
-              {LINKS.map(({ href, icon: Icon, label,fillColor }) => (
+              {SOCIAL_LINKS.map(({ href, icon: Icon, label,fillColor }) => (
                 <li key={label}>
                   <a
                     href={href}
