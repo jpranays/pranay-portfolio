@@ -84,7 +84,7 @@ export const SOCIAL_LINKS = [
 ];
 function getGreeting() {
 	const h = new Date().getHours();
-	if (h < 5) return "Burning the midnight oil?";
+	if (h < 5) return "Hey Owl";
 	if (h < 12) return "Good morning,";
 	if (h < 17) return "Good afternoon,";
 	if (h < 21) return "Good evening,";
