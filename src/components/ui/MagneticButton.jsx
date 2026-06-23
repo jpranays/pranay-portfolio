@@ -36,9 +36,9 @@ export function MagneticButton({
   return (
     <Tag
       ref={ref}
-      style={{ x: sx, y: sy }}
-      onMouseMove={onMove}
-      onMouseLeave={onLeave}
+      // style={{ x: sx, y: sy }}
+      // onMouseMove={onMove}
+      // onMouseLeave={onLeave}
       onClick={onClick}
       href={href}
       target={target}
