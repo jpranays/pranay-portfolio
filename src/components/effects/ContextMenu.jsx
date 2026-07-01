@@ -121,11 +121,6 @@ export function ContextMenu() {
               </button>
             )
           )}
-          <div className="mx-3 mt-1.5 pt-1.5 border-t border-slate-100 dark:border-white/[0.06]">
-            <p className="text-[10px] font-mono text-slate-400 dark:text-slate-600 pb-0.5">
-              right-click anywhere
-            </p>
-          </div>
         </motion.div>
       )}
     </AnimatePresence>
